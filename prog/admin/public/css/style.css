@@ -14,7 +14,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
-    font-size:13px;
+    font-size:15px;
 }
 
 ul li {
@@ -78,6 +78,7 @@ a, a:hover, a:focus {
     font-family: 'Open Sans', sans-serif;
 }
 .form-signin .form-control {
+	width:100%;
     position: relative;
     font-size: 16px;
     height: auto;
@@ -95,7 +96,7 @@ a, a:hover, a:focus {
     -webkit-border-radius: 5px;
     border: 1px solid #eaeaea;
     box-shadow: none;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .form-signin .btn-login {
@@ -168,7 +169,7 @@ a, a:hover, a:focus {
     width: 180px;
     height: 100%;
     position: fixed;
-    background: #2a3542;
+    background: #fff;
 }
 
 .nav-collapse.collapse {
@@ -193,7 +194,7 @@ ul.sidebar-menu {
 }
 
 ul.sidebar-menu li ul.sub li{
-    background: #35404D;
+    background: #fff;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
@@ -205,7 +206,7 @@ ul.sidebar-menu li ul.sub li:last-child{
 }
 
 ul.sidebar-menu li ul.sub li a {
-    font-size: 12px;
+    font-size: 15px;
     padding: 0 0 0 32px;
     line-height: 35px;
     height: 35px;
@@ -218,7 +219,7 @@ ul.sidebar-menu li ul.sub li a {
 }
 
 ul.sidebar-menu li ul.sub li a:hover, ul.sidebar-menu li ul.sub li.active a {
-    color: #FF6C60;
+    color: #41cac0;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -247,7 +248,7 @@ ul.sidebar-menu li a{
     text-decoration: none;
     display: block;
     padding: 15px 0 15px 10px;
-    font-size: 12px;
+    font-size: 15px;
     outline: none;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -257,8 +258,8 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li.active a, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #35404d;
-    color: #fff;
+    background: #fff;
+    color: #8b9199;
     display: block;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -277,11 +278,11 @@ ul.sidebar-menu li a i {
 }
 
 ul.sidebar-menu li a:hover i, ul.sidebar-menu li a:focus i {
-    color: #FF6C60;
+    color: #41cac0;
 }
 
 ul.sidebar-menu li.active a i {
-    color: #FF6C60;
+    color: #41cac0;
 }
 
 
@@ -422,10 +423,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended {
-    max-width: 300px !important;
-    min-width: 160px !important;
-    top: 42px;
-    width: 235px !important;
+    max-width: 100px !important;
+    min-width: 60px !important;
+    width: 80px !important;
     padding: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.176) !important;
     border: none !important;
@@ -466,7 +466,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 
 .dropdown-menu.extended li a {
     border-bottom: 1px solid #EBEBEB !important;
-    font-size: 12px;
+    font-size: 15px;
     list-style: none;
 }
 
@@ -535,7 +535,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .top-nav ul.top-menu > li .dropdown-menu.logout {
-    width: 268px !important;
+    width: 28px !important;
 
 }
 
@@ -555,7 +555,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     float: left;
     text-align: center;
     width: 100%;
-    background: #a9d96c;
+    background: #41cac0;
     border-radius: 0 0 3px 3px;
 }
 
@@ -2325,7 +2325,7 @@ ul.inbox-pagination li {
 }
 
 .profile-nav .user-heading p {
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .profile-nav ul {
@@ -3082,7 +3082,7 @@ ul.amounts li {
 
 
 .m-bot15 {
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .form-horizontal.tasi-form .checkbox-inline > input {
@@ -3403,7 +3403,7 @@ table.sliders tr td {
     bottom: 0;
     color: #ffffff;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 15px;
     opacity: 0;
     padding: 7px 7px 5px 0;
     position: absolute;
@@ -3927,7 +3927,7 @@ table.sliders tr td {
 /*custom select*/
 
 span.customSelect {
-    font-size:12px;
+    font-size:15px;
     background-color: #ffffff;
     padding:10px;
     border:1px solid #EAEAEA;
@@ -3941,4 +3941,12 @@ span.customSelect.changed {
 }
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
+}
+
+/*form_table*/
+.form_table_th{
+	font-weight:normal;
+	text-align:right;
+	/*padding-right:10px;*/
+	padding:5px;
 }
