@@ -14,4 +14,12 @@ class UserController extends Controller
                 'title' => '登陆',
         ));
     }
+    
+    //退出登录
+    public function logout()
+    {
+        Session::set('aducode', '');
+        session_destroy();
+        header("Location: /user/login.html");
+    }
 }
