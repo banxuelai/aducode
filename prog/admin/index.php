@@ -8,7 +8,7 @@ ini_set('session.use_strict_mode', true);
 ini_set('session.cookie_lifetime', 86400 / 2);
 ini_set('session.name', 'aducode_sid');
 isset($_GET['__path__']) && $_SERVER['PATH_INFO'] = $_GET['__path__'];
-require dirname(dirname(dirname(dirname(__FILE__))))."/tuner/init.php";
+require "../../tuner/init.php";
 
 if (isset($_SERVER['TUNER_MODE'])) {
     Config::$mode = $_SERVER['TUNER_MODE'];
