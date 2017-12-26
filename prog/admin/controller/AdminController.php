@@ -26,6 +26,7 @@ class AdminController extends Controller
         }
         
         $this->display('admin/login.html', array(
+                'back_url' => $back_url,
                 'title' => '登陆',
         ));
     }
