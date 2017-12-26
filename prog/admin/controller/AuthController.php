@@ -25,14 +25,14 @@ class AuthController extends Controller
     protected function checkLogin($msg = '请登陆后操作～')
     {
         $back_url = urlencode($this->req->getCurrentUrl());
-        header("Location: /user/login.html?back_url={$back_url}");
+        header("Location: /admin/login.html?back_url={$back_url}");
     }
    
     //获取登录用户名
     protected function getUserName()
     {
-        $happycode_old = Session::get('aducode');
-        return is_array($happycode_old) && isset($happycode_old['ID']) ? $happycode_old['ID'] : null;
+        $aducode = Session::get('aducode');
+        return is_array($aducode) && isset($aducode['nickname']) ? $aducode['nickname'] : null;
     }
 
     protected function logAdminAction($log_str)
