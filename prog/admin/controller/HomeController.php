@@ -5,7 +5,7 @@
  * @date 2017-12-12
  *
  */
-class HomeController extends AuthController
+class HomeController extends Controller
 {
     public function index()
     {
