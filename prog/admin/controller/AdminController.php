@@ -54,6 +54,7 @@ class AdminController extends Controller
     
     public function test()
     {
+    	echo phpinfo();exit;
         $nickname = "chenxiaolong";
         $user_model = new UserModel();
         $user_info = $user_model->getRow(array('nickname' => $nickname));
