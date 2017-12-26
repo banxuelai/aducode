@@ -33,15 +33,43 @@
       <div class="form-signin">
         <h2 class="form-signin-heading">用户登录</h2>
         <div class="login-wrap">
-            <input type="text" class="form-control" placeholder="账号" autofocus>
-            <input type="password" class="form-control" placeholder="密码">
+            <input name = "nickname" type="text" class="form-control" placeholder="账号" autofocus>
+            <input name = "password" type="password" class="form-control" placeholder="密码">
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> 记住我
-                <span class="pull-right"> <a href="#"> 忘记密码?</a></span>
+                <span class="pull-right"> <a class = "forgot"> 忘记密码?</a></span>
             </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div>
       </div>
     </div>
   </body>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript">
+  	//忘记密码
+  	$('.forgot').click(function(){
+  		alert("请让陈总联系开发人员~");
+  	});
+	//提交按钮验证提示
+	$('.btn-login').click(function(){
+		var ok = true;
+		var ID = $("#ID").val();
+		var pass = $("#pass").val();
+		var back_url = $('#back_url').val();
+		$.ajax({
+			url: '/user/login.json',
+			method: 'POST',
+			data:{ID:ID,pass:pass,back_url:back_url},  
+			success: function(re){
+				if(re.error_code > 0){
+					$("#warning").text(re.error_msg);
+					$("#warning").show();
+				}
+				else{
+					window.location.href = re.data;
+				}
+			}
+		});
+	});
+	</script>
 </html>
