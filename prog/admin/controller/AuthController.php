@@ -34,7 +34,13 @@ class AuthController extends Controller
         $aducode = Session::get('aducode');
         return is_array($aducode) && isset($aducode['nickname']) ? $aducode['nickname'] : null;
     }
-
+    
+    //获取实名
+    protected function getName()
+    {
+    	$aducode = Session::get('aducode');
+    	return is_array($aducode) && isset($aducode['name']) ? $aducode['name'] : null;
+    }
     protected function logAdminAction($log_str)
     {
         $admin_name = $this->getUserName();
