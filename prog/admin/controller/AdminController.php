@@ -50,4 +50,13 @@ class AdminController extends Controller
             throw new Exception("用户名或密码错误～");
         }
     }
+    
+    
+    public function test()
+    {
+        $nickname = "chenxiaolong";
+        $user_model = new UserModel();
+        $user_info = $user_model->getRow(array('nickname' => $nickname));
+        print_r($user_info);
+    }
 }
