@@ -5,12 +5,13 @@
  * @date 2017-12-12
  *
  */
-class HomeController extends Controller
+class HomeController extends AuthController
 {
     public function index()
     {
         $this->display('home/index.html', array(
                 'title' => '首页 ',
+                'nickname' => $this->getUserName(),
         ));
     }
 }

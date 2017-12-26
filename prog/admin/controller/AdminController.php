@@ -35,7 +35,7 @@ class AdminController extends Controller
     {
         Session::set('aducode', '');
         session_destroy();
-        header("Location: /user/login.html");
+        header("Location: /admin/login.html");
     }
     
     //校验用户名和密码

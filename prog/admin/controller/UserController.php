@@ -5,7 +5,7 @@
  * @date 2017-12-12
  *
  */
-class UserController extends Controller
+class UserController extends AuthController
 {
     //修改资料
     public function modify()
