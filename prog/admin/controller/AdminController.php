@@ -15,6 +15,7 @@ class AdminController extends Controller
         if ($this->req->method == 'POST') {
             $nickname = trim($this->req->post('nickname'));
             $password = trim($this->req->post('password'));
+            $back_url = $back_url ? $back_url : Config::site('base_url');
             
             $this->checkLogin($nickname, $password);
             session_regenerate_id(true);
@@ -22,7 +23,8 @@ class AdminController extends Controller
             'login_time' => time(),
             'active_time' => time(),
             'nickname' => $nickname,));
-            $this->redirect("/?back_url=$back_url");
+            //$this->redirect("/?back_url=$back_url");
+            $this->success($back_url);
         }
         
         $this->display('admin/login.html', array(
