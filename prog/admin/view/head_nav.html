@@ -42,15 +42,15 @@
                           <li class="{% if sub =='lists' %}active{% else %}{% endif %}"><a class="" href="/user/lists.html">用户列表</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu ">
+                  <li class="sub-menu {% if menu =='agent' %}active{% else %}{% endif %}"">
                       <a href="javascript:;" class="">
                           <i class="icon-cogs"></i>
                           <span>二级代理</span>
                           <span class="arrow"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="agent_lists.html">我的代理</a></li>
-                          <li><a class="" href="add_agent.html">添加代理</a></li>
+                          <li class = "{% if sub =='lists' %}active{% else %}{% endif %}"><a class="" href="/agent/lists.html">我的代理</a></li>
+                          <li class = "{% if sub =='add' %}active{% else %}{% endif %}"><a class="" href="/agent/add.html">添加代理</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
