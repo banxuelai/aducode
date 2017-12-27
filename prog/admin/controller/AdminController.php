@@ -17,13 +17,15 @@ class AdminController extends Controller
             $password = trim($this->req->post('password'));
             $back_url = $back_url ? $back_url : Config::site('base_url');
             
-            $name = $this->checkLogin($nickname, $password);
+            $user_info = $this->checkLogin($nickname, $password);
             session_regenerate_id(true);
             Session::set('aducode', array(
             'login_time' => time(),
             'active_time' => time(),
             'nickname' => $nickname,
-            'name' => $name));
+            'name' => $user_info['name'],
+            'type' => $user_info['type'],
+            'id' => $user_info['id']));
             //$this->redirect("/?back_url=$back_url");
             $this->success($back_url);
         }
@@ -53,7 +55,7 @@ class AdminController extends Controller
         if (!$user_info || !password_verify($password, $user_info['password'])) {
             throw new Exception("用户名或密码错误～");
         }
-        return $user_info['name'];
+        return $user_info;
     }
     
     

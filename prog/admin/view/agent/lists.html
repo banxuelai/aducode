@@ -17,9 +17,9 @@
                   <div class="col-lg-12">
                       <!--breadcrumbs start -->
                       <ul class="breadcrumb">
-                          <li><a href="#"><i class="icon-home"></i>首页</a></li>
-                          <li><a href="#">用户管理</a></li>
-                          <li class="active">用户列表</li>
+                          <li><a href="/home/index.html"><i class="icon-home"></i>首页</a></li>
+                          <li><a href="#">二级代理</a></li>
+                          <li class="active">代理列表</li>
                       </ul>
                       <!--breadcrumbs end -->
                   </div>
@@ -28,32 +28,32 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              	用户列表
+                              	代理列表
                           </header>
                           <div class="panel-body">
-                              <button type="submit" class="btn btn-round btn-primary"  onclick="javascript:window.location.href='/user/add.html'">添加</button>
+                              <button type="submit" class="btn btn-round btn-primary" onclick="javascript:window.location.href='add_agent.html'">添加</button>
                           </div>
                           <table class="table table-striped border-top" id="sample_1">
                           <thead>
+                          
                           <tr>
                               <th>姓名</th>
-                              <th>用户名</th>
                               <th>手机号</th>
                               <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
-                           {% for key,item in lists %} 
-                          <tr class="odd gradeX">
-                               <input type = "hidden" name = 'id' class = "id" value = "{{item.id}}">
+                            {% for key,item in lists %} 
+                           <tr class="odd gradeX">
+                              <input type = "hidden" name = 'id' class = "id" value = "{{item.id}}">                           
                               <td>{{item.name}}</td>
-                              <td>{{item.nickname}}</td>
                               <td>{{item.phone}}</td>
-                              <td>
+                              <td class="">
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
-                          </tr> 
+                          </tr>
                           {% endfor %}
+                         
                           </tbody>
                           </table>
                       </section>
@@ -63,7 +63,7 @@
           </section>
       </section>
       <!--main content end-->
-  </section>
+    </section>
 {%include "foot.html"%}
 <script type="text/javascript">
 //提交按钮
@@ -74,7 +74,7 @@ $('.btn-danger').click(function(){
     var  id = $(this).parents('tr').find('.id').val();
     if(del_info){
     	$.ajax({
-    		url: '/user/del.json',
+    		url: '/agent/del.json',
     		method: 'POST',
     		data:{id:id},  
     		success: function(re){

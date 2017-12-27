@@ -41,6 +41,27 @@ class AuthController extends Controller
         $aducode = Session::get('aducode');
         return is_array($aducode) && isset($aducode['name']) ? $aducode['name'] : null;
     }
+    
+    //获取uid
+    protected function getUidbySess()
+    {
+        $aducode = Session::get('aducode');
+        return is_array($aducode) && isset($aducode['id']) ? $aducode['id'] : null;
+    }
+    
+    //获取type
+    protected function getTypebyUid($uid = 0)
+    {
+        $aducode = Session::get('aducode');
+        return is_array($aducode) && isset($aducode['type']) ? $aducode['type'] : null;
+    }
+    
+    //获取用户信息
+    protected function getUserInfo()
+    {
+            return Session::get('aducode');
+    }
+    
     protected function logAdminAction($log_str)
     {
         $admin_name = $this->getUserName();
