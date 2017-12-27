@@ -23,7 +23,7 @@ class UserModel extends Model
         $where_str = $this->getWhereStr($cond);
         $from_str = " FROM `{$this->table}` $where_str ";
         $count_sql = "SELECT count(*) $from_str ";
-        $sql = " SELECT id,name,nickname,type,phone  $from_str order by name asc  ";
+        $sql = " SELECT id,name,nickname,type,phone  $from_str order by nickname asc  ";
         if ($offset >= 0 && $limit > 0) {
             $sql .= " LIMIT $offset, $limit ";
         }
