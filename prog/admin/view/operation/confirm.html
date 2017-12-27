@@ -90,9 +90,9 @@
 //提交按钮
 $('.btn-primary').click(function(){
 	
-	var province = $("#province").val();
-	var city = $("#city").val();
-	var district = $("#district").val();
+	var province = $("#province").find("option:selected").text();
+	var city = $("#city").find("option:selected").text();
+	var district = $("#district").find("option:selected").text();
 	
 	$.ajax({
 		url: '/operation/confirm.json',
