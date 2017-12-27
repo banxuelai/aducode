@@ -26,7 +26,9 @@ class UserController extends AuthController
         if ($this->req->method == 'POST') {
             $name = trim($this->req->post('name'));
             $phone = trim($this->req->post('phone'));
+            
             $nickname = CUtf8PY::encode($name, 'all');
+            
             //check 重复
             $info = $user_model->getRow(array('nickname' => $nickname));
             if (isset($info)) {
@@ -40,6 +42,8 @@ class UserController extends AuthController
                 'create_time' => time(),
             );
             
+            //校验
+            $this->check($data);
             $id = $user_model->insertOne($data);
         }
         $this->display('user/add.html', array(
@@ -53,6 +57,35 @@ class UserController extends AuthController
         $this->display('user/lists.html', array(
                 'title' => '用户列表',
         ));
+    }
+    
+    //校验
+    private function check($data)
+    {
+        
+        if (!$data['name']) {
+            throw new Exception("姓名不能为空~");
+        }
+        
+        if (!$data['phone']) {
+            throw new Exception("手机号不能为空~");
+        }
+        
+        if (preg_match('/[\u4E00-\u9FA5]{2,4}/', $data['name'])) {
+            throw new Exception("姓名格式不正确~");
+        }
+        
+        if (preg_match('/^(0\\d{2}-\\d{8}(-\\d{1,4})?)|(0\\d{3}-\\d{7,8}(-\\d{1,4})?)$/', $data['phone'])) {
+            throw new Exception("手机号格式不正确~");
+        }
+        
+        if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $data['password'])) {
+            throw new Exception("密码必须由字母和数字组成~");
+        }
+        
+        if (strlen($data['password']) < 6) {
+            throw new Exception("密码长度不能少于6位~");
+        }
     }
 }
 
