@@ -149,26 +149,15 @@ $('.btn-primary').click(function(){
 		method: 'POST',
 		data:{name:name,phone:phone},  
 		success: function(re){
-			alert(re);return;
-			if(re.data.album_id == 0 ){
-			  alert("轻小说id无效~");
-				location.href = "/role/lists.html";
-				ok = false;
+			if(re.error_code > 0){
+				alert(re.error_msg);
+				return false;
 			}
 			else{
-				ok = true;
-			}
-			
-		    if(ok){
-		        $('form').submit(); //提交
-		    }else{
-		        return false; //不提交
-		    }
-			
+				location.href = "/user/lists.html";
+			}			
 		}
 	});
-	
-
 });
 </script>
 {%endblock%}

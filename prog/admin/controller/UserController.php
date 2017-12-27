@@ -48,6 +48,7 @@ class UserController extends AuthController
         }
         $this->display('user/add.html', array(
                 'title' => '添加用户',
+                'nickname' => $this->getUserName(),
         ));
     }
     
@@ -56,6 +57,7 @@ class UserController extends AuthController
     {
         $this->display('user/lists.html', array(
                 'title' => '用户列表',
+                'nickname' => $this->getUserName(),
         ));
     }
     
@@ -71,7 +73,7 @@ class UserController extends AuthController
             throw new Exception("手机号不能为空~");
         }
         
-        if (!preg_match('/^[\x4E00-\x9FA5]{2,4}$/u', $data['name'])) {
+        if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){2,4}$/', $data['name'])) {
             throw new Exception("姓名格式不正确~");
         }
         
