@@ -12,7 +12,8 @@ class HomeController extends AuthController
         $this->display('home/index.html', array(
                 'title' => '首页 ',
                 'nickname' => $this->getUserName(),
-                'name' => $this->getName()
+                'name' => $this->getName(),
+                'menu' => 'home',
         ));
     }
 }

@@ -39,6 +39,8 @@ class UserController extends AuthController
         $this->display('user/add.html', array(
                 'title' => '添加用户',
                 'nickname' => $this->getUserName(),
+                'menu' => 'user',
+                'sub' => 'add',
         ));
     }
     
@@ -56,6 +58,8 @@ class UserController extends AuthController
                 'title' => '用户列表',
                 'lists' => $re['rows'],
                 'nickname' => $this->getUserName(),
+                'menu' => 'user',
+                'sub' => 'lists',
         );
         $this->display('user/lists.html', $view);
     }
