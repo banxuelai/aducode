@@ -26,6 +26,7 @@ class AgentController extends AuthController
                 'name' => $name,
                 'phone' => $phone,
                 'uid' => intval($uid),
+                'create_time' => time(),
             );
             
             //校验
