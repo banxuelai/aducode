@@ -140,9 +140,11 @@
 //验证格式
 $('#name').focus(function(){
 	var name =  $("#name").val();
-	if(name == ''){
+	alert(name);
+/* 	if(name == ''){
 		alert("姓名不能为空");
-	}
+		return false;
+	} */
 });
 //提交按钮验证提示
 $('.submit').click(function(){
