@@ -16,7 +16,7 @@ class AuthController extends Controller
             return $this->checkLogin();
         }
         if ($user['active_time'] + 3600 < $now_time) {
-            return $this->tipLogin('请重新登录～');
+            return $this->checkLogin('请重新登录～');
         }
         $user['active_time'] = $now_time;
         Session::set('aducode', $user);
@@ -38,8 +38,8 @@ class AuthController extends Controller
     //获取实名
     protected function getName()
     {
-    	$aducode = Session::get('aducode');
-    	return is_array($aducode) && isset($aducode['name']) ? $aducode['name'] : null;
+        $aducode = Session::get('aducode');
+        return is_array($aducode) && isset($aducode['name']) ? $aducode['name'] : null;
     }
     protected function logAdminAction($log_str)
     {
