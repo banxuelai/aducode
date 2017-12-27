@@ -105,30 +105,22 @@
                           <tr>
                               <th>姓名</th>
                               <th>用户名</th>
-                              <th class="hidden-phone">密码</th>
                               <th>手机号</th>
-                              <th class="hidden-phone">操作</th>
+                              <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
+                           {% for key,item in lists %} 
+                           <input type = "hidden" name = 'id' value = "{{item.id}}">
                           <tr class="odd gradeX">
-                              <td>王晓伟</td>
-                              <td>wangxiaowei</td>
-                              <td class="hidden-phone">nimeide123</td>
-                              <td>13501318687</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>
-                          <tr class="odd gradeX">
-                              <td>肖杰</td>
-                              <td>xiaojie</td>
-                              <td class="hidden-phone">xiaojie123</td>
-                              <td>15701318680</td>
-                              <td class="hidden-phone">
+                              <td>{{item.name}}</td>
+                              <td>{{item.nickname}}</td>
+                              <td>{{item.phone}}</td>
+                              <td>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
                           </tr> 
+                          {% endfor %}
                           </tbody>
                           </table>
                       </section>
@@ -140,4 +132,29 @@
       <!--main content end-->
   </section>
 {%include "foot.html"%}
+<script type="text/javascript">
+//提交按钮
+$('.btn-danger').click(function(){
+	
+    event.preventDefault();
+    var del_info  = confirm('你确定要删除吗？');
+    var  id = $(this).parents('tr').find('.id').val();
+    if(del_info){
+    	$.ajax({
+    		url: '/user/del.json',
+    		method: 'POST',
+    		data:{id:id},  
+    		success: function(re){
+				if (re.code == 0) {
+					alert('删除成功');
+					window.location.reload();
+				} else {
+					alert(re.error_msg);
+				}		
+    		}
+    	});
+    }
+
+});
+</script>
 {%endblock%}

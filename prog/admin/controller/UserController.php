@@ -7,18 +7,7 @@
  */
 class UserController extends AuthController
 {
-    //修改资料
-    public function modify()
-    {
-        $password = trim($this->req->post('password'));
-        if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $password)) {
-            throw new Exception("密码必须由字母和数字组成~");
-        }
-        if (strlen($password) < 6) {
-            throw new Exception("密码长度不能少于6位~");
-        }
-    }
-    
+
     //添加用户
     public function add()
     {
@@ -44,6 +33,7 @@ class UserController extends AuthController
             
             //校验
             $this->check($data);
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             $id = $user_model->insertOne($data);
         }
         $this->display('user/add.html', array(
@@ -55,10 +45,19 @@ class UserController extends AuthController
     //用户列表
     public function lists()
     {
-        $this->display('user/lists.html', array(
+        $user_model = new UserModel();
+        $cond = array(
+            'status' => 1,
+            'type' => 0,//普通用户
+        );
+        
+        $re = $user_model->getList($cond, -1);
+        $view = array(
                 'title' => '用户列表',
+                'lists' => $re['rows'],
                 'nickname' => $this->getUserName(),
-        ));
+        );
+        $this->display('user/lists.html', $view);
     }
     
     //校验
@@ -88,6 +87,44 @@ class UserController extends AuthController
         if (strlen($data['password']) < 6) {
             throw new Exception("密码长度不能少于6位~");
         }
+    }
+    
+    //修改资料
+    public function modify()
+    {
+        $password = trim($this->req->post('password'));
+        if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $password)) {
+            throw new Exception("密码必须由字母和数字组成~");
+        }
+        if (strlen($password) < 6) {
+            throw new Exception("密码长度不能少于6位~");
+        }
+    }
+    
+    //删除用户
+    public function del()
+    {
+        
+        $id = intval($this->req->gpc('id'));
+        $user_model = new UserModel();
+        
+        //权限验证
+        $nickname = $this->getUserName();
+        $admin_user = $user_model->getRow(array('nickname' => $nickname));
+        
+        if (!isset($admin_user) || $admin_user['type'] != 1) {
+            throw new Exception("没有删除权限~");
+        }
+         
+        
+        $user_info = $user_model->getRow(array('id' => $id));
+        if (!$user_info) {
+            throw new Exception("用户不存在~");
+        }
+        
+        $user_model->updateOne(array('status' => -1), array('id' => $id));
+        
+        $this->success();
     }
 }
 

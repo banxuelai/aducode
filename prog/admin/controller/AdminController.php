@@ -23,7 +23,7 @@ class AdminController extends Controller
             'login_time' => time(),
             'active_time' => time(),
             'nickname' => $nickname,
-            'name'=>$name));
+            'name' => $name));
             //$this->redirect("/?back_url=$back_url");
             $this->success($back_url);
         }
