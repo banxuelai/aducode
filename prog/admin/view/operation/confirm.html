@@ -69,7 +69,7 @@
                           {% for key,item in lists %} 
                           
                           <tr class="odd gradeX">
-                              <td>{{province}}{{city}}{{district}}</td>
+                              <td>{{item.province}}{{item.city}}{{item.district}}</td>
                               <td>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
@@ -92,7 +92,7 @@ $('.btn-primary').click(function(){
 	
 	var province = $("#province").find("option:selected").text();
 	var city = $("#city").find("option:selected").text();
-	var district = $("#district").find("option:selected").text();
+	var district = $("#districtAndCounty").find("option:selected").text();
 	
 	$.ajax({
 		url: '/operation/confirm.json',
