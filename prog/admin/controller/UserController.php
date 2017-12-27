@@ -31,7 +31,7 @@ class UserController extends AuthController
             
             //check 重复
             $info = $user_model->getRow(array('nickname' => $nickname));
-            if (isset($info)) {
+            if (!isset($info)) {
                 $nickname .= '1';
             }
             $data = array(
@@ -71,15 +71,15 @@ class UserController extends AuthController
             throw new Exception("手机号不能为空~");
         }
         
-        if (preg_match('/^[\x4E00-\x9FA5]{2,4}$/u', $data['name'])) {
+        if (!preg_match('/^[\x4E00-\x9FA5]{2,4}$/u', $data['name'])) {
             throw new Exception("姓名格式不正确~");
         }
         
-        if (preg_match('/^(0\\d{2}-\\d{8}(-\\d{1,4})?)|(0\\d{3}-\\d{7,8}(-\\d{1,4})?)$/', $data['phone'])) {
+        if (!preg_match('/0?(13|14|15|17|18|19)[0-9]{9}/', $data['phone'])) {
             throw new Exception("手机号格式不正确~");
         }
         
-        if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $data['password'])) {
+        if (!preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $data['password'])) {
             throw new Exception("密码必须由字母和数字组成~");
         }
         
