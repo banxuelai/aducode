@@ -105,13 +105,13 @@
 		                         <tr>
 		                          	  <th class="form_table_th">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</th>
 		                          	  <td>
-                                      <input type="email" class="form-control" name = "name" placeholder="请输入实际姓名"id="" >
+                                      <input type="email" class="form-control" name = "name" placeholder="请输入实际姓名"id="name" >
  									  </td>
 		                          </tr>
 		                          <tr>
 		                          	  <th class="form_table_th">联系电话</th>
 		                          	  <td>
-                                      <input type="email" class="form-control"  name = "phone" placeholder="请输入联系电话" id="" >
+                                      <input type="email" class="form-control"  name = "phone" placeholder="请输入联系电话" id="phone" >
  									  </td>
 		                          </tr>		                       
 								  <tr style="border:none;">
@@ -136,4 +136,45 @@
       <!--main content end-->
   </section>
 {%include "foot.html"%}
+<script type="text/javascript">
+//验证格式
+$('#name').focus(function(){
+	var name =  $("#name").val();
+	if(name == ''){
+		alert("姓名不能为空");
+	}
+});
+//提交按钮验证提示
+$('.submit').click(function(){
+	
+	var ok = true;
+	var album_id = $("#album_id").val();
+	
+	$.ajax({
+		url: '/role/check_album.json',
+		method: 'POST',
+		data:{album_id:album_id},  
+		success: function(re){
+			
+			if(re.data.album_id == 0 ){
+			  alert("轻小说id无效~");
+				location.href = "/role/lists.html";
+				ok = false;
+			}
+			else{
+				ok = true;
+			}
+			
+		    if(ok){
+		        $('form').submit(); //提交
+		    }else{
+		        return false; //不提交
+		    }
+			
+		}
+	});
+	
+
+});
+</script>
 {%endblock%}
