@@ -25,21 +25,21 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">
-                  <li class="sub-menu {% if {{menu}}=='home' %}active{% else %}{% endif %}">
+                  <li class="sub-menu {% if menu =='home' %}active{% else %}{% endif %}">
                       <a class="" href="/home/index.html">
                           <i class="icon-dashboard"></i>
                           <span>首页</span>
                       </a>
                   </li>
-                  <li class="sub-menu {% if {{menu}}=='user' %}active{% else %}{% endif %}">
+                  <li class="sub-menu {% if menu =='user' %}active{% else %}{% endif %}">
                       <a href="javascript:;" class="">
                           <i class="icon-tasks"></i>
                           <span>用户管理</span>
                           <span class="arrow"></span>
                       </a>
                       <ul class="sub">
-                          <li class = "{% if {{sub}}=='add' %}active{% else %}{% endif %}"><a class="" href="/user/add.html">添加用户</a></li>
-                          <li><a class="{% if {{sub}}=='lists' %}active{% else %}{% endif %}" href="/user/lists.html">用户列表</a></li>
+                          <li class = "{% if sub =='add' %}active{% else %}{% endif %}"><a class="" href="/user/add.html">添加用户</a></li>
+                          <li><a class="{% if sub =='lists' %}active{% else %}{% endif %}" href="/user/lists.html">用户列表</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu ">
