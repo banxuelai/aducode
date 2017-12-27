@@ -71,7 +71,7 @@ class UserController extends AuthController
             throw new Exception("手机号不能为空~");
         }
         
-        if (preg_match('/[\u4E00-\u9FA5]{2,4}/', $data['name'])) {
+        if (preg_match('/^[\x4E00-\x9FA5]{2,4}$/u', $data['name'])) {
             throw new Exception("姓名格式不正确~");
         }
         
