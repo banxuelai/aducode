@@ -48,7 +48,46 @@ class OperationController extends AuthController
                 'sub' => 'confirm',
         ));
     }
-   
+    
+    //报考层次
+    public function arrange()
+    {
+        $operation_model = new OperationModel();
+        
+        if ($this->req->method == 'POST') {
+            $title = trim($this->req->post('title'));
+            
+            //校验
+            if (!$title) {
+                throw new Exception("名称不能为空~");
+            }
+            
+            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){2,4}$/', $title)) {
+                throw new Exception("请输入三字汉语~");
+            }
+            
+            $data = array(
+                'title' => $title,
+                'type' => 'arrange',
+                'create_time' => time(),
+                'admin_name' => $this->getUserName(),
+            );
+            
+            $id = $operation_model->insertOne($data);
+            $this->success();
+        }
+        
+        //获取列表
+        $re = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        $this->display('operation/arrange.html', array(
+                'title' => '报考层次',
+                'nickname' => $this->getUserName(),
+                'lists' => $re['rows'],
+                'menu' => 'operation',
+                'sub' => 'arrange',
+        ));
+    }
+    
     //删除
     public function del()
     {
