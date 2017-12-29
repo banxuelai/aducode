@@ -1,7 +1,4 @@
 <?php
-// Copyright 2016 The PHP Tuner Authors. All rights reserved.
-// Use of this source code is governed by a GPL-3.0
-// license that can be found in the LICENSE file.
 
 class Response {
 
@@ -67,7 +64,6 @@ class Response {
 
 	// 重定向
 	public function redirect($url, $code = 302, $halt = true) {
-		// Log::file("$url", 'redirect');
 		header("Location: $url", true, $code);
 		$halt && exit(0);
 	}
