@@ -39,7 +39,7 @@
                                    	   报考层次：
                                      <select class="form-control m-bot15" name = "arrange" data-value = "{{arrange}}" onchange = "document.all.school_form.submit()">
                                      	{% for key,item in arrange_lists %}
-                                              <option value = "{{item.id}}" {% if key== 0 %}selected{%endif%} {% if arrange== item.id %}selected{%endif%}>{{item.title}}</option>
+                                              <option value = "{{item.id}}" {% if arrange== item.id %}selected{%endif%}>{{item.title}}</option>
                                         {% endfor %}      
                                        </select> 
                                    </div>

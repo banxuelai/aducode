@@ -143,20 +143,23 @@ class OperationController extends AuthController
         
         $arrange = intval($this->req->get('arrange'));
         
+        //获取层次列表
+        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        
         //获取学校列表
         $cond = array(
             'status' => 1,
             'type' => 'school',
         );
         
-        if ($arrange) {
-            $cond['parent_id'] = $arrange;
+        if (!$arrange) {
+            $arrange = $arrange_info[0]['id'];
         }
+        $cond['parent_id'] = $arrange;
         
         $re = $operation_model->getList($cond, -1);
         
-        //获取层次列表
-        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+
         $this->display('operation/school.html', array(
                 'title' => '学校配置',
                 'arrange' => $arrange,
