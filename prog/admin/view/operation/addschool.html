@@ -31,27 +31,23 @@
                               	添加学校
                           </header>
                           <div class="panel-body">
-                              <form class="form-inline" role="form">
+                              <form class="form-inline">
                               <table class="form_table" style="border-collapse:separate; border-spacing:0px 5px;" id="">
 		                          <tbody>
 		                          <tr>
 		                           	  <th class="form_table_th">报考层次</th>
 		                          	  <td>
-                                   			<label class="label_radio">
-                                               <input name="kstype_radio" id="radio_kstype1" value="1" type="radio" checked />高起专
+		                          	  		{% for key,item in lists %}
+                                   		   <label class="label_radio">
+                                               <input name="type" id="radio_kstype{{item.id}}" value="{{item.id}}" type="radio" />{{item.title}}
                                            </label>
-                                           <label class="label_radio" >
-                                               <input name="kstype_radio" id="radio_kstype2" value="2" type="radio" />高起本
-                                           </label>
-                                           <label class="label_radio" >
-                                               <input name="kstype_radio" id="radio-kstype3" value="3" type="radio" />专升本
-                                           </label>
+                                           {% endfor %}
  									  </td>
 		                          </tr>
 		                         <tr>
 		                          	  <th class="form_table_th">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校</th>
 		                          	  <td>
-                                      <input type="email" class="form-control" placeholder="请输入学校名称"id="" >
+                                      <input type="email" class="form-control" placeholder="请输入学校名称"id="title" name = "title" >
  									  </td>
 		                          </tr>
 		                          
@@ -77,4 +73,27 @@
       <!--main content end-->
   </section>
 {%include "foot.html"%}
+<script type="text/javascript">
+//提交按钮
+$('.btn-primary').click(function(){
+	
+	var title = $("#title").val();
+	var type = $("#city").find("option:selected").text();
+	
+	$.ajax({
+		url: '/operation/addschool.json',
+		method: 'POST',
+		data:{province:province,city:city,district:district},  
+		success: function(re){
+			if(re.error_code > 0){
+				alert(re.error_msg);
+				return false;
+			}
+			else{
+				location.href = "/operation/confirm.html";
+			}			
+		}
+	});
+});
+</script>
 {%endblock%}

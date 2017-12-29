@@ -150,9 +150,15 @@ class OperationController extends AuthController
     //添加
     public function addschool()
     {
+        $operation_model = new OperationModel();
+        
+        if ($this->req->method == 'POST') {
+        }
+        $re = $operation_model->getList(array('status' => 1,'type' => 'professType'), -1);
         $this->display('operation/addschool.html', array(
                 'title' => '学校配置',
                 'nickname' => $this->getUserName(),
+                'type' => $re['rows'],
                 'menu' => 'operation',
                 'sub' => 'school',
         ));
