@@ -165,7 +165,7 @@ class OperationController extends AuthController
             }
             
             if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){4,15}$/', $title)) {
-                throw new Exception("学校名称须为汉字~");
+                throw new Exception("学校名称格式不正确~");
             }
             
             $data = array(
