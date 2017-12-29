@@ -153,7 +153,7 @@ class OperationController extends AuthController
         );
         
         if (!$arrange) {
-            $arrange = $arrange_info[0]['id'];
+            $arrange = $arrange_info['rows'][0]['id'];
         }
         $cond['parent_id'] = $arrange;
         
