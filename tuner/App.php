@@ -1,10 +1,5 @@
 <?php
-// Copyright 2016 The PHP Tuner Authors. All rights reserved.
-// Use of this source code is governed by a GPL-3.0
-// license that can be found in the LICENSE file.
 
-// 应用程序管理类
-// 负责框架内部外部数据流动传递
 class App {
 
 	// 初始化
@@ -59,7 +54,6 @@ class App {
 					return true;
 				}
 				$pathinfo = pathinfo($route_path);
-				//$pathinfo = pathinfo(parse_url($req->uri, PHP_URL_PATH));
 				$ext    = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
 				
 				$pathinfo['dirname'] = ltrim($pathinfo['dirname'], './');
@@ -76,7 +70,6 @@ class App {
 				$params = explode("/", trim($path, '/'));
 				
 				//附加上最后的文件名
-				//$pathinfo['filename'] && $params[] = $pathinfo['filename'];
 				$len = count($params);
 				//默认倒数第二个是controller, 倒数第一个是action
 				$controller_pos = $len > 1 ? $len - 2 : 0;

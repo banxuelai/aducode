@@ -62,9 +62,4 @@ class Config {
 		}
 		return $conf;
 	}
-
-	//获取变量
-	public function __get($name) {
-
-	}
 }

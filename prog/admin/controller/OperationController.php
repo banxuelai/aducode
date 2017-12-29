@@ -136,6 +136,50 @@ class OperationController extends AuthController
         ));
     }
     
+    //学校配置
+    public function school()
+    {
+        $this->display('operation/school.html', array(
+                'title' => '学校配置',
+                'nickname' => $this->getUserName(),
+                'menu' => 'operation',
+                'sub' => 'school',
+        ));
+    }
+    
+    //添加
+    public function addschool()
+    {
+        $this->display('operation/addschool.html', array(
+                'title' => '学校配置',
+                'nickname' => $this->getUserName(),
+                'menu' => 'operation',
+                'sub' => 'school',
+        ));
+    }
+    
+    //专业配置
+    public function profess()
+    {
+        $this->display('operation/profess.html', array(
+                'title' => '专业配置',
+                'nickname' => $this->getUserName(),
+                'menu' => 'operation',
+                'sub' => 'profess',
+        ));
+    }
+    
+    //添加
+    public function addprofess()
+    {
+        $this->display('operation/addprofess.html', array(
+                'title' => '专业配置',
+                'nickname' => $this->getUserName(),
+                'menu' => 'operation',
+                'sub' => 'profess',
+        ));
+    }
+    
     //删除
     public function del()
     {
