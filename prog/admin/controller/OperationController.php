@@ -239,7 +239,7 @@ class OperationController extends AuthController
         $professTypeInfo = $operation_model->getList(array('status' => 1,'type' => 'professType'), -1);
         $this->display('operation/addprofess.html', array(
                 'title' => '专业配置',
-                'arrangeInfo' => $arrangeInfo['arrangeInfo'],
+                'arrangeInfo' => $arrangeInfo['rows'],
                 'professTypeInfo' => $professTypeInfo['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
