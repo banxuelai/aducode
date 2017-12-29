@@ -88,6 +88,54 @@ class OperationController extends AuthController
         ));
     }
     
+    //专业类别
+    public function professType()
+    {
+        $operation_model = new OperationModel();
+        
+        if ($this->req->method == 'POST') {
+            $title = trim($this->req->post('title'));
+            $fees = intval($this->req->post('fees'));
+            //校验
+            if (!$title) {
+                throw new Exception("名称不能为空~");
+            }
+        
+            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){2,4}$/', $title)) {
+                throw new Exception("请输入三字汉语~");
+            }
+            
+            if (!$fees) {
+                throw new Exception("金额不能为空~");
+            }
+            
+            if (!preg_match('/^[1-9]\d*/', $fees)) {
+                throw new Exception("金额必须为数字~");
+            }
+            
+            $data = array(
+                    'title' => $title,
+                    'fees' => $fees,
+                    'type' => 'professType',
+                    'create_time' => time(),
+                    'admin_name' => $this->getUserName(),
+            );
+        
+            $id = $operation_model->insertOne($data);
+            $this->success();
+        }
+        
+        //获取列表
+        $re = $operation_model->getList(array('status' => 1,'type' => 'professType'), -1);
+        $this->display('operation/professType.html', array(
+                'title' => '专业类别',
+                'nickname' => $this->getUserName(),
+                'lists' => $re['rows'],
+                'menu' => 'operation',
+                'sub' => 'professType',
+        ));
+    }
+    
     //删除
     public function del()
     {
