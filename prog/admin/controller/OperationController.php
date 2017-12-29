@@ -227,8 +227,20 @@ class OperationController extends AuthController
     //添加
     public function addprofess()
     {
+        $operation_model = new OperationModel();
+        
+        if ($this->req->method == 'POST') {
+        }
+        //报考层次
+        $arrangeInfo = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        //学校列表
+        $schoolInfo = $operation_model->getList(array('status' => 1,'type' => 'school','parent_id' => $arrangeInfo['rows'][0]['id']), -1);
+        //专业类别
+        $professTypeInfo = $operation_model->getList(array('status' => 1,'type' => 'professType'), -1);
         $this->display('operation/addprofess.html', array(
                 'title' => '专业配置',
+                'arrangeInfo' => $arrangeInfo['arrangeInfo'],
+                'professTypeInfo' => $professTypeInfo['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'profess',
