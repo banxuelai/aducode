@@ -38,7 +38,7 @@
 		                           	  <th class="form_table_th">报考层次</th>
 		                          	  <td>
 		                          	  		{% for key,item in lists %}
-                                   		   <label class="label_radio" id = "type" test='{{key}}'>
+                                   		   <label class="label_radio" id = "type">
                                                <input name="type" id="radio_kstype{{item.id}}" value="{{item.id}}" type="radio" {% if key == 0 %}checked{% else %}{% endif %} />{{item.title}}
                                            </label>
                                            {% endfor %}

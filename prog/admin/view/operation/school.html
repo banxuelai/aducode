@@ -34,13 +34,13 @@
                               <button  type="submit" class="btn btn-round btn-primary" onclick="javascript:window.location.href='/operation/addschool.html'">添加学校</button>
                           </div>
                           <div class="panel-body">
-                              <form class="form-inline" role="form">
+                              <form class="form-inline" name = "school_form" method = "get" action = "/operation/school.html">
                              	 <div class="form-group">
                                    	   报考层次：
-                                     <select class="form-control m-bot15">
-                                              <option>高起专</option>
-                                              <option>高起本</option>
-                                              <option>专升本</option>
+                                     <select class="form-control m-bot15" name = "arrange" onchange = "document.all.school_form.submit()">
+                                     	{% for key,item in arrange_lists %}
+                                              <option value = "{{item.id}}">{{item.title}}</option>
+                                        {% endfor %}      
                                        </select> 
                                    </div>
                                        <button type="submit"  class="btn btn-shadow btn-primary">查询</button>
@@ -54,19 +54,14 @@
                           </tr>
                           </thead>
                           <tbody>
+                          {% for key,item in lists %}
                           <tr class="odd gradeX">
-                              <td>山东政法学院</td>
+                              <td>{{item.school}}</td>
                               <td>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
                           </tr>
-                          <tr class="odd gradeX">
-                              <td>济南大学</td>
-                              <td>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>
-                          
+						  {% endfor %}
                           </tbody>
                           </table>
                       </section>
@@ -76,20 +71,6 @@
           </section>
       </section>
       <!--main content end-->
-            <!--pagination start-->
-       <section class="">
-                <ul class="pagination pagination-sm pull-right">
-                
-                      <li><a href="#">«</a></li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">»</a></li>
-                  </ul>                  
-       </section>
-      <!--pagination end-->
   </section>
 {%include "foot.html"%}
 {%endblock%}
