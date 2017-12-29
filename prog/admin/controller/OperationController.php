@@ -153,12 +153,37 @@ class OperationController extends AuthController
         $operation_model = new OperationModel();
         
         if ($this->req->method == 'POST') {
+            $type = intval($this->req->post('type'));
+            $title = trim($this->req->post('title'));
+            
+            if (!$type) {
+                throw new Exception("请选择报考层次~");
+            }
+            
+            if (!$title) {
+                throw new Exception("学校名称不能为空~");
+            }
+            
+            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2})$/', $title)) {
+                throw new Exception("学校名称须为汉字~");
+            }
+            
+            $data = array(
+                'title' => $title,
+                'parent_id' => $type,
+                'type' => 'school',
+                'create_time' => time(),
+                'admin_name' => $this->getUserName(),
+            );
+            
+            $id = $operation_model->insertOne($data);
+            $this->success();
         }
-        $re = $operation_model->getList(array('status' => 1,'type' => 'professType'), -1);
+        $re = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         $this->display('operation/addschool.html', array(
                 'title' => '学校配置',
                 'nickname' => $this->getUserName(),
-                'type' => $re['rows'],
+                'lists' => $re['rows'],
                 'menu' => 'operation',
                 'sub' => 'school',
         ));

@@ -38,8 +38,8 @@
 		                           	  <th class="form_table_th">报考层次</th>
 		                          	  <td>
 		                          	  		{% for key,item in lists %}
-                                   		   <label class="label_radio">
-                                               <input name="type" id="radio_kstype{{item.id}}" value="{{item.id}}" type="radio" />{{item.title}}
+                                   		   <label class="label_radio" id = "type">
+                                               <input name="type" id="radio_kstype{{item.id}}" value="{{item.id}}" type="radio" checked />{{item.title}}
                                            </label>
                                            {% endfor %}
  									  </td>
@@ -78,19 +78,19 @@
 $('.btn-primary').click(function(){
 	
 	var title = $("#title").val();
-	var type = $("#city").find("option:selected").text();
+	var type = $("input[type='radio']:checked").val();;
 	
 	$.ajax({
 		url: '/operation/addschool.json',
 		method: 'POST',
-		data:{province:province,city:city,district:district},  
+		data:{title:title,type:type},  
 		success: function(re){
 			if(re.error_code > 0){
 				alert(re.error_msg);
 				return false;
 			}
 			else{
-				location.href = "/operation/confirm.html";
+				location.href = "/operation/school.html";
 			}			
 		}
 	});
