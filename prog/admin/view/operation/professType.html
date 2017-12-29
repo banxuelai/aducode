@@ -90,7 +90,7 @@ $('.btn-primary').click(function(){
 	var fees = $("#fees").val();
 	
 	$.ajax({
-		url: '/operation/profess.json',
+		url: '/operation/professType.json',
 		method: 'POST',
 		data:{title:title,fees:fees},  
 		success: function(re){
@@ -99,7 +99,7 @@ $('.btn-primary').click(function(){
 				return false;
 			}
 			else{
-				location.href = "/operation/profess.html";
+				location.href = "/operation/professType.html";
 			}			
 		}
 	});
