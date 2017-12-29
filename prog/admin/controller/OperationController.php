@@ -159,6 +159,8 @@ class OperationController extends AuthController
         $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         $this->display('operation/school.html', array(
                 'title' => '学校配置',
+                'arrange' => $arrange,
+                'lists' => $re['rows'],
                 'arrange_lists' => $arrange_info['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
