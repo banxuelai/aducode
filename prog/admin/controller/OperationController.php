@@ -164,7 +164,7 @@ class OperationController extends AuthController
                 throw new Exception("学校名称不能为空~");
             }
             
-            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2})$/', $title)) {
+            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){4,15}$/', $title)) {
                 throw new Exception("学校名称须为汉字~");
             }
             
