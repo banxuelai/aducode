@@ -95,7 +95,7 @@ class OperationController extends AuthController
         
         if ($this->req->method == 'POST') {
             $title = trim($this->req->post('title'));
-            $fees = intval($this->req->post('fees'));
+            $fees = $this->req->post('fees');
             //校验
             if (!$title) {
                 throw new Exception("名称不能为空~");
