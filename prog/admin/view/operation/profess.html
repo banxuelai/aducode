@@ -97,7 +97,7 @@ $("#arrange").click(function(){
 			$("#school").find('option').remove();
 			$("#school").append("<option>请选择</option>");
 		    $.each(re.data,function(name,value) {
-				$("#school").append("<option value='"+value['id']+"'"+"{% if school== item.id %}selected{%endif%}>{{item.title}}"+">"+value['title']+"</option>"); 
+				$("#school").append("<option value='"+value['id']+"'"+"{% if school== item.id %}selected{%endif%}"+">"+value['title']+"</option>"); 
 	        });
 			
 		}
