@@ -248,6 +248,15 @@ class OperationController extends AuthController
         ));
     }
     
+    //根据报考层次获取学校名称
+    public function schoolInfo()
+    {
+        $arrange = intval($this->req->post('arrange'));
+        
+        $operation_model = new OperationModel();
+        $info = $operation_model->getList(array('parent_id' => $arrange,'status' => 1,'type' => 'school'), -1);
+        $this->success($info['rows']);
+    }
     //删除
     public function del()
     {

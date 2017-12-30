@@ -47,7 +47,7 @@
 		                          <tr>
 		                          	  <th class="form_table_th">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校</th>
 		                          	  <td>
-                                         <select class="form-control m-bot15">
+                                         <select class="form-control m-bot15" id = "school">
                                               <option>请选择</option>
                                               {% for key,item in schoolInfo%}
                                               <option value = "{{item.id}}">{{item.title}}</option>
@@ -98,8 +98,20 @@
 <script type="text/javascript">
 //radio select 联动
 $(":radio").click(function(){
-	var value = $(this).val();
-	alert(value);
+	var  arrange = $(this).val();
+	$.ajax({
+		url: '/operation/schoolInfo.json',
+		method: 'POST',
+		data:{arrange:arrange},  
+		success: function(re){
+			$("#school").find('option').remove();
+			$("#school").append("<option>请选择</option>");
+		    $.each(re.data,function(name,value) {
+				$("#school").append("<option value='"+value['id']+"'>"+value['title']+"</option>"); 
+	        });
+			
+		}
+	});
 });
 
 </script>
