@@ -240,6 +240,7 @@ class OperationController extends AuthController
         $this->display('operation/addprofess.html', array(
                 'title' => '专业配置',
                 'arrangeInfo' => $arrangeInfo['rows'],
+                'schoolInfo' => $schoolInfo['rows'],
                 'professTypeInfo' => $professTypeInfo['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',

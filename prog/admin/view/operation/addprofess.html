@@ -49,8 +49,9 @@
 		                          	  <td>
                                          <select class="form-control m-bot15">
                                               <option>请选择</option>
-                                              <option>济南大学</option>
-                                              <option>山东财经大学</option>
+                                              {% for key,item in schoolInfo%}
+                                              <option value = "{{item.id}}">{{item.title}}</option>
+                                              {% endfor %}
                                          </select> 
  									  </td>
 		                          </tr>
