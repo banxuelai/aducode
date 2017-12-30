@@ -53,15 +53,15 @@
                           <li class = "{% if sub =='add' %}active{% else %}{% endif %}"><a class="" href="/agent/add.html">添加代理</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
+                  <li class="sub-menu {% if menu =='student' %}active{% else %}{% endif %}">
                       <a href="javascript:;" class="">
                           <i class="icon-th"></i>
                           <span>我的录入</span>
                           <span class="arrow"></span>
                       </a>
                       <ul class="sub">
-                      	  <li class=""><a class="" href="info_lists.html">信息列表</a></li>
-                          <li class=""><a class="" href="add_info.html">录入信息</a></li>
+                      	  <li class="{% if sub =='lists' %}active{% else %}{% endif %}"><a class="" href="info_lists.html">信息列表</a></li>
+                          <li class="{% if sub =='add' %}active{% else %}{% endif %}"><a class="" href="add_info.html">录入信息</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu {% if menu =='operation' %}active{% else %}{% endif %}">
