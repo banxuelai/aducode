@@ -226,12 +226,29 @@ class OperationController extends AuthController
             'type' => 'profess',
         );
         
+        if ($arrange) {
+            $cond['arrange_id'] = $arrange;
+        }
+        
         if ($school) {
             $cond['school'] = $school;
         }
         
         //专业列表
         $re = $operation_model->getList($cond, -1);
+        
+        if ($re['count']) {
+            foreach ($re['rows'] as $key => $val) {
+                //学校名称
+                $schoolInfo = $operation_model->getRow(array('status' => 1,'id' => $val['parent_id'],'type' => 'school'));
+                $re['rows'][$key]['schoolName'] = $schoolInfo['title'] ? $schoolInfo['title'] : 'undefined';
+                //专业类别
+                $professType = $operation_model->getRow(array('status' => 1,'id' => $val['fees'],'type' => 'professType'));
+                $re['rows'][$key]['professType'] = $professType['title'] ? $professType['title'] : 'undefined';
+            }
+        }
+        
+        
         //层次和学校信息
         $arrangeInfo = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         
@@ -239,6 +256,8 @@ class OperationController extends AuthController
                 'title' => '专业配置',
                 'lists' => $re['rows'],
                 'arrangeInfo' => $arrangeInfo['rows'],
+                'arrange' => $arrange,
+                'school' => $school,
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'profess',
@@ -318,6 +337,7 @@ class OperationController extends AuthController
         $info = $operation_model->getList(array('parent_id' => $arrange,'status' => 1,'type' => 'school'), -1);
         $this->success($info['rows']);
     }
+    
     //删除
     public function del()
     {

@@ -37,7 +37,8 @@
                               <form class="form-inline">
                              	 <div class="form-group">
                                    	   报考层次：
-                                   	   <select class="form-control m-bot15" name = "arrange" data-value = "{{arrange}}" onchange = "document.all.profess_form.submit()">
+                                   	   <select class="form-control m-bot15" name = "arrange" data-value = "{{arrange}}" onchange = "document.all.profess_form.submit()" id = "arrange">
+                                     	<option value = '0'>请选择</option>
                                      	{% for key,item in arrangeInfo %}
                                               <option value = "{{item.id}}" {% if arrange== item.id %}selected{%endif%}>{{item.title}}</option>
                                         {% endfor %}      
@@ -45,10 +46,8 @@
                                         
                                        <br/><br/>
                                                                                            所属学校：
-                                     <select class="form-control m-bot15">
-                                              <option>山东大学</option>
-                                              <option>济南大学</option>
-                                              <option>山东师范大学</option>
+                                     <select class="form-control m-bot15" name = "school" id = "school" onchange = "document.all.profess_form.submit()">
+                                              <option>请选择</option>
                                        </select>
                                    </div>
                                        <br/><button type="submit"  class="btn btn-shadow btn-primary">查询</button>
@@ -57,6 +56,7 @@
                           <table class="table table-striped border-top" id="sample_1">
                           <thead>
                           <tr>
+                          	  <th>学校</th>
                               <th>专业</th>
                               <th>类别</th>
                               <th class="">操作</th>
@@ -65,8 +65,9 @@
                           <tbody>
                           {% for key,item in lists %}
                           <tr class="odd gradeX">
-                              <td>计算机科学与技术</td>
-                              <td>工学</td>
+                          	  <td>{{item.schoolName}}</td>
+                              <td>{{item.title}}</td>
+                              <td>{{item.professType}}</td>
                               <td>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
@@ -84,4 +85,24 @@
          
   </section>
 {%include "foot.html"%}
+<script type="text/javascript">
+//select 联动
+$("#arrange").click(function(){
+	var  arrange = $(this).val();
+	$.ajax({
+		url: '/operation/schoolInfo.json',
+		method: 'POST',
+		data:{arrange:arrange},  
+		success: function(re){
+			$("#school").find('option').remove();
+			$("#school").append("<option>请选择</option>");
+		    $.each(re.data,function(name,value) {
+				$("#school").append("<option value='"+value['id']+"'"+"{% if school== item.id %}selected{%endif%}>{{item.title}}"+">"+value['title']+"</option>"); 
+	        });
+			
+		}
+	});
+});
+
+</script>
 {%endblock%}
