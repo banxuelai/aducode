@@ -251,11 +251,12 @@ class OperationController extends AuthController
         
         //层次和学校信息
         $arrangeInfo = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
-        
+        $schoolInfo = $operation_model->getList(array('status' => 1,'type' => 'school','parent_id' => $arrange));
         $this->display('operation/profess.html', array(
                 'title' => '专业配置',
                 'lists' => $re['rows'],
                 'arrangeInfo' => $arrangeInfo['rows'],
+                'schoolInfo' => $schoolInfo['rows'],
                 'arrange' => $arrange,
                 'school' => $school,
                 'nickname' => $this->getUserName(),
