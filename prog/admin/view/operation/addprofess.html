@@ -95,4 +95,12 @@
       <!--main content end-->
   </section>
 {%include "foot.html"%}
+<script type="text/javascript">
+//radio select 联动
+$(":radio").click(function(){
+	var value = $(this).val();
+	alert(value);
+});
+
+</script>
 {%endblock%}
