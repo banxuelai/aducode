@@ -285,6 +285,7 @@ class OperationController extends AuthController
                 'parent_id' => $school,
                 'type' => 'profess',
                 'fees' => $professType,
+                'arrange' => $arrange,
                 'create_time' => time(),
                 'admin_name' => $this->getUserName(),
             );
