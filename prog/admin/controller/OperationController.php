@@ -238,7 +238,7 @@ class OperationController extends AuthController
         $this->display('operation/profess.html', array(
                 'title' => '专业配置',
                 'lists' => $re['rows'],
-                'arrangeInfo' => $re['rows'],
+                'arrangeInfo' => $arrangeInfo['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'profess',
@@ -264,7 +264,7 @@ class OperationController extends AuthController
             if (!$school) {
                 throw new Exception("请选择所属学校~");
             }
-            if (!professType) {
+            if (!$professType) {
                 throw new Exception("请选择所属专业类别~");
             }
             if (!$title) {
