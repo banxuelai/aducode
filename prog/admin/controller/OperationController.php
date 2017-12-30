@@ -230,6 +230,45 @@ class OperationController extends AuthController
         $operation_model = new OperationModel();
         
         if ($this->req->method == 'POST') {
+            //报考层次
+            $arrange = intval($this->req->post('arrange'));
+            //学校
+            $school = intval($this->req->post('school'));
+            //专业类别
+            $professType = intval($this->req->post('professType'));
+            //专业名称
+            $title = trim($this->req->post('title'));
+            
+            //校验
+            if (!$school) {
+                throw new Exception("请选择所属学校~");
+            }
+            if (!professType) {
+                throw new Exception("请选择所属专业类别~");
+            }
+            if (!$title) {
+                throw new Exception("请输入专业名称");
+            }
+            
+            $item = $operation_model->getRow(array('parent_id' => $arrange,'status' => 1,'type' => 'school'));
+            if (!$item) {
+                throw new Exception("学校信息不存在~");
+            }
+            
+            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){4,15}$/', $title)) {
+                throw new Exception("专业名称格式不正确~");
+            }
+            
+            $data = array(
+                'title' => $title,
+                'parent_id' => $school,
+                'type' => 'profess',
+                'fees' => $professType,
+                'create_time' => time(),
+                'admin_name' => $this->getUserName(),
+            );
+            $id = $operation_model->insertOne($data);
+            $this->success();
         }
         //报考层次
         $arrangeInfo = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
