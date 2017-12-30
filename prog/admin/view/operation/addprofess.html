@@ -76,7 +76,7 @@
 								  <tr style="border:none;">
 									<td style="text-align:center;" colspan="2">
                                   <button type="button" class="btn btn-shadow btn-primary">保存</button>
-                                  <button type="button" class="btn btn-shadow btn-default">取消</button>								
+                                  <button type="button" class="btn btn-shadow btn-default" onclick="javascript:window.location.href='/operation/profess.html'">取消</button>								
 									</td>
 								  </tr>
 		                          </tbody>
@@ -120,9 +120,9 @@ $('.btn-primary').click(function(){
 	//报考层次
 	var arrange = $("input[type='radio']:checked").val();
 	//学校
-	var school = $("#school").find("option:selected").text();
+	var school = $("#school").val();
 	//专业类别
-	var professType = $("#professType").find("option:selected").text();
+	var professType = $("#professType").val();
 	//专业名称
 	var title = $("#title").val();
 

@@ -216,8 +216,29 @@ class OperationController extends AuthController
     //专业配置
     public function profess()
     {
+        $operation_model = new OperationModel();
+        
+        $arrange = intval($this->req->get('arrange'));
+        $school = intval($this->req->get('school'));
+        
+        $cond = array(
+            'status' => 1,
+            'type' => 'profess',
+        );
+        
+        if ($school) {
+            $cond['school'] = $school;
+        }
+        
+        //专业列表
+        $re = $operation_model->getList($cond, -1);
+        //层次和学校信息
+        $arrangeInfo = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        
         $this->display('operation/profess.html', array(
                 'title' => '专业配置',
+                'lists' => $re['rows'],
+                'arrangeInfo' => $re['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'profess',
