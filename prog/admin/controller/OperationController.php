@@ -231,7 +231,7 @@ class OperationController extends AuthController
         }
         
         if ($school) {
-            $cond['school'] = $school;
+            $cond['parent_id'] = $school;
         }
         
         //专业列表
