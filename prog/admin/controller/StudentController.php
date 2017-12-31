@@ -63,21 +63,23 @@ class StudentController extends AuthController
             );
             //附加信息
             $extra_data = array(
-            		'student_id' => $id,
-            		'confirm_id' => $confirm_id,
-            		'arrange' => $arrange,
-            		'professType' => $professType,
-            		'school' => $school,
-            		'profess' => $profess,
-            		'entryFee' => $entryFee,
-            		'fees' => $fees,
-            		'extra' => $extra,
+                    'confirm_id' => $confirm_id,
+                    'arrange' => $arrange,
+                    'professType' => $professType,
+                    'school' => $school,
+                    'profess' => $profess,
+                    'entryFee' => $entryFee,
+                    'fees' => $fees,
+                    'extra' => $extra,
             );
             //校验
             $this->check($data, $extra_data);
             $id = $student_model->insertOne($data);
-            
+            if (!$id) {
+                $extra_data['student_id'] = $id;
+            }
             $student_model->insertOne($extra_data, 'student_extra');
+            $this->success();
         }
         
         //二级代理
