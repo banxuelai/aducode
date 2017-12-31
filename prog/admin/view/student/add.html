@@ -37,7 +37,7 @@
 		                          <tr>
 		                          	  <th class="form_table_th">二级代理</th>
 		                          	  <td>
-                                         <select class="form-control m-bot15">
+                                         <select class="form-control m-bot15" name='agent_id' id = "agent_id">
                                               <option>请选择</option>
                                               {% for key,item in agentInfo %}
                                               <option value = "{{item.id}}">{{item.name}}</option>
@@ -160,10 +160,8 @@
 		                          </tbody>
 		                          </table>
                               </form>
-
                           </div>
                       </section>
-
                   </div>
               </div>
 
@@ -177,7 +175,7 @@
 <script type="text/javascript">
 
 //select 联动 根据层次获取学校
-$("#arrange").click(function(){
+$("#arrange").change(function(){
 	var  arrange = $(this).val();
 	$.ajax({
 		url: '/operation/schoolInfo.json',
@@ -193,7 +191,7 @@ $("#arrange").click(function(){
 	});
 });
 //select 联动 根据学校获取专业
-$("#school").click(function(){
+$("#school").change(function(){
 	var  school = $(this).val();
 	$.ajax({
 		url: '/operation/professInfo.json',
@@ -210,7 +208,7 @@ $("#school").click(function(){
 });
 
 //select 联动 根据专业获取学费
-$("#profess").click(function(){
+$("#profess").change(function(){
 	var  profess = $(this).val();
 	$.ajax({
 		url: '/operation/feesInfo.json',
@@ -218,6 +216,61 @@ $("#profess").click(function(){
 		data:{profess:profess},  
 		success: function(re){
 			$("#fees").val(re.data);
+		}
+	});
+});
+
+//提交按钮
+$('.btn-primary').click(function(){
+	var agent_id = $("#agent_id").val();
+	var name = $("#name").val();
+	var gender = $("input[type='radio']:checked").val();
+	var phone = $("#phone").val();
+	var ethnic = $("#ethnic").val();
+	var ID_num = $("#ID_num").val();
+	var province = $("#province").find("option:selected").text();
+	var city = $("#city").find("option:selected").text();
+	var district = $("#districtAndCounty").find("option:selected").text();
+	var confirm_id = $("#confirm_id").val();
+	var arrange = $("#arrange").val();
+	var professType = $("#professType").val();
+	var school = $("#school").val();
+	var profess = $("#profess").val();
+	var entryFee = $("#entryFee").val();
+	var fees = $("#fees").val();
+	var extra = $("#extra").val();
+	
+	var adddata = {
+			agent_id:agent_id,
+			name:name,
+			gender:gender,
+			phone:phone,
+			ethnic:ethnic,
+			ID_num:ID_num,
+			province:province,
+			city:city,
+			district:district,
+			confirm_id:confirm_id,
+			arrange:arrange,
+			professType:professType,,
+			school:school,
+			profess:profess,
+			entryFee:entryFee,
+			fees:fees,
+			extra:extra
+	}
+	$.ajax({
+		url: '/student/add.json',
+		method: 'POST',
+		data:adddata,  
+		success: function(re){
+			if(re.error_code > 0){
+				alert(re.error_msg);
+				return false;
+			}
+			else{
+				location.href = "/student/lists.html";
+			}			
 		}
 	});
 });

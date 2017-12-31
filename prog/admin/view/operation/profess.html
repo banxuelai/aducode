@@ -90,7 +90,7 @@
 {%include "foot.html"%}
 <script type="text/javascript">
 //select 联动
-$("#arrange").click(function(){
+$("#arrange").change(function(){
 	var  arrange = $(this).val();
 	$.ajax({
 		url: '/operation/schoolInfo.json',
