@@ -339,6 +339,28 @@ class OperationController extends AuthController
         $this->success($info['rows']);
     }
     
+    //根据学校获取专业
+    public function professInfo()
+    {
+        $school = intval($this->req->post('school'));
+        
+        $operation_model = new OperationModel();
+        $info = $operation_model->getList(array('status' => 1,'parent_id' => $school,'type' => 'profess'), -1);
+        $this->success($info['rows']);
+    }
+    
+    //根据专业获取学费
+    public function feesInfo()
+    {
+        $profess = intval($this->req->post('profess'));
+        $operation_model = new OperationModel();
+        
+        //学费id
+        $fees_info = $operation_model->getRow(array('id' => $profess,'status' => 1));
+        $fees = $operation_model->getRow(array('id' => $fees_info['fees'],'status' => 1));
+        $this->success($fees['fees']);
+    }
+    
     //删除
     public function del()
     {
