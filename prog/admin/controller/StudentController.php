@@ -137,7 +137,7 @@ class StudentController extends AuthController
             throw new Exception("身份证号不能为空~");
         }
         
-        if (!preg_match('/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/', $data['name'])) {
+        if (!preg_match('(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)', $data['name'])) {
             throw new Exception("身份证号不正确~");
         }
         
