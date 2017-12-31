@@ -3950,3 +3950,17 @@ span.customSelect.changed {
 	/*padding-right:10px;*/
 	padding:5px;
 }
+
+/*page*/
+.page {
+  text-align: center;
+}
+/* line 552, ../sass/main.scss */
+.page .pagination-info {
+  padding: 6px 12px;
+  display: inline-block;
+}
+/* line 556, ../sass/main.scss */
+.page .pagination-info, .page .pagination {
+  vertical-align: middle;
+}
