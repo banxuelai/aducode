@@ -26,8 +26,10 @@ class StudentController extends AuthController
         $operation_model = new OperationModel();
         $confirm_model = new ConfirmModel();
         
+        $uid = $this->getUidbySess();
+        
+        
         if ($this->req->method == 'POST') {
-            $uid = $this->getUidbySess();
             $name = trim($this->req->post('name'));
             $agent_id = intval($this->req->post('agent_id'));
             $gender = trim($this->req->post('gender'));
