@@ -23,7 +23,7 @@ class AgentModel extends Model
         $where_str = $this->getWhereStr($cond);
         $from_str = " FROM `{$this->table}` $where_str ";
         $count_sql = "SELECT count(*) $from_str ";
-        $sql = " SELECT id,name,phone  $from_str order by  CONVERT(province USING gbk) ,CONVERT(city USING gbk),CONVERT(district USING gbk)   ";
+        $sql = " SELECT id,name,phone  $from_str order by  CONVERT(name USING gbk)  ";
         if ($offset >= 0 && $limit > 0) {
             $sql .= " LIMIT $offset, $limit ";
         }
