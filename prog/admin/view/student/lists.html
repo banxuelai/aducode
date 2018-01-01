@@ -91,12 +91,12 @@
                           <tbody>
                           {% for key,item in lists %}
                           <tr class="odd gradeX">
-                              <td>王晓伟</td>
-                              <td>马琳</td>
-                              <td>山东政法学院</td>
-                              <td>法学</td>
+                              <td>{{item.agent_name}}</td>
+                              <td>{{item.name}}</td>
+                              <td>{{item.school_name}}</td>
+                              <td>{{item.profess_name}}</td>
                               <td>已缴</td>
-                              <td class="hidden-phone">山东省济南市历下区</td>
+                              <td class="hidden-phone">{{item.province}}{{item.city}}{{item.district}}</td>
                               <td class="hidden-phone">
                                       <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>

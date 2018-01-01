@@ -57,10 +57,10 @@ class StudentController extends AuthController
         foreach ($re['rows'] as $key => $val) {
             //二级代理
             $agent_info = $agent_model->getRow(array('status' => 1,'id' => $val['agent_id']));
-            $re['rows'][$key]['agent'] = $agent_info['name'];
+            $re['rows'][$key]['agent_name'] = $agent_info['name'];
             //学校
             $school_info = $operation_model->getRow(array('status' => 1,'id' => $val['school'],'type' => 'school'));
-            $re['rows'][$key]['school_name'] = $agent_info['title'];
+            $re['rows'][$key]['school_name'] = $school_info['title'];
             //专业
             $profess_info = $operation_model->getRow(array('status' => 1,'id' => $val['profess'],'type' => 'profess'));
             $re['rows'][$key]['profess_name'] = $profess_info['title'];
