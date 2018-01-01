@@ -123,6 +123,7 @@ class StudentController extends AuthController
             
             //student 基础信息
             $data = array(
+                'uid' => $uid,
                 'agent_id' => $agent_id,
                 'name' => $name,
                 'gender' => $gender,
