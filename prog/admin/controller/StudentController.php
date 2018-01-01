@@ -80,6 +80,7 @@ class StudentController extends AuthController
         $this->display('student/lists.html', array(
                 'title' => '我的录入',
                 'pages' => $pageHtml,
+                'lists' => $re['rows'],
                 'userInfo' => $uid_list['rows'],
                 'agentInfo' => $agent_info['rows'],
                 'schoolInfo' => $school_info['rows'],
