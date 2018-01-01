@@ -33,7 +33,7 @@ class StudentController extends AuthController
         );
         
         if ($name) {
-            $cond['a.name'] = $name;
+            $cond['a.name'] = array('like' => "%$name%");
         }
         
         if ($uid) {
