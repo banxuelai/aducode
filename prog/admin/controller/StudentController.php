@@ -23,6 +23,12 @@ class StudentController extends AuthController
         $profess = intval($this->req->get('profess'));
         $uid = $this->getUidbySess();
         
+        $search = array();
+        $search['name'] = $name;
+        $search['agent_id'] = $agent_id;
+        $search['school'] = $school;
+        $search['profess'] = $profess;
+        
         $page = intval($this->req->get('page'));
         $page_size = max(intval($this->req->get('page_size')), 20);
         empty($page) && $page = 1;
@@ -86,6 +92,7 @@ class StudentController extends AuthController
                 'schoolInfo' => $school_info['rows'],
                 'professInfo' => $profess_info['rows'],
                 'nickname' => $this->getUserName(),
+                'search' => $search,
                 'menu' => 'student',
                 'sub' => 'lists',
         ));

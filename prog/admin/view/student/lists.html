@@ -40,17 +40,17 @@
                                      <select class="form-control m-bot15" name = "uid" id = "uid">
                                               <option>请选择</option>
                                               {% for key,item in userInfo %}
-                                              	<option value = "{{item.id}}">{{item.name}}</option>
+                                              	<option value = "{{item.id}}" {% if uid == item.id %}selected{%endif%}>{{item.name}}</option>
                                               {% endfor %}
                                        </select>
                               	 </div>
                              	 <div class="form-group">
-                                   	   姓名<input type="text" class="form-control" size="6" id="name" name = "name" value = ""> 
+                                   	   姓名<input type="text" class="form-control" size="6" id="name" name = "name" value = "search.name"> 
                                    	   二级代理
                                      <select class="form-control m-bot15" name = "agent_id" id = "agent_id">
                                               <option>请选择</option>
                                               {% for key,item in agentInfo %}
-                                              	<option value = "{{item.id}}">{{item.name}}</option>
+                                              	<option value = "{{item.id}}" {% if search.agent_id== item.id %}selected{%endif%}>{{item.name}}</option>
                                               {% endfor %}
                                               
                                        </select> 
@@ -60,7 +60,7 @@
                                      <select class="form-control m-bot15" name = "school" id = "school">
                                               <option>请选择</option>
                                               {% for key,item in schoolInfo %}
-                                              	<option value = "{{item.id}}">{{item.title}}</option>
+                                              	<option value = "{{item.id}}" {% if search.school== item.id %}selected{%endif%}>{{item.title}}</option>
                                               {% endfor %}
                                               
                                        </select> 
@@ -68,7 +68,7 @@
                                      <select class="form-control m-bot15" id = "profess" name = "profess">
                                               <option>请选择</option>
                                               {% for key,item in professInfo %}
-                                              	<option value = "{{item.id}}">{{item.title}}</option>
+                                              	<option value = "{{item.id}}" {% if search.profess == item.id %}selected{%endif%}>{{item.title}}</option>
                                               {% endfor %}
                                               
                                        </select> 
@@ -83,7 +83,7 @@
                               <th>姓名</th>
                               <th>学校</th>
                               <th>专业</th>
-                              <th>学费</th>
+                              <th class="hidden-phone">学费</th>
                               <th class="hidden-phone">户籍地</th>
                               <th class="hidden-phone">操作</th>
                           </tr>
@@ -95,7 +95,7 @@
                               <td>{{item.name}}</td>
                               <td>{{item.school_name}}</td>
                               <td>{{item.profess_name}}</td>
-                              <td>已缴</td>
+                              <td class="hidden-phone">已缴</td>
                               <td class="hidden-phone">{{item.province}}{{item.city}}{{item.district}}</td>
                               <td class="hidden-phone">
                                       <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
