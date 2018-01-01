@@ -34,28 +34,43 @@
                               <button type="submit" class="btn btn-round btn-primary" onclick="javascript:window.location.href='/student/add.html'">录入</button>
                           </div>
                           <div class="panel-body">
-                              <form class="form-inline" role="form">
-                             	 <div class="form-group">
-                                   	   姓名：<input type="email" class="form-control" size="6" id=""> 
-                                   	   代理：
-                                     <select class="form-control m-bot15">
+                              <form class="form-inline">
+                              	 <div class = "form-group">
+                              	 	 一级代理：
+                                     <select class="form-control m-bot15" name = "uid" id = "uid">
                                               <option>请选择</option>
-                                              <option>王晓伟</option>
-                                              <option>徐靖</option>
+                                              {% for key,item in userInfo %}
+                                              	<option value = "{{item.id}}">{{item.name}}</option>
+                                              {% endfor %}
+                                       </select>
+                              	 </div>
+                             	 <div class="form-group">
+                                   	   姓名：<input type="email" class="form-control" size="6" id="name" name = "name" value = ""> 
+                                   	   二级代理：
+                                     <select class="form-control m-bot15" name = "agent_id" id = "agent_id">
+                                              <option>请选择</option>
+                                              {% for key,item in agentInfo %}
+                                              	<option value = "{{item.id}}">{{item.name}}</option>
+                                              {% endfor %}
+                                              
                                        </select> 
                                    </div>
                                    <div class="form-group"> 
                                                                                               学校：
-                                     <select class="form-control m-bot15">
-                                              <option>Option 1</option>
-                                              <option>Option 2</option>
-                                              <option>Option 3</option>
+                                     <select class="form-control m-bot15" name = "school" id = "school">
+                                              <option>请选择</option>
+                                              {% for key,item in schoolInfo %}
+                                              	<option value = "{{item.id}}">{{item.title}}</option>
+                                              {% endfor %}
+                                              
                                        </select> 
                                     	专业：
-                                     <select class="form-control m-bot15">
-                                              <option>Option 1</option>
-                                              <option>Option 2</option>
-                                              <option>Option 3</option>
+                                     <select class="form-control m-bot15" id = "profess" name = "profess">
+                                              <option>请选择</option>
+                                              {% for key,item in professInfo %}
+                                              	<option value = "{{item.id}}">{{item.title}}</option>
+                                              {% endfor %}
+                                              
                                        </select> 
                                     </div>
                                        <button type="submit"  class="btn btn-shadow btn-primary">查询</button>
@@ -109,327 +124,8 @@
                                       <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>
-                          </tbody>
+                          </tr>            
+                           </tbody>
                           </table>
                       </section>
                   </div>

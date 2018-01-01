@@ -21,9 +21,9 @@ class StudentModel extends Model
         $offset = intval($offset);
         $limit = intval($limit);
         $where_str = $this->getWhereStr($cond);
-        $from_str = " FROM `{$this->table}` $where_str ";
+        $from_str = "  FROM `student` a LEFT JOIN student_extra  b ON a.id = b.student_id  $where_str ";
         $count_sql = "SELECT count(*) $from_str ";
-        $sql = " SELECT id,name,phone  $from_str order by CONVERT(name USING gbk)  ";
+        $sql = " SELECT a.*,b.*  $from_str  ";
         if ($offset >= 0 && $limit > 0) {
             $sql .= " LIMIT $offset, $limit ";
         }
@@ -35,5 +35,13 @@ class StudentModel extends Model
             $re['rows'] = $this->queryRows($sql);
         }
         return $re;
+    }
+    
+    //获取单条记录
+    public function getItem($student_id)
+    {
+        $student_id = intval($student_id);
+        $sql = "SELECT a.*,b.*  FROM `student` a LEFT JOIN student_extra  b ON a.id = b.student_id where a.id = '$student_id'";
+        return $this->queryFirst($sql);
     }
 }

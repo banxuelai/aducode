@@ -10,8 +10,29 @@ class StudentController extends AuthController
     //列表
     public function lists()
     {
+        $student_model = new StudentModel();
+        $agent_model = new AgentModel();
+        $operation_model = new OperationModel();
+        $confirm_model = new ConfirmModel();
+        $user_model = new UserModel();
+        
+        $uid = $this->getUidbySess();
+        if ($this->getTypebyUid() == 1) {
+            $uid_list = $user_model->getList(array('status' => 1), -1);
+        }
+        //
+        //二级代理
+        $agent_info = $agent_model->getList(array('uid' => $uid,'status' => 1), -1);
+        //学校
+        $school_info = $operation_model->getList(array('status' => 1,'type' => 'school'), -1);
+        //专业
+        $profess_info = $operation_model->getList(array('status' => 1,'type' => 'profess'), -1);
         $this->display('student/lists.html', array(
                 'title' => '我的录入',
+                'userInfo' => $uid_list['rows'],
+                'agentInfo' => $agent_info['rows'],
+                'schoolInfo' => $school_info['rows'],
+                'professInfo' => $profess_info['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'lists',
@@ -173,5 +194,10 @@ class StudentController extends AuthController
         if (!$extra_data['fees']) {
             throw new Exception("学费不能为空~");
         }
+    }
+    
+    //学员信息详情
+    public function detail()
+    {
     }
 }
