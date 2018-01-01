@@ -75,7 +75,7 @@ class StudentController extends AuthController
             //校验
             $this->check($data, $extra_data);
             $id = $student_model->insertOne($data);
-            if (!$id) {
+            if ($id) {
                 $extra_data['student_id'] = $id;
             }
             $student_model->insertOne($extra_data, 'student_extra');
@@ -129,7 +129,7 @@ class StudentController extends AuthController
             throw new Exception("民族不能为空~");
         }
         
-        if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){1,9}$/', $data['name'])) {
+        if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){1,9}$/', $data['ethnic'])) {
             throw new Exception("民族格式不正确~");
         }
         
@@ -137,7 +137,7 @@ class StudentController extends AuthController
             throw new Exception("身份证号不能为空~");
         }
         
-        if (!preg_match('/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/', $data['name'])) {
+        if (!preg_match('/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/', $data['ID_num'])) {
             throw new Exception("身份证号不正确~");
         }
         
