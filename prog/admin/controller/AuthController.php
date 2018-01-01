@@ -75,7 +75,6 @@ class AuthController extends Controller
      * @param int $currPage 当前页
      * @param int $perPage 每页显示多少条
      * @return string 生成的html字符串
-     * banxuelai@vread.com
      */
     protected function createPageHtml($url, $total, $currPage, $perPage = 20)
     {

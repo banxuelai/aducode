@@ -89,6 +89,7 @@
                           </tr>
                           </thead>
                           <tbody>
+                          {% for key,item in lists %}
                           <tr class="odd gradeX">
                               <td>王晓伟</td>
                               <td>马琳</td>
@@ -101,31 +102,8 @@
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
                           </tr>
-                          <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>
-                                                    <tr class="odd gradeX">
-                              <td>徐靖</td>
-                              <td>秦洁</td>
-                              <td>济南大学</td>
-                              <td>软件工程</td>
-                              <td>未缴</td>
-                              <td class="hidden-phone">山东省青岛市市北区</td>
-                              <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td>
-                          </tr>            
-                           </tbody>
+                          {% endfor %}
+                                   </tbody>
                           </table>
                       </section>
                   </div>
@@ -134,37 +112,11 @@
           </section>
       </section>
       <!--main content end-->
-            <!--pagination start-->
+           <!--pagination start-->
            <section class="page">
-       
-               <div class="pagination-info">共50条记录</div>
-                <ul class="pagination">
-                  <li class="disabled">
-                  <span aria-hidden="true">&laquo;</span>
-	              </li>
-	              <li class="active">
-	                <span>1</span>
-	              </li>
-	              <li>
-	                <a href="#">2</a>
-	              </li>
-	              <li>
-	                <a href="#">3</a>
-	              </li>
-	              <li>
-	                <a href="#">4</a>
-	              </li>
-	              <li>
-	                <a href="#">5</a>
-	              </li>
-	              <li>
-	                <a href="#" aria-label="Next">
-	                  <span aria-hidden="true">&raquo;</span>
-	                </a>
-	              </li>
-                </ul>                  
-       </section>
-      <!--pagination end-->
+           	{{pages | raw}}
+	       </section>
+	      <!--pagination end-->
   </section>
 {%include "foot.html"%}  
 {%endblock%}

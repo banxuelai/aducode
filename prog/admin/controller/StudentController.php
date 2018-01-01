@@ -16,7 +16,57 @@ class StudentController extends AuthController
         $confirm_model = new ConfirmModel();
         $user_model = new UserModel();
         
+        $name = trim($this->req->get('name'));
+        $uid = intval($this->req->get('uid'));
+        $agent_id = intval($this->req->get('agent_id'));
+        $school = intval($this->req->get('school'));
+        $profess = intval($this->req->get('profess'));
         $uid = $this->getUidbySess();
+        
+        $page = intval($this->req->get('page'));
+        $page_size = max(intval($this->req->get('page_size')), 20);
+        empty($page) && $page = 1;
+        $offset = ($page - 1) * $page_size;
+      
+        $cond = array(
+            'a.status' => 1,
+        );
+        
+        if ($name) {
+            $cond['a.name'] = $name;
+        }
+        
+        if ($uid) {
+            $cond['a.uid'] = $uid;
+        }
+        
+        if ($agent_id) {
+            $cond['a.agent_id'] = $agent_id;
+        }
+
+        if ($school) {
+            $cond['b.school'] = $school;
+        }
+        
+        if ($profess) {
+            $cond['b.profess'] = $profess;
+        }
+       
+        $re = $student_model->getList($cond, $offset, $page_size);
+        
+        foreach ($re['rows'] as $key => $val) {
+            //二级代理
+            $agent_info = $agent_model->getRow(array('status' => 1,'id' => $val['agent_id']));
+            $re['rows'][$key]['agent'] = $agent_info['name'];
+            //学校
+            $school_info = $operation_model->getRow(array('status' => 1,'id' => $val['school'],'type' => 'school'));
+            $re['rows'][$key]['school_name'] = $agent_info['title'];
+            //专业
+            $profess_info = $operation_model->getRow(array('status' => 1,'id' => $val['profess'],'type' => 'profess'));
+            $re['rows'][$key]['profess_name'] = $profess_info['title'];
+        }
+        $pageHtml = $this->createPageHtml($this->buildUrl("student/lists.html", $this->req->get()), $re['count'], $page, $page_size);
+        
         if ($this->getTypebyUid() == 1) {
             $uid_list = $user_model->getList(array('status' => 1), -1);
         }
@@ -29,6 +79,7 @@ class StudentController extends AuthController
         $profess_info = $operation_model->getList(array('status' => 1,'type' => 'profess'), -1);
         $this->display('student/lists.html', array(
                 'title' => '我的录入',
+                'pages' => $pageHtml,
                 'userInfo' => $uid_list['rows'],
                 'agentInfo' => $agent_info['rows'],
                 'schoolInfo' => $school_info['rows'],
