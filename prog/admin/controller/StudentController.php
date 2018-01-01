@@ -60,6 +60,7 @@ class StudentController extends AuthController
                 'province' => $province,
                 'city' => $city,
                 'district' => $district,
+                'create_time' => time(),
             );
             //附加信息
             $extra_data = array(

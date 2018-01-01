@@ -296,7 +296,7 @@ class OperationController extends AuthController
                 throw new Exception("学校信息不存在~");
             }
             
-            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){4,15}$/', $title)) {
+            if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){2,15}$/', $title)) {
                 throw new Exception("专业名称格式不正确~");
             }
             
