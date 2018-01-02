@@ -98,13 +98,29 @@ class UserController extends AuthController
     //修改资料
     public function modify()
     {
-        $password = trim($this->req->post('password'));
-        if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $password)) {
-            throw new Exception("密码必须由字母和数字组成~");
+        $user_model = new UserModel();
+        $uid = $this->getUidbySess();
+        
+        if ($this->req->method == 'POST') {
+            $password = trim($this->req->post('password'));
+            if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $password)) {
+                throw new Exception("密码必须由字母和数字组成~");
+            }
+            if (strlen($password) < 6) {
+                throw new Exception("密码长度不能少于6位~");
+            }
         }
-        if (strlen($password) < 6) {
-            throw new Exception("密码长度不能少于6位~");
-        }
+
+        $item = $user_model->getRow(array('status' => 1,'id' => $uid));
+        $view = array(
+                'title' => '用户列表',
+                'item' => $item,
+                'nickname' => $this->getUserName(),
+                'menu' => 'me',
+                'sub' => 'modify',
+                'type' => $this->getTypebyUid(),
+        );
+        $this->display('user/modify.html', $view);
     }
     
     //删除用户
