@@ -290,10 +290,6 @@ class StudentController extends AuthController
             //专业
             $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
             $student_info['profess_name'] = $profess_info['title'];
-                       
-            //学费
-            $entryFee_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['fees'],'type' => 'professType'));
-            $student_info['fees'] = $entryFee_info['fees'];
         }
         
         $this->display('student/detail.html', array(
