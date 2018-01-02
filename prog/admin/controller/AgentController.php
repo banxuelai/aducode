@@ -100,7 +100,7 @@ class AgentController extends AuthController
             throw new Exception("没有删除权限~");
         }
         
-        $agent_model->updateOne(array('status' => -1), array('id' => $id));
+        $agent_model->updateOne(array('status' => -1,'update_time' => time()), array('id' => $id));
         
         $this->success();
     }

@@ -142,7 +142,7 @@ class UserController extends AuthController
                 
                 $data['password'] = password_hash($new_password1, PASSWORD_DEFAULT);
             }
-            
+            $data['update_time'] = time();
             //更新
             $id = $user_model->updateOne($data, array('id' => $uid,'status' => 1));
             
@@ -182,7 +182,7 @@ class UserController extends AuthController
             throw new Exception("用户不存在~");
         }
         
-        $user_model->updateOne(array('status' => -1), array('id' => $id));
+        $user_model->updateOne(array('status' => -1,'update_time' => time()), array('id' => $id));
         
         $this->success();
     }
