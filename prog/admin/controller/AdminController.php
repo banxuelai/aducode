@@ -11,21 +11,28 @@ class AdminController extends Controller
     public function login()
     {
         $back_url = $this->req->get('back_url');
+        $user_model = new UserModel();
         
         if ($this->req->method == 'POST') {
             $nickname = trim($this->req->post('nickname'));
             $password = trim($this->req->post('password'));
+            $remember = $this->req->post('remember');
             $back_url = $back_url ? $back_url : Config::site('base_url');
             
             $user_info = $this->checkLogin($nickname, $password);
             session_regenerate_id(true);
             Session::set('aducode', array(
             'login_time' => time(),
-            'active_time' => time(),
+            'active_time' => ($remember == 'remember') ? (time() + 86400) : time(),
             'nickname' => $nickname,
             'name' => $user_info['name'],
             'type' => $user_info['type'],
             'id' => $user_info['id']));
+            $data = array(
+                'last_login_ip' => $this->req->client_ip,
+                'last_login_time' => time(),
+            );
+            $user_model->updateOne($data, array('nickname' => $nickname));
             //$this->redirect("/?back_url=$back_url");
             $this->success($back_url);
         }
