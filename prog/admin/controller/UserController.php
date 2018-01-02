@@ -130,7 +130,7 @@ class UserController extends AuthController
                     throw new Exception("两次密码输入不一样～");
                 }
                 //新旧密码
-                if ($new_password1 != $password) {
+                if ($new_password1 == $password) {
                     throw new Exception("新旧密码不能一样～");
                 }
                 if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $new_password1)) {
