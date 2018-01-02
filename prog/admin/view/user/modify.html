@@ -50,19 +50,19 @@
 		                          <tr>
 		                          	  <th class="form_table_th">旧密码</th>
 		                          	  <td>
-		                                      <input name = "password" id = "password" type="password" class="form-control" placeholder="密码">
+		                                      <input name = "password" id = "password" type="password" class="form-control" placeholder="旧密码">
  									  </td>
 		                          </tr>	
 		                          <tr>
 		                          	  <th class="form_table_th">新密码</th>
 		                          	  <td>
-		                                      <input name = "password" id = "password" type="password" class="form-control" placeholder="密码">
+		                                      <input name = "new_password1" id = "new_password1" type="password" class="form-control" placeholder="新密码">
  									  </td>
 		                          </tr>	
 		                          <tr>
 		                          	  <th class="form_table_th">确认密码</th>
 		                          	  <td>
-		                                      <input name = "password" id = "password" type="password" class="form-control" placeholder="密码">
+		                                      <input name = "new_password2" id = "new_password1" type="password" class="form-control" placeholder="确认密码">
  									  </td>
 		                          </tr>	
 		                          	                       
@@ -92,20 +92,22 @@
 //提交按钮
 $('.btn-primary').click(function(){
 	
-	var name = $("#name").val();
 	var phone = $("#phone").val();
+	var password = $("#password").val();
+	var new_password1 = $("#new_password1").val();
+	var new_password2 = $("#new_password2").val();
 	
 	$.ajax({
-		url: '/user/add.json',
+		url: '/user/modify.json',
 		method: 'POST',
-		data:{name:name,phone:phone},  
+		data:{phone:phone,password:password,new_password1:new_password1,new_password2:new_password2},  
 		success: function(re){
 			if(re.error_code > 0){
 				alert(re.error_msg);
 				return false;
 			}
 			else{
-				location.href = "/user/lists.html";
+				alert("修改成功~");
 			}			
 		}
 	});

@@ -101,17 +101,55 @@ class UserController extends AuthController
         $user_model = new UserModel();
         $uid = $this->getUidbySess();
         
+        $item = $user_model->getRow(array('status' => 1,'id' => $uid));
+        
         if ($this->req->method == 'POST') {
+            $phone = $this->req->post('phone');
             $password = trim($this->req->post('password'));
-            if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $password)) {
-                throw new Exception("密码必须由字母和数字组成~");
+            $new_password1 = trim($this->req->post('new_password1'));
+            $new_password2 = trim($this->req->post('new_password2'));
+            
+            if (!$phone) {
+                throw new Exception("手机号不能为空~");
             }
-            if (strlen($password) < 6) {
-                throw new Exception("密码长度不能少于6位~");
+            if (!preg_match('/0?(13|14|15|17|18|19)[0-9]{9}/', $phone)) {
+                throw new Exception("手机号格式不正确~");
             }
+            
+            $data = array(
+                    'phone' => $phone,
+            );
+            
+            if ($password || $new_password1 ||$new_password2) {
+                //旧密码
+                if (!$item || !password_verify($password, $item['password'])) {
+                    throw new Exception("旧密码错误～");
+                }
+                //确认密码比较
+                if ($new_password1 != $new_password2) {
+                    throw new Exception("两次密码输入不一样～");
+                }
+                //新旧密码
+                if ($new_password1 != $password) {
+                    throw new Exception("新旧密码不能一样～");
+                }
+                if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $new_password1)) {
+                    throw new Exception("密码必须由字母和数字组成~");
+                }
+                if (strlen($new_password1) < 6) {
+                    throw new Exception("密码长度不能少于6位~");
+                }
+                
+                $data['password'] = password_hash($new_password1, PASSWORD_DEFAULT);
+            }
+            
+            //更新
+            $id = $user_model->updateOne($data, array('id' => $uid,'status' => 1));
+            
+            $this->success();
         }
 
-        $item = $user_model->getRow(array('status' => 1,'id' => $uid));
+       
         $view = array(
                 'title' => '用户列表',
                 'item' => $item,
