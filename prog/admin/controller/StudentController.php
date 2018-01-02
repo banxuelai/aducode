@@ -315,21 +315,21 @@ class StudentController extends AuthController
            //缴费信息
             $fees1 = $fees2 = 0;
             if ($student_info['fees_status'] == 1) {
-               $fees1 =  $fees1 * $this->feesConfig[1];
+               $fees1 =  $student_info['fees'] * $this->feesConfig[1];
             }
             
             if ($student_info['fees_status'] == 2) {
-               $fees2 =  $fees2 * $this->feesConfig[2];
+               $fees2 =  $student_info['fees'] * $this->feesConfig[2];
             }
             
             if ($student_info['fees_status'] == 3) {
-                $fees1 = $fees1 * $this->feesConfig[1];
-                $fees2 = $fees2 * $this->feesConfig[2];
+                $fees1 = $student_info['fees'] * $this->feesConfig[1];
+                $fees2 = $student_info['fees'] * $this->feesConfig[2];
             }
             $student_info['fees1'] = $fees1;
             $student_info['fees2'] = $fees2;
             $student_info['all_fees'] = $fees1 + $fees2;
-                }
+        }
         
         $this->display('student/detail.html', array(
                 'title' => '详情信息',
@@ -399,16 +399,16 @@ class StudentController extends AuthController
             //缴费信息
             $fees1 = $fees2 = 0;
             if ($student_info['fees_status'] == 1) {
-               $fees1 =  $fees1 * $this->feesConfig[1];
+               $fees1 =  $student_info['fees'] * $this->feesConfig[1];
             }
             
             if ($student_info['fees_status'] == 2) {
-               $fees2 =  $fees2 * $this->feesConfig[2];
+               $fees2 =  $student_info['fees'] * $this->feesConfig[2];
             }
             
             if ($student_info['fees_status'] == 3) {
-                $fees1 = $fees1 * $this->feesConfig[1];
-                $fees2 = $fees2 * $this->feesConfig[2];
+                $fees1 = $student_info['fees'] * $this->feesConfig[1];
+                $fees2 = $student_info['fees'] * $this->feesConfig[2];
             }
             $student_info['fees1'] = $fees1;
             $student_info['fees2'] = $fees2;
