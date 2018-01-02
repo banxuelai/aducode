@@ -133,7 +133,7 @@ class UserController extends AuthController
                 if ($new_password1 == $password) {
                     throw new Exception("新旧密码不能一样～");
                 }
-                if (preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $new_password1)) {
+                if (!preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/', $new_password1)) {
                     throw new Exception("密码必须由字母和数字组成~");
                 }
                 if (strlen($new_password1) < 6) {
