@@ -7,6 +7,20 @@
  */
 class StudentController extends AuthController
 {
+    //缴费比例配置
+    private $feesConfig = array(
+            '1' => 0.4,
+            '2' => 0.6,
+    );
+    
+    //缴费状态
+    private $feesStatusConfig = array(
+            '0' => '未缴',
+            '1' => '缴费1',
+            '2' => '缴费2',
+            '3' => '已缴',
+    );
+    
     //列表
     public function lists()
     {
@@ -21,6 +35,7 @@ class StudentController extends AuthController
         $agent_id = intval($this->req->get('agent_id'));
         $school = intval($this->req->get('school'));
         $profess = intval($this->req->get('profess'));
+        $fees_status = $this->req->get('fees_status');
         $uid = $this->getUidbySess();
         
         $search = array();
@@ -29,6 +44,7 @@ class StudentController extends AuthController
         $search['agent_id'] = $agent_id;
         $search['school'] = $school;
         $search['profess'] = $profess;
+        $search['fees_status'] = $fees_status;
         
         $page = intval($this->req->get('page'));
         $page_size = max(intval($this->req->get('page_size')), 20);
@@ -63,6 +79,10 @@ class StudentController extends AuthController
         if ($profess) {
             $cond['b.profess'] = $profess;
         }
+        
+        if ($fees_status >= 0) {
+            $cond['b.fees_status'] = $fees_status;
+        }
        
         $re = $student_model->getList($cond, $offset, $page_size);
         
@@ -76,6 +96,8 @@ class StudentController extends AuthController
             //专业
             $profess_info = $operation_model->getRow(array('status' => 1,'id' => $val['profess'],'type' => 'profess'));
             $re['rows'][$key]['profess_name'] = $profess_info['title'];
+            //缴费状态
+            $re['rows'][$key]['fees_status'] = $this->feesStatusConfig[$val['fees_status']];
         }
         $pageHtml = $this->createPageHtml($this->buildUrl("student/lists.html", $this->req->get()), $re['count'], $page, $page_size);
         
@@ -332,30 +354,28 @@ class StudentController extends AuthController
         $student_info = $student_model->getItem($student_id);
         
         if ($this->req->method == 'POST') {
-        	$fees1 = $this->req->post('fees1');
-        	$fees2 = $this->req->post('fees2');
-        	if($fees1 && $fees2){
-        		$fees_status = 3;
-        	}
-        	elseif($fees1){
-        		if($student_info['fees_status'] == 2){
-        			$fees_status = 3;
-        		}
-        		if($student_info['fees_status'] == 0){
-        			$fees_status = 1;
-        		}
-        	}
-        	elseif($fees2){
-        		if($student_info['fees_status'] == 1){
-        			$fees_status = 3;
-        		}
-        		if($student_info['fees_status'] == 0){
-        			$fees_status = 2;
-        		}
-        	}
-        	//更新
-        	$id = $student_model->updateOne(array('fees_status'=>$fees_status,), array('student_id'=>$student_id),'student_extra');
-        	$this->success();
+            $fees1 = $this->req->post('fees1');
+            $fees2 = $this->req->post('fees2');
+            if ($fees1 && $fees2) {
+                $fees_status = 3;
+            } elseif ($fees1) {
+                if ($student_info['fees_status'] == 2) {
+                    $fees_status = 3;
+                }
+                if ($student_info['fees_status'] == 0) {
+                    $fees_status = 1;
+                }
+            } elseif ($fees2) {
+                if ($student_info['fees_status'] == 1) {
+                    $fees_status = 3;
+                }
+                if ($student_info['fees_status'] == 0) {
+                    $fees_status = 2;
+                }
+            }
+            //更新
+            $id = $student_model->updateOne(array('fees_status' => $fees_status,), array('student_id' => $student_id), 'student_extra');
+            $this->success();
         }
             
         if ($student_info) {
@@ -421,10 +441,4 @@ class StudentController extends AuthController
         }
         return $gender;
     }
-    
-    //缴费比例配置
-    private $feesConfig = array(
-        '1' => 0.4,
-        '2' => 0.6,
-    );
 }

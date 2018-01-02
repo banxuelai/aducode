@@ -180,14 +180,14 @@ $('.btn-primary').click(function(){
 $("#radio-02").click(function(){
 	var fees  = $("#fees").val();
 	var fees1 = fees * 0.4;
-	var str = '确认缴费1为  '+fees + '* 40% = '+fees1;
+	var str = '确认缴费1为  '+fees + ' * 40% = '+fees1;
 	alert(str);
 });
 $("#radio-04").click(function(){
 	var fees  = $("#fees").val();
 	var fees2 = fees * 0.6;
-	var str = '确认缴费2为  '+fees + '* 60% = '+fees1;
-	alert(str);
+	var radstr = '确认缴费2为  '+fees + ' * 60% = '+fees2;
+	alert(radstr);
 });
 </script>
 {%endblock%}

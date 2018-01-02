@@ -75,6 +75,16 @@
                                               
                                        </select> 
                                     </div>
+                                    <div class = "form-group">
+                              	 	缴费状态
+                                     <select class="form-control m-bot15" name = "fees_status" id = "fees_status">
+                                              <option value = "-1">请选择</option>
+											  <option value = "0" {% if search.fees_status == 0 %}selected{%endif%}>未缴</option>
+											  <option value = "1" {% if search.fees_status == 1 %}selected{%endif%}>缴费1</option>
+											  <option value = "2" {% if search.fees_status == 2 %}selected{%endif%}>缴费2</option>
+											  <option value = "3" {% if search.fees_status == 3 %}selected{%endif%}>已缴</option>
+                                       </select>
+                              	 </div>
                                        <button type="submit"  class="btn btn-shadow btn-primary">查询</button>
                               </form>
                           </div>
@@ -97,11 +107,10 @@
                               <td><a style="color: #FF0000" href = "/student/detail.html?student_id={{item.id}}">{{item.name}}</a></td>
                               <td>{{item.school_name}}</td>
                               <td>{{item.profess_name}}</td>
-                              <td class="hidden-phone">已缴</td>
+                              <td class="hidden-phone">{{item.fees_status}}</td>
                               <td class="hidden-phone">{{item.province}}{{item.city}}{{item.district}}</td>
                               <td class="hidden-phone">
-                                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
+                                      <button class="btn btn-primary btn-xs" onclick="javascript:window.location.href='/student/edit.html?student_id={{item.id}}'><i class="icon-pencil"></i></button>
                               </td>
                           </tr>
                           {% endfor %}
