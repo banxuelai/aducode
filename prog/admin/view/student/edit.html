@@ -162,11 +162,11 @@
 $('.btn-primary').click(function(){
 	var fees1 = $("input[name='fees1']:checked").val();
 	var fees2 = $("input[name='fees2']:checked").val();
-	
+	var student_id = $("#student_id").val();
 	$.ajax({
 		url: '/student/edit.json',
 		method: 'POST',
-		data:{fees1:fees1,fees2:fees2},  
+		data:{fees1:fees1,fees2:fees2,student_id:student_id},  
 		success: function(re){
 			if(re.error_code > 0){
 				alert(re.error_msg);
