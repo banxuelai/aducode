@@ -293,7 +293,7 @@ class StudentController extends AuthController
                        
             //学费
             $entryFee_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['fees'],'type' => 'professType'));
-            $student_info['fees'] = $profess_info['fees'];
+            $student_info['fees'] = $entryFee_info['fees'];
         }
         
         $this->display('student/detail.html', array(
