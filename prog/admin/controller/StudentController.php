@@ -17,7 +17,7 @@ class StudentController extends AuthController
         $user_model = new UserModel();
         
         $name = trim($this->req->get('name'));
-        $uid = intval($this->req->get('uid'));
+        $agent_uid = intval($this->req->get('uid'));
         $agent_id = intval($this->req->get('agent_id'));
         $school = intval($this->req->get('school'));
         $profess = intval($this->req->get('profess'));
@@ -25,6 +25,7 @@ class StudentController extends AuthController
         
         $search = array();
         $search['name'] = $name;
+        $search['uid'] = $agent_uid;
         $search['agent_id'] = $agent_id;
         $search['school'] = $school;
         $search['profess'] = $profess;
@@ -41,8 +42,13 @@ class StudentController extends AuthController
         if ($name) {
             $cond['a.name'] = array('like' => "%$name%");
         }
-        
-        if ($uid) {
+        //超级管理员特殊处理
+        if ($this->getTypebyUid() == 1) {
+            if ($agent_uid) {
+                $cond['a.uid'] = $agent_uid;
+            }
+            $uid_list = $user_model->getList(array('status' => 1), -1);
+        } else {
             $cond['a.uid'] = $uid;
         }
         
@@ -73,10 +79,6 @@ class StudentController extends AuthController
         }
         $pageHtml = $this->createPageHtml($this->buildUrl("student/lists.html", $this->req->get()), $re['count'], $page, $page_size);
         
-        if ($this->getTypebyUid() == 1) {
-            $uid_list = $user_model->getList(array('status' => 1), -1);
-        }
-        //
         //二级代理
         $agent_info = $agent_model->getList(array('uid' => $uid,'status' => 1), -1);
         //学校
@@ -93,6 +95,7 @@ class StudentController extends AuthController
                 'professInfo' => $profess_info['rows'],
                 'nickname' => $this->getUserName(),
                 'search' => $search,
+                'type' => $this->getTypebyUid(),
                 'menu' => 'student',
                 'sub' => 'lists',
         ));
