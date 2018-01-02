@@ -107,6 +107,7 @@ a, a:hover, a:focus {
     font-family: 'Open Sans', sans-serif;
     box-shadow: 0 4px #41cac0;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .form-signin p {
