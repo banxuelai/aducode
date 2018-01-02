@@ -80,7 +80,7 @@ class StudentController extends AuthController
             $cond['b.profess'] = $profess;
         }
         
-        if ($fees_status >= 0) {
+        if ($fees_status) {
             $cond['b.fees_status'] = $fees_status;
         }
        
