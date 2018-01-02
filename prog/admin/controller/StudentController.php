@@ -262,5 +262,11 @@ class StudentController extends AuthController
     //学员信息详情
     public function detail()
     {
+        $this->display('student/detail.html', array(
+                'title' => '详情信息',
+                'nickname' => $this->getUserName(),
+                'menu' => 'student',
+                'sub' => 'lists',
+        ));
     }
 }
