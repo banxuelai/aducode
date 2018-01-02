@@ -42,6 +42,6 @@ class StudentModel extends Model
     {
         $student_id = intval($student_id);
         $sql = "SELECT a.*,b.*  FROM `student` a LEFT JOIN student_extra  b ON a.id = b.student_id where a.id = '$student_id'";
-        return $this->queryFirst($sql);
+        return $this->queryRow($sql);
     }
 }

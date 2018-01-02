@@ -280,10 +280,10 @@ class StudentController extends AuthController
             $student_info['agent_name'] = $agent_info['name'];
             //确认点
             $confirm_info = $confirm_model->getRow(array('status' => 1,'id' => $student_info['confirm_id']));
-            $student_info['confirm'] = $confirm_info['name'];
+            $student_info['confirm'] = $confirm_info['province'].$confirm_info['city'].$confirm_info['district'];
             //报考层次
             $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
-            $student_info['arrange'] = $confirm_info['name'];
+            $student_info['arrange'] = $confirm_info['title'];
             //学校
             $school_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['school'],'type' => 'school'));
             $student_info['school_name'] = $school_info['title'];
