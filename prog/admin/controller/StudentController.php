@@ -15,10 +15,10 @@ class StudentController extends AuthController
     
     //缴费状态
     private $feesStatusConfig = array(
-            '0' => '未缴',
-            '1' => '缴费1',
-            '2' => '缴费2',
-            '3' => '已缴',
+            '1' => '未缴',
+            '2' => '缴费1',
+            '3' => '缴费2',
+            '4' => '已缴',
     );
     
     //列表
@@ -314,15 +314,15 @@ class StudentController extends AuthController
             $student_info['profess_name'] = $profess_info['title'];
            //缴费信息
             $fees1 = $fees2 = 0;
-            if ($student_info['fees_status'] == 1) {
-               $fees1 =  $student_info['fees'] * $this->feesConfig[1];
-            }
-            
             if ($student_info['fees_status'] == 2) {
-               $fees2 =  $student_info['fees'] * $this->feesConfig[2];
+                $fees1 = $student_info['fees'] * $this->feesConfig[1];
             }
             
             if ($student_info['fees_status'] == 3) {
+                $fees2 = $student_info['fees'] * $this->feesConfig[2];
+            }
+            
+            if ($student_info['fees_status'] == 4) {
                 $fees1 = $student_info['fees'] * $this->feesConfig[1];
                 $fees2 = $student_info['fees'] * $this->feesConfig[2];
             }
@@ -357,20 +357,20 @@ class StudentController extends AuthController
             $fees1 = $this->req->post('fees1');
             $fees2 = $this->req->post('fees2');
             if ($fees1 && $fees2) {
-                $fees_status = 3;
+                $fees_status = 4;
             } elseif ($fees1) {
-                if ($student_info['fees_status'] == 2) {
-                    $fees_status = 3;
+                if ($student_info['fees_status'] == 3) {
+                    $fees_status = 4;
                 }
-                if ($student_info['fees_status'] == 0) {
-                    $fees_status = 1;
+                if ($student_info['fees_status'] == 1) {
+                    $fees_status = 2;
                 }
             } elseif ($fees2) {
+                if ($student_info['fees_status'] == 2) {
+                    $fees_status = 4;
+                }
                 if ($student_info['fees_status'] == 1) {
                     $fees_status = 3;
-                }
-                if ($student_info['fees_status'] == 0) {
-                    $fees_status = 2;
                 }
             }
             //更新
@@ -398,15 +398,15 @@ class StudentController extends AuthController
             $student_info['profess_name'] = $profess_info['title'];
             //缴费信息
             $fees1 = $fees2 = 0;
-            if ($student_info['fees_status'] == 1) {
-               $fees1 =  $student_info['fees'] * $this->feesConfig[1];
-            }
-            
             if ($student_info['fees_status'] == 2) {
-               $fees2 =  $student_info['fees'] * $this->feesConfig[2];
+                $fees1 = $student_info['fees'] * $this->feesConfig[1];
             }
             
             if ($student_info['fees_status'] == 3) {
+                $fees2 = $student_info['fees'] * $this->feesConfig[2];
+            }
+            
+            if ($student_info['fees_status'] == 4) {
                 $fees1 = $student_info['fees'] * $this->feesConfig[1];
                 $fees2 = $student_info['fees'] * $this->feesConfig[2];
             }

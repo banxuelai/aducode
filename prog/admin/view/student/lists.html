@@ -78,11 +78,11 @@
                                     <div class = "form-group">
                               	 	缴费状态
                                      <select class="form-control m-bot15" name = "fees_status" id = "fees_status">
-                                              <option value = "-1">请选择</option>
-											  <option value = "0" {% if search.fees_status == 0 %}selected{%endif%}>未缴</option>
-											  <option value = "1" {% if search.fees_status == 1 %}selected{%endif%}>缴费1</option>
-											  <option value = "2" {% if search.fees_status == 2 %}selected{%endif%}>缴费2</option>
-											  <option value = "3" {% if search.fees_status == 3 %}selected{%endif%}>已缴</option>
+                                              <option value = "0">请选择</option>
+											  <option value = "1" {% if search.fees_status == 1 %}selected{%endif%}>未缴</option>
+											  <option value = "2" {% if search.fees_status == 2 %}selected{%endif%}>缴费1</option>
+											  <option value = "3" {% if search.fees_status == 3 %}selected{%endif%}>缴费2</option>
+											  <option value = "4" {% if search.fees_status == 4 %}selected{%endif%}>已缴</option>
                                        </select>
                               	 </div>
                                        <button type="submit"  class="btn btn-shadow btn-primary">查询</button>
