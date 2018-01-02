@@ -102,7 +102,13 @@ class StudentController extends AuthController
         $pageHtml = $this->createPageHtml($this->buildUrl("student/lists.html", $this->req->get()), $re['count'], $page, $page_size);
         
         //二级代理
-        $agent_info = $agent_model->getList(array('uid' => $uid,'status' => 1), -1);
+        $agent_cond = array(
+            'status' => 1,
+        );
+        if ($this->getTypebyUid() == 0) {
+            $agent_cond['uid'] = $uid;
+        }
+        $agent_info = $agent_model->getList($agent_cond, -1);
         //学校
         $school_info = $operation_model->getList(array('status' => 1,'type' => 'school'), -1);
         //专业
