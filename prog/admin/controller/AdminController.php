@@ -29,7 +29,9 @@ class AdminController extends Controller
             //$this->redirect("/?back_url=$back_url");
             $this->success($back_url);
         }
-        
+        //清除session
+        Session::set('aducode', '');
+        session_destroy();
         $this->display('admin/login.html', array(
                 'back_url' => $back_url,
                 'title' => '登陆',
