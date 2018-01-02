@@ -23,7 +23,7 @@ class StudentModel extends Model
         $where_str = $this->getWhereStr($cond);
         $from_str = "  FROM `student` a LEFT JOIN student_extra  b ON a.id = b.student_id  $where_str ";
         $count_sql = "SELECT count(*) $from_str ";
-        $sql = " SELECT a.*,b.*  $from_str  ";
+        $sql = " SELECT a.*,b.*  $from_str  order by a.id desc  ";
         if ($offset >= 0 && $limit > 0) {
             $sql .= " LIMIT $offset, $limit ";
         }
