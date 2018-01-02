@@ -39,6 +39,7 @@ class AgentController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'agent',
                 'sub' => 'add',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -58,6 +59,7 @@ class AgentController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'agent',
                 'sub' => 'lists',
+                'type' => $this->getTypebyUid(),
         );
         $this->display('agent/lists.html', $view);
     }

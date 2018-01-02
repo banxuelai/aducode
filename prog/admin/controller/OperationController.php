@@ -46,6 +46,7 @@ class OperationController extends AuthController
                 'lists' => $re['rows'],
                 'menu' => 'operation',
                 'sub' => 'confirm',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -85,6 +86,7 @@ class OperationController extends AuthController
                 'lists' => $re['rows'],
                 'menu' => 'operation',
                 'sub' => 'arrange',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -133,6 +135,7 @@ class OperationController extends AuthController
                 'lists' => $re['rows'],
                 'menu' => 'operation',
                 'sub' => 'professType',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -168,6 +171,7 @@ class OperationController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'school',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -210,6 +214,7 @@ class OperationController extends AuthController
                 'lists' => $re['rows'],
                 'menu' => 'operation',
                 'sub' => 'school',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -262,6 +267,7 @@ class OperationController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'profess',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -326,6 +332,7 @@ class OperationController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'operation',
                 'sub' => 'profess',
+                'type' => $this->getTypebyUid(),
         ));
     }
     

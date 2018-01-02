@@ -35,6 +35,7 @@
                           </div>
                           <div class="panel-body">
                               <form class="form-inline">
+                                {% if type == 1 %}
                               	 <div class = "form-group">
                               	 	 一级代理
                                      <select class="form-control m-bot15" name = "uid" id = "uid">
@@ -44,6 +45,7 @@
                                               {% endfor %}
                                        </select>
                               	 </div>
+                              	  {% endif %} 
                              	 <div class="form-group">
                                    	   姓名<input type="text" class="form-control" size="6" id="name" name = "name" value = "{{search.name}}"> 
                                    	   二级代理
@@ -92,7 +94,7 @@
                           {% for key,item in lists %}
                           <tr class="odd gradeX">
                               <td>{{item.agent_name}}</td>
-                              <td>{{item.name}}</td>
+                              <td><a href = "/student/detail.html?student_id={{item.id}}">{{item.name}}</a></td>
                               <td>{{item.school_name}}</td>
                               <td>{{item.profess_name}}</td>
                               <td class="hidden-phone">已缴</td>

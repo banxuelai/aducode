@@ -89,7 +89,7 @@ class StudentController extends AuthController
                 'title' => '我的录入',
                 'pages' => $pageHtml,
                 'lists' => $re['rows'],
-                'userInfo' => $uid_list['rows'],
+                'userInfo' => isset($uid_list['rows']) ? $uid_list['rows'] : array(),
                 'agentInfo' => $agent_info['rows'],
                 'schoolInfo' => $school_info['rows'],
                 'professInfo' => $profess_info['rows'],
@@ -184,6 +184,7 @@ class StudentController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'add',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -262,11 +263,62 @@ class StudentController extends AuthController
     //学员信息详情
     public function detail()
     {
+        $student_id  = $this->req->get('student_id');
+        $student_model = new StudentModel();
+        $agent_model = new AgentModel();
+        $operation_model = new OperationModel();
+        $confirm_model = new ConfirmModel();
+        $user_model = new UserModel();
+        
+        $student_info = $student_model->getItem($student_id);
+        
+        if ($student_info) {
+            //性别
+            $student_info['gender'] = $this->getGender($student_info['gender']);
+            //二级代理
+            $agent_info = $agent_model->getRow(array('status' => 1,'id' => $student_info['agent_id']));
+            $student_info['agent_name'] = $agent_info['name'];
+            //确认点
+            $confirm_info = $confirm_model->getRow(array('status' => 1,'id' => $student_info['confirm_id']));
+            $student_info['confirm'] = $confirm_info['name'];
+            //报考层次
+            $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
+            $student_info['arrange'] = $confirm_info['name'];
+            //学校
+            $school_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['school'],'type' => 'school'));
+            $student_info['school_name'] = $school_info['title'];
+            //专业
+            $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
+            $student_info['profess_name'] = $profess_info['title'];
+            //学费
+            $entryFee_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['fees'],'type' => 'professType'));
+            $student_info['fees'] = $profess_info['fees'];
+        }
+        
         $this->display('student/detail.html', array(
                 'title' => '详情信息',
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'lists',
+                'type' => $this->getTypebyUid(),
+                'studentInfo' => $student_info,
         ));
+    }
+    
+    //获取性别
+    private function getGender($xingbie)
+    {
+        $gender = '你猜';
+        switch ($xingbie) {
+            case 'm':
+                $gender = '男';
+                break;
+            case 'f':
+                $gender = '女';
+                break;
+            default:
+                $gender = '你猜';
+        }
+        return $gender;
     }
 }

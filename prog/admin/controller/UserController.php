@@ -41,6 +41,7 @@ class UserController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'user',
                 'sub' => 'add',
+                'type' => $this->getTypebyUid(),
         ));
     }
     
@@ -60,6 +61,7 @@ class UserController extends AuthController
                 'nickname' => $this->getUserName(),
                 'menu' => 'user',
                 'sub' => 'lists',
+                'type' => $this->getTypebyUid(),
         );
         $this->display('user/lists.html', $view);
     }

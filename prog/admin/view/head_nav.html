@@ -31,6 +31,7 @@
                           <span>首页</span>
                       </a>
                   </li>
+                   {% if type == 1 %}
                   <li class="sub-menu {% if menu =='user' %}active{% else %}{% endif %}">
                       <a href="javascript:;" class="">
                           <i class="icon-tasks"></i>
@@ -42,6 +43,7 @@
                           <li class="{% if sub =='lists' %}active{% else %}{% endif %}"><a class="" href="/user/lists.html">用户列表</a></li>
                       </ul>
                   </li>
+                  {% endif %}
                   <li class="sub-menu {% if menu =='agent' %}active{% else %}{% endif %}">
                       <a href="javascript:;" class="">
                           <i class="icon-cogs"></i>
@@ -64,6 +66,7 @@
                           <li class="{% if sub =='add' %}active{% else %}{% endif %}"><a class="" href="/student/add.html">录入信息</a></li>
                       </ul>
                   </li>
+                  {% if type == 1 %}
                   <li class="sub-menu {% if menu =='operation' %}active{% else %}{% endif %}">
                       <a href="javascript:;" class="">
                           <i class="icon-glass"></i>
@@ -78,6 +81,7 @@
                           <li class = "{% if sub =='profess' %}active{% else %}{% endif %}"><a href="/operation/profess.html">专业配置</a></li>
                       </ul>
                   </li>
+                   {% endif %} 
                   <li>
                       <a class="" href="login.html">
                           <i class="icon-user"></i>
