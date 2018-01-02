@@ -119,7 +119,7 @@ class UserController extends AuthController
             $data = array(
                     'phone' => $phone,
             );
-            
+            $href = "undefined";
             if ($password || $new_password1 ||$new_password2) {
                 //旧密码
                 if (!$item || !password_verify($password, $item['password'])) {
@@ -139,14 +139,18 @@ class UserController extends AuthController
                 if (strlen($new_password1) < 6) {
                     throw new Exception("密码长度不能少于6位~");
                 }
-                
+                $href = "password";
                 $data['password'] = password_hash($new_password1, PASSWORD_DEFAULT);
+            } else {
+                if ($phone == $item['phone']) {
+                    throw new Exception("无修改~");
+                }
             }
             $data['update_time'] = time();
             //更新
             $id = $user_model->updateOne($data, array('id' => $uid,'status' => 1));
             
-            $this->success();
+            $this->success($href);
         }
 
        

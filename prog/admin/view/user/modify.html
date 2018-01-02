@@ -42,6 +42,12 @@
  									  </td>
 		                          </tr>
 		                          <tr>
+		                          	  <th class="form_table_th">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</th>
+		                          	  <td>  
+                                      <input disabled="disabled" type="text" class="form-control"  name = "nickname" placeholder="" id="nickname" value = "{{item.nickname}}">
+ 									  </td>
+		                          </tr>
+		                          <tr>
 		                          	  <th class="form_table_th">联系电话</th>
 		                          	  <td>
                                       <input type="text" class="form-control"  name = "phone" placeholder="请输入联系电话" id="phone" value = "{{item.phone}}">
@@ -108,7 +114,12 @@ $('.btn-primary').click(function(){
 			}
 			else{
 				alert("修改成功~");
-				location.href="/admin/login.html"; 
+				if(re.data == 'password'){
+					location.href="/admin/login.html"; 
+				}
+				else{
+					location.href="/home/index.html"; 
+				}
 			}			
 		}
 	});
