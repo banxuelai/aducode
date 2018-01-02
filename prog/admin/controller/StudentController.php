@@ -344,7 +344,7 @@ class StudentController extends AuthController
     //修改缴费信息
     public function edit()
     {
-        $student_id  = $this->req->get('student_id');
+        $student_id  = $this->req->gpc('student_id');
         $student_model = new StudentModel();
         $agent_model = new AgentModel();
         $operation_model = new OperationModel();

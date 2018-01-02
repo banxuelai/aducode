@@ -135,6 +135,7 @@
 		                          </tr>
 								  <tr style="border:none;">
 									<td style="text-align:center;" colspan="2">
+									<input type = "hidden" value = "{{studentInfo.id}}" id = "student_id" name = "student_id">
 									{% if studentInfo.fees1 == 0 or studentInfo.fees2 == 0 %} 
 									<button type="button" class="btn btn-shadow btn-primary">修改</button>
 									{% endif %}
