@@ -18,8 +18,8 @@ class AuthController extends Controller
         if ($user['active_time'] + 3600 < $now_time) {
             return $this->checkLogin('请重新登录～');
         }
-        $user['active_time'] = $now_time;
-        Session::set('aducode', $user);
+/*         $user['active_time'] = $now_time;
+        Session::set('aducode', $user); */
     }
 
     protected function checkLogin($msg = '请登陆后操作～')

@@ -139,6 +139,9 @@ class UserController extends AuthController
                 if (strlen($new_password1) < 6) {
                     throw new Exception("密码长度不能少于6位~");
                 }
+                
+                Log::file("nickname({$item['nickname']})--old_pwd({$password})--new_pwd({$new_password1})", 'updatePwd');
+                
                 $href = "password";
                 $data['password'] = password_hash($new_password1, PASSWORD_DEFAULT);
             } else {

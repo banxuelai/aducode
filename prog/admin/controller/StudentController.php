@@ -379,6 +379,8 @@ class StudentController extends AuthController
                     $fees_status = 3;
                 }
             }
+            Log::file("student_id({$student_id})--fees({$student_info['fees']})--fees_status({$student_info['fees_status']})--fees1({$fees1})--fees2({$fees2})--new_status({$fees_status})--editor({$this->getUserName()})", 'editFees');
+            
             //更新
             $id = $student_model->updateOne(array('fees_status' => $fees_status,), array('student_id' => $student_id), 'student_extra');
             $this->success();
