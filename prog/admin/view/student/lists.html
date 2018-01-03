@@ -97,7 +97,9 @@
                               <th>专业</th>
                               <th class="hidden-phone">学费</th>
                               <th class="hidden-phone">户籍地</th>
+                              {% if type == 1 %}
                               <th class="hidden-phone">操作</th>
+                              {% endif %}
                           </tr>
                           </thead>
                           <tbody>
@@ -109,9 +111,11 @@
                               <td>{{item.profess_name}}</td>
                               <td class="hidden-phone">{{item.fees_status}}</td>
                               <td class="hidden-phone">{{item.province}}{{item.city}}{{item.district}}</td>
+                              {% if type == 1 %}
                               <td class="hidden-phone">
                                       <button class="btn btn-primary btn-xs" onclick="javascript:window.location.href='/student/edit.html?student_id={{item.id}}'"><i class="icon-pencil"></i></button>
                               </td>
+                              {% endif %}
                           </tr>
                           {% endfor %}
                                    </tbody>
