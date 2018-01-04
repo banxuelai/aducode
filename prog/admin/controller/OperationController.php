@@ -29,7 +29,7 @@ class OperationController extends AuthController
                 throw new Exception("请选择区县~");
             }
             //判断重复
-            $item = $confirm_model->getRow(array('status' => 1,'province' => $province,'city' => $city,'district'));
+            $item = $confirm_model->getRow(array('status' => 1,'province' => $province,'city' => $city,'district' => $district));
             if ($item) {
                 throw new Exception($province.$city.$district."已存在~");
             }
