@@ -322,6 +322,12 @@ class OperationController extends AuthController
                 throw new Exception("专业名称格式不正确~");
             }
             
+            //判断重复
+            $item  = $operation_model->getRow(array('status' => 1,'title' => $title,'type' => 'profess','parent_id' => $school,'arrange_id' => $arrange));
+            if ($item) {
+                throw new Exception("该层次该学校下  ".$title."已存在~");
+            }
+            
             $data = array(
                 'title' => $title,
                 'parent_id' => $school,
