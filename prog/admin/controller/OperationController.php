@@ -70,7 +70,11 @@ class OperationController extends AuthController
             if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){2,4}$/', $title)) {
                 throw new Exception("请输入三字汉语~");
             }
-            
+            //判断重复
+            $item  = $operation_model->getRow(array('status' => 1,'title' => $title,'type' => 'arrange'));
+            if ($item) {
+                throw new Exception($title."已存在~");
+            }
             $data = array(
                 'title' => $title,
                 'type' => 'arrange',
@@ -118,7 +122,11 @@ class OperationController extends AuthController
             if (!preg_match('/^[1-9]\d*/', $fees)) {
                 throw new Exception("金额必须为数字~");
             }
-            
+            //判断重复
+            $item  = $operation_model->getRow(array('status' => 1,'title' => $title,'type' => 'professType'));
+            if ($item) {
+                throw new Exception($title."已存在~");
+            }
             $data = array(
                     'title' => $title,
                     'fees' => $fees,
@@ -199,7 +207,11 @@ class OperationController extends AuthController
             if (!preg_match('/^([\xe4-\xe9][\x80-\xbf]{2}){4,15}$/', $title)) {
                 throw new Exception("学校名称格式不正确~");
             }
-            
+            //判断重复
+            $item  = $operation_model->getRow(array('status' => 1,'title' => $title,'type' => 'school','parent_id' => $type));
+            if ($item) {
+                throw new Exception("该层次下".$title."已存在~");
+            }
             $data = array(
                 'title' => $title,
                 'parent_id' => $type,
