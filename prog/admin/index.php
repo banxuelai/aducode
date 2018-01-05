@@ -10,7 +10,6 @@ ini_set('session.name', 'aducode_sid');
 isset($_GET['__path__']) && $_SERVER['PATH_INFO'] = $_GET['__path__'];
 require "../../tuner/init.php";
 
-if (isset($_SERVER['TUNER_MODE'])) {
-    Config::$mode = $_SERVER['TUNER_MODE'];
-}
+Config::$mode = in_array($_SERVER['SERVER_ADDR'], array('47.104.93.177')) ? 'dev' : 'online';
+
 App::run(isset($_GET['debug']) && $_GET['debug'] == 'dodebug');
