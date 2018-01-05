@@ -441,6 +441,6 @@ class StudentController extends AuthController
         //时间
         $student_info['create_time'] = date("Y-m-d H:i:s", $student_info['create_time']);
          
-        return $school_info;
+        return $student_info;
     }
 }
