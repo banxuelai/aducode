@@ -437,7 +437,7 @@ class StudentController extends AuthController
         $student_info['all_fees'] = $this->getFees($student_info, 'all_fees');
         
         //缴费状态
-        $student_info['fees_status'] = $this->feesStatusConfig[$student_info];
+        $student_info['fees_status'] = $this->feesStatusConfig[$student_info['fees_status']];
         //时间
         $student_info['create_time'] = date("Y-m-d H:i:s", $student_info['create_time']);
          
