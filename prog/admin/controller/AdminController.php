@@ -81,6 +81,17 @@ class AdminController extends Controller
     {
         $confirm_model = new ConfirmModel();
         foreach ($this->config as $key => $val) {
+            $lists = $days_array = explode('、', $val);
+            foreach ($lists as $k => $v) {
+                $data  = array(
+                    'province' => '山东省',
+                    'city' => $key.'市',
+                    'district' => $v,
+                );
+                Log::file("province(山东省)--city({$key})--district({$v})", 'syn');
+                 
+                $id = $confirm_model->insertOne($data);
+            }
         }
     }
     

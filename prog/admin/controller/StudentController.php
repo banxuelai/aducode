@@ -87,17 +87,7 @@ class StudentController extends AuthController
         $re = $student_model->getList($cond, $offset, $page_size);
         
         foreach ($re['rows'] as $key => $val) {
-            //二级代理
-            $agent_info = $agent_model->getRow(array('status' => 1,'id' => $val['agent_id']));
-            $re['rows'][$key]['agent_name'] = $agent_info['name'];
-            //学校
-            $school_info = $operation_model->getRow(array('status' => 1,'id' => $val['school'],'type' => 'school'));
-            $re['rows'][$key]['school_name'] = $school_info['title'];
-            //专业
-            $profess_info = $operation_model->getRow(array('status' => 1,'id' => $val['profess'],'type' => 'profess'));
-            $re['rows'][$key]['profess_name'] = $profess_info['title'];
-            //缴费状态
-            $re['rows'][$key]['fees_status'] = $this->feesStatusConfig[$val['fees_status']];
+            $re['rows'][$key] = $this->buildStudentItem($val);
         }
         $pageHtml = $this->createPageHtml($this->buildUrl("student/lists.html", $this->req->get()), $re['count'], $page, $page_size);
         
@@ -301,40 +291,7 @@ class StudentController extends AuthController
         $student_info = $student_model->getItem($student_id);
         
         if ($student_info) {
-            //性别
-            $student_info['gender'] = $this->getGender($student_info['gender']);
-            //二级代理
-            $agent_info = $agent_model->getRow(array('status' => 1,'id' => $student_info['agent_id']));
-            $student_info['agent_name'] = $agent_info['name'];
-            //确认点
-            $confirm_info = $confirm_model->getRow(array('status' => 1,'id' => $student_info['confirm_id']));
-            $student_info['confirm'] = $confirm_info['province'].$confirm_info['city'].$confirm_info['district'];
-            //报考层次
-            $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
-            $student_info['arrange'] = $arrange_info['title'];
-            //学校
-            $school_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['school'],'type' => 'school'));
-            $student_info['school_name'] = $school_info['title'];
-            //专业
-            $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
-            $student_info['profess_name'] = $profess_info['title'];
-           //缴费信息
-            $fees1 = $fees2 = 0;
-            if ($student_info['fees_status'] == 2) {
-                $fees1 = $student_info['fees'] * $this->feesConfig[1];
-            }
-            
-            if ($student_info['fees_status'] == 3) {
-                $fees2 = $student_info['fees'] * $this->feesConfig[2];
-            }
-            
-            if ($student_info['fees_status'] == 4) {
-                $fees1 = $student_info['fees'] * $this->feesConfig[1];
-                $fees2 = $student_info['fees'] * $this->feesConfig[2];
-            }
-            $student_info['fees1'] = $fees1;
-            $student_info['fees2'] = $fees2;
-            $student_info['all_fees'] = $fees1 + $fees2;
+            $student_info = $this->buildStudentItem($student_info);
         }
         
         $this->display('student/detail.html', array(
@@ -345,6 +302,11 @@ class StudentController extends AuthController
                 'type' => $this->getTypebyUid(),
                 'studentInfo' => $student_info,
         ));
+    }
+    
+    //修改学员信息
+    public function modify()
+    {
     }
     
     //修改缴费信息
@@ -387,40 +349,7 @@ class StudentController extends AuthController
         }
             
         if ($student_info) {
-            //性别
-            $student_info['gender'] = $this->getGender($student_info['gender']);
-            //二级代理
-            $agent_info = $agent_model->getRow(array('status' => 1,'id' => $student_info['agent_id']));
-            $student_info['agent_name'] = $agent_info['name'];
-            //确认点
-            $confirm_info = $confirm_model->getRow(array('status' => 1,'id' => $student_info['confirm_id']));
-            $student_info['confirm'] = $confirm_info['province'].$confirm_info['city'].$confirm_info['district'];
-            //报考层次
-            $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
-            $student_info['arrange'] = $arrange_info['title'];
-            //学校
-            $school_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['school'],'type' => 'school'));
-            $student_info['school_name'] = $school_info['title'];
-            //专业
-            $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
-            $student_info['profess_name'] = $profess_info['title'];
-            //缴费信息
-            $fees1 = $fees2 = 0;
-            if ($student_info['fees_status'] == 2) {
-                $fees1 = $student_info['fees'] * $this->feesConfig[1];
-            }
-            
-            if ($student_info['fees_status'] == 3) {
-                $fees2 = $student_info['fees'] * $this->feesConfig[2];
-            }
-            
-            if ($student_info['fees_status'] == 4) {
-                $fees1 = $student_info['fees'] * $this->feesConfig[1];
-                $fees2 = $student_info['fees'] * $this->feesConfig[2];
-            }
-            $student_info['fees1'] = $fees1;
-            $student_info['fees2'] = $fees2;
-            $student_info['all_fees'] = $fees1 + $fees2;
+            $student_info = $this->buildStudentItem($student_info);
         }
     
         $this->display('student/edit.html', array(
@@ -448,5 +377,70 @@ class StudentController extends AuthController
                 $gender = '你猜';
         }
         return $gender;
+    }
+    
+    //根据信息获取实际缴费
+    private function getFees($student_info, $type = 'all_fees')
+    {
+        //缴费信息
+        $fees1 = $fees2 = 0;
+        if ($student_info['fees_status'] == 2) {
+            $fees1 = $student_info['fees'] * $this->feesConfig[1];
+        }
+        
+        if ($student_info['fees_status'] == 3) {
+            $fees2 = $student_info['fees'] * $this->feesConfig[2];
+        }
+        
+        if ($student_info['fees_status'] == 4) {
+            $fees1 = $student_info['fees'] * $this->feesConfig[1];
+            $fees2 = $student_info['fees'] * $this->feesConfig[2];
+        }
+        if ($type == "fees1") {
+            return $fees1;
+        } elseif ($type == "fees2") {
+            return $fees2;
+        } else {
+            return $fees1 + $fees2;
+        }
+    }
+    
+    //构造学员详细信息
+    private function buildStudentItem($student_info)
+    {
+        $student_model = new StudentModel();
+        $agent_model = new AgentModel();
+        $operation_model = new OperationModel();
+        $confirm_model = new ConfirmModel();
+        $user_model = new UserModel();
+        
+        //性别
+        $student_info['gender'] = $this->getGender($student_info['gender']);
+        //二级代理
+        $agent_info = $agent_model->getRow(array('status' => 1,'id' => $student_info['agent_id']));
+        $student_info['agent_name'] = $agent_info['name'];
+        //确认点
+        $confirm_info = $confirm_model->getRow(array('status' => 1,'id' => $student_info['confirm_id']));
+        $student_info['confirm'] = $confirm_info['province'].$confirm_info['city'].$confirm_info['district'];
+        //报考层次
+        $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
+        $student_info['arrange'] = $arrange_info['title'];
+        //学校
+        $school_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['school'],'type' => 'school'));
+        $student_info['school_name'] = $school_info['title'];
+        //专业
+        $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
+        $student_info['profess_name'] = $profess_info['title'];
+        //缴费信息
+        $student_info['fees1'] = $this->getFees($student_info, 'fees1');
+        $student_info['fees2'] = $this->getFees($student_info, 'fees2');
+        $student_info['all_fees'] = $this->getFees($student_info, 'all_fees');
+        
+        //缴费状态
+        $student_info['fees_status'] = $this->feesStatusConfig[$student_info];
+        //时间
+        $student_info['create_time'] = date("Y-m-d H:i:s", $student_info['create_time']);
+         
+        return $school_info;
     }
 }

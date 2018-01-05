@@ -93,10 +93,18 @@
                           <tr>
                               <th>代理</th>
                               <th>姓名</th>
+                              <th class="hidden-phone">性别</th>
+                              <th class="hidden-phone">电话</th>
+                              <th class="hidden-phone">民族</th>
+                              <th class="hidden-phone">身份证号</th>
+                              <th class="hidden-phone">户籍地</th>
+                              <th class="hidden-phone">确认点</th>
+                              <th class="hidden-phone">层次</th>
                               <th>学校</th>
                               <th>专业</th>
-                              <th class="hidden-phone">学费</th>
-                              <th class="hidden-phone">户籍地</th>
+                              <th class="hidden-phone">缴费状态</th>
+                              <th class="hidden-phone">缴费金额</th>
+                              <th class="hidden-phone">录入时间</th>
                               {% if type == 1 %}
                               <th class="hidden-phone">操作</th>
                               {% endif %}
@@ -107,10 +115,18 @@
                           <tr class="odd gradeX">
                               <td>{{item.agent_name}}</td>
                               <td><a style="color: #FF0000" href = "/student/detail.html?student_id={{item.id}}">{{item.name}}</a></td>
+                              <td class="hidden-phone">{{item.gender}}</td>
+                              <td class="hidden-phone">{{item.phone}}</td>
+                              <td class="hidden-phone">{{item.ethnic}}</td>
+                              <td class="hidden-phone">{{item.ID_num}}</td>
+                              <td class="hidden-phone">{{item.province}}{{item.city}}{{item.district}}</td>
+                              <td class="hidden-phone">{{item.confirm}}</td>
+                              <td class="hidden-phone">{{item.arrange}}</td>
                               <td>{{item.school_name}}</td>
                               <td>{{item.profess_name}}</td>
                               <td class="hidden-phone">{{item.fees_status}}</td>
-                              <td class="hidden-phone">{{item.province}}{{item.city}}{{item.district}}</td>
+                              <td class="hidden-phone">{{item.all_fees}}</td>
+                              <td class="hidden-phone">{{item.create_time}}</td>
                               {% if type == 1 %}
                               <td class="hidden-phone">
                                       <button class="btn btn-primary btn-xs" onclick="javascript:window.location.href='/student/edit.html?student_id={{item.id}}'"><i class="icon-pencil"></i></button>
