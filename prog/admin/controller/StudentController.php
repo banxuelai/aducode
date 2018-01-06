@@ -321,7 +321,7 @@ class StudentController extends AuthController
         //学校
         $student_info['school_name'] = $item['school_name'];
         //专业
-        $student_info['profess_name'] = $item['title'];
+        $student_info['profess_name'] = $item['profess_name'];
         //缴费信息
         $student_info['fees1'] = $item['fees1'];
         $student_info['fees2'] = $item['fees2'];
