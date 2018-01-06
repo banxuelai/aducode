@@ -318,9 +318,21 @@ class StudentController extends AuthController
         
         if ($this->req->method == 'POST') {
         }
+        //二级代理
+        $agent_info = $agent_model->getList(array('uid' => $student_info['uid'],'status' => 1), -1);
+        //确认点
+        $confirm_info = $confirm_model->getList(array('status' => 1), -1);
+        foreach ($confirm_info['rows'] as $key => $val) {
+            $confirm_info['rows'][$key]['confirm'] = $val['province'].$val['city'].$val['district'];
+        }
+        //报考层次
+        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         
         $this->display('student/modify.html', array(
                 'title' => '修改信息',
+                'agentInfo' => $agent_info['rows'],
+                'confirmInfo' => $confirm_info['rows'],
+                'arrangeInfo' => $arrange_info['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'lists',

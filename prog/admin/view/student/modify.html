@@ -40,7 +40,7 @@
                                          <select class="form-control m-bot15" name='agent_id' id = "agent_id">
                                               <option>请选择</option>
                                               {% for key,item in agentInfo %}
-                                              <option value = "{{item.id}}">{{item.name}}</option>
+                                              <option value = "{{item.id}}" {% if studentInfo.agent_id == item.id %}selected{%endif%} >{{item.name}}</option>
                                               {% endfor %}
                                          </select> 
  									  </td>
@@ -100,7 +100,7 @@
 		                          	  		<select name="confirm_id" id="confirm_id" class="form-control m-bot15">
                                               <option>请选择</option>
                                               {% for key,item in confirmInfo %}
-                                              	<option value="{{item.id}}">{{item.confirm}}</option>
+                                              	<option value="{{item.id}}" {% if studentInfo.confirm_id == item.id %}selected{%endif%}>{{item.confirm}}</option>
                                               {% endfor %}
                                          	</select>
                         			  </td>
@@ -111,7 +111,7 @@
 		                          	  		<select class="form-control m-bot15" id = "arrange" name = "arrange">
 		                          	  			<option value = '0'>请选择</option>
 		                          	  			{% for key,item in arrangeInfo %}
-		                          	  			<option value = "{{item.id}}">{{item.title}}</option>
+		                          	  			<option value = "{{item.id}}" {% if studentInfo.arrange == item.id %}selected{%endif%}>{{item.title}}</option>
 		                          	  			{% endfor %}
 		                          	  		</select>
  									  </td>
