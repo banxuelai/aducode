@@ -43,9 +43,17 @@ class OperationController extends AuthController
             
             $id = $confirm_model->insertOne($data);
         }
-        $re = $confirm_model->getList(array('status' => 1), -1);
+        $page = intval($this->req->get('page'));
+        $page_size = max(intval($this->req->get('page_size')), 20);
+        empty($page) && $page = 1;
+        $offset = ($page - 1) * $page_size;
+        
+        $re = $confirm_model->getList(array('status' => 1), $offset, $page_size);
+        $pageHtml = $this->createPageHtml($this->buildUrl("operation/confirm.html", $this->req->get()), $re['count'], $page, $page_size);
+        
         $this->display('operation/confirm.html', array(
                 'title' => '信息确认点',
+                'pages' => $pageHtml,
                 'nickname' => $this->getUserName(),
                 'lists' => $re['rows'],
                 'menu' => 'operation',
