@@ -5385,9 +5385,8 @@ var province=[
 
         function init(){
             var pro=$("#province");
-            var pre_province = $("#pre_province");
             for(var i=0;i<province.length;i++){
-                var $temp=$("<option value=\"\"  {% if pre_province == province[i].name %}selected{%endif%} >"+province[i].name+"</option>");
+                var $temp=$("<option value=\"\">"+province[i].name+"</option>");
                 pro.append($temp);
             }
         }
