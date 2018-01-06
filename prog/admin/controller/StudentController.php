@@ -315,7 +315,21 @@ class StudentController extends AuthController
         $user_model = new UserModel();
         
         $student_info = $student_model->getItem($student_id);
+        $item = $this->buildStudentItem($student_info);
+        //报考层次
+        $student_info['arrange'] = $item['arrange'];
+        //学校
+        $student_info['school_name'] = $item['school_name'];
+        //专业
+        $student_info['profess_name'] = $item['title'];
+        //缴费信息
+        $student_info['fees1'] = $item['fees1'];
+        $student_info['fees2'] = $item['fees2'];
+        $student_info['all_fees'] = $item['all_fees'];
         
+        //缴费状态
+        $student_info['fees_status'] = $item['fees_status'];
+         
         if ($this->req->method == 'POST') {
         }
         //二级代理

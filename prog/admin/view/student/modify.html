@@ -105,44 +105,53 @@
                                          	</select>
                         			  </td>
 		                          </tr>
-		                          <tr>
-		                          	  <th class="form_table_th">报考层次</th>
+		                          		                          <tr>
+		                          	  <th class="form_table_th">报考层次:</th>
 		                          	  <td>
-		                          	  		<select class="form-control m-bot15" id = "arrange" name = "arrange">
-		                          	  			<option value = '0'>请选择</option>
-		                          	  			{% for key,item in arrangeInfo %}
-		                          	  			<option value = "{{item.id}}" {% if studentInfo.arrange == item.id %}selected{%endif%}>{{item.title}}</option>
-		                          	  			{% endfor %}
-		                          	  		</select>
+											{{studentInfo.arrange}}
  									  </td>
 		                          </tr>
 		                           <tr>
-		                          	  <th class="form_table_th">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校</th>
+		                          	  <th class="form_table_th">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校:</th>
 		                          	  <td>
-                                         <select class="form-control m-bot15" name = "school" id = "school">
-                                              <option>请选择</option>
-                                         </select> 
+											{{studentInfo.school_name}}
  									  </td>
 		                          </tr>
 		                           <tr>
-		                          	  <th class="form_table_th">专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</th>
+		                          	  <th class="form_table_th">专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业:</th>
 		                          	  <td>
-                                         <select class="form-control m-bot15" name = "profess" id = "profess">
-                                              <option>请选择</option>
-                                         </select> 
+   											{{studentInfo.profess_name}}
  									  </td>
 		                          </tr>
 		                          <tr>
-		                          	  <th class="form_table_th">报名费</th>
+		                          	  <th class="form_table_th">报名费:</th>
 		                          	  <td>
-                                      <input  disabled="disabled" type="text" class="form-control" value = "300" placeholder="请输入金额" name = "entryFee" id="entryFee" >
+		                          	  		{{studentInfo.entryFee}}
  									  </td>
 		                          </tr>
 		                          
 		                          <tr>
-		                          	  <th class="form_table_th">应缴学费</th>
+		                          	  <th class="form_table_th">应缴学费:</th>
 		                          	  <td>
-                                      <input disabled="disabled" type="text" class="form-control"  placeholder="请输入金额" name = "fees" id="fees" value = "{{studentInfo.fees}}">
+		                          	  	{{studentInfo.fees}}
+ 									  </td>
+		                          </tr>
+		                          <tr>
+		                          	  <th class="form_table_th">缴费1:</th>
+		                          	  <td>
+		                          	  	{{studentInfo.fees1}}
+ 									  </td>
+		                          </tr>
+		                          		                          <tr>
+		                          	  <th class="form_table_th">缴费2:</th>
+		                          	  <td>
+		                          	  	{{studentInfo.fees2}}
+ 									  </td>
+		                          </tr>
+		                          		                          <tr>
+		                          	  <th class="form_table_th">合计缴费:</th>
+		                          	  <td>
+		                          	  	{{studentInfo.all_fees}}
  									  </td>
 		                          </tr>
 		                          <tr>
