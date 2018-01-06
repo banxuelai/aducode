@@ -5385,8 +5385,12 @@ var province=[
 
         function init(){
             var pro=$("#province");
+            var pre_province=$("#pre_province").val();
+            var pre_city = $("#pre_city").val();
+            var pre_district = $("#pre_district").val();
             for(var i=0;i<province.length;i++){
-                var $temp=$("<option value=\"\">"+province[i].name+"</option>");
+            	var  new_province= province[i].name
+                var $temp=$("<option value=\"\" {% if new_province == pre_province %}selected{%endif%} >"+province[i].name+"</option>");
                 pro.append($temp);
             }
         }
