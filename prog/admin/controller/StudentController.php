@@ -35,6 +35,7 @@ class StudentController extends AuthController
         $agent_id = intval($this->req->get('agent_id'));
         $school = intval($this->req->get('school'));
         $profess = intval($this->req->get('profess'));
+        $arrange = intval($this->req->get('arrange'));
         $fees_status = $this->req->get('fees_status');
         $uid = $this->getUidbySess();
         
@@ -45,7 +46,7 @@ class StudentController extends AuthController
         $search['school'] = $school;
         $search['profess'] = $profess;
         $search['fees_status'] = $fees_status;
-        
+        $search['arrange'] = $arrange;
         $page = intval($this->req->get('page'));
         $page_size = max(intval($this->req->get('page_size')), 20);
         empty($page) && $page = 1;
@@ -83,7 +84,10 @@ class StudentController extends AuthController
         if ($fees_status) {
             $cond['b.fees_status'] = $fees_status;
         }
-       
+        
+        if ($arrange) {
+            $cond['b.arrange'] = $arrange;
+        }
         $re = $student_model->getList($cond, $offset, $page_size);
         
         foreach ($re['rows'] as $key => $val) {
@@ -103,6 +107,8 @@ class StudentController extends AuthController
         $school_info = $operation_model->getList(array('status' => 1,'type' => 'school'), -1);
         //专业
         $profess_info = $operation_model->getList(array('status' => 1,'type' => 'profess'), -1);
+        //层次
+        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         $this->display('student/lists.html', array(
                 'title' => '我的录入',
                 'pages' => $pageHtml,
@@ -111,6 +117,7 @@ class StudentController extends AuthController
                 'agentInfo' => $agent_info['rows'],
                 'schoolInfo' => $school_info['rows'],
                 'professInfo' => $profess_info['rows'],
+                'arrangeInfo' => $arrange_info['rows'],
                 'nickname' => $this->getUserName(),
                 'search' => $search,
                 'type' => $this->getTypebyUid(),
