@@ -307,6 +307,26 @@ class StudentController extends AuthController
     //修改学员信息
     public function modify()
     {
+        $student_id  = $this->req->gpc('student_id');
+        $student_model = new StudentModel();
+        $agent_model = new AgentModel();
+        $operation_model = new OperationModel();
+        $confirm_model = new ConfirmModel();
+        $user_model = new UserModel();
+        
+        $student_info = $student_model->getItem($student_id);
+        
+        if ($this->req->method == 'POST') {
+        }
+        
+        $this->display('student/modify.html', array(
+                'title' => '修改信息',
+                'nickname' => $this->getUserName(),
+                'menu' => 'student',
+                'sub' => 'lists',
+                'type' => $this->getTypebyUid(),
+                'studentInfo' => $student_info,
+        ));
     }
     
     //修改缴费信息
