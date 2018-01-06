@@ -5388,9 +5388,43 @@ var province=[
             var pre_province=$("#pre_province").val();
             var pre_city = $("#pre_city").val();
             var pre_district = $("#pre_district").val();
+            var n1 = 0;
+            var n2 = 0;
             for(var i=0;i<province.length;i++){
-            	var  new_province= province[i].name
-                var $temp=$("<option value=\"\" {% if new_province == pre_province %}selected{%endif%} >"+province[i].name+"</option>");
+            	var  new_province = province[i].name;
+            	if(new_province == pre_province){
+            		n1 = i;
+                    var $temp=$("<option value=\"\" selected >"+province[i].name+"</option>");
+            	}
+            	else{
+                    var $temp=$("<option value=\"\">"+province[i].name+"</option>");
+            	}
                 pro.append($temp);
+            }
+            if(n1 != 0){
+                for(var i=0;i<province[n1-1].city.length;i++){
+                	var new_city = province[n1-1].city[i].name;
+                	if(pre_city == new_city){
+                		n2 = province[n1-1].city[i];
+                        var $temp=$("<option value=\"\" selected>"+province[n1-1].city[i].name+"</option>");
+                	}
+                	else{
+                        var $temp=$("<option value=\"\">"+province[n1-1].city[i].name+"</option>");
+                	}
+                	$("#city").append($temp);
+                }
+            }
+            
+            if(n2 !==0){
+                for(var i=0;i<province[n1-1].city[n2-1].districtAndCounty.length;i++){
+                	if(pre_district == province[n1-1].city[n2-1].districtAndCounty[i]){
+                		var $temp=$("<option value=\"\" selected >"+province[n1-1].city[n2-1].districtAndCounty[i]+"</option>");
+                	}
+                	else{
+                		var $temp=$("<option value=\"\">"+province[n1-1].city[n2-1].districtAndCounty[i]+"</option>");
+                	}
+                    
+                    $("#districtAndCounty").append($temp);
+                }
             }
         }
