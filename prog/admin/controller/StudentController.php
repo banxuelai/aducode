@@ -345,7 +345,7 @@ class StudentController extends AuthController
         //户籍信息
         $province_list = array();
         foreach ($this->city as $key => $val) {
-            $province_lists[] = $key;
+            $province_list[] = $key;
         }
         $city_list = array();
         foreach ($this->city[$student_info['province']] as $key => $val) {
