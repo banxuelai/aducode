@@ -342,11 +342,25 @@ class StudentController extends AuthController
         //报考层次
         $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         
+        //户籍信息
+        $province_list = array();
+        foreach ($this->city as $key => $val) {
+            $province_lists[] = $key;
+        }
+        $city_list = array();
+        foreach ($this->city[$student_info['province']] as $key => $val) {
+            $city_list[] = $key;
+        }
+        $district_list = $this->city[$student_info['province']][$student_info['city']];
+        
         $this->display('student/modify.html', array(
                 'title' => '修改信息',
                 'agentInfo' => $agent_info['rows'],
                 'confirmInfo' => $confirm_info['rows'],
                 'arrangeInfo' => $arrange_info['rows'],
+                'province_list' => $province_list,
+                'city_list' => $city_list,
+                'district_list' => $district_list,
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'lists',
