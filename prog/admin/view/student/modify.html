@@ -55,10 +55,10 @@
 		                          	  <th class="form_table_th">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</th>
 		                          	  <td>
                                    			<label class="label_radio" for="radio-01">
-                                               <input name="gender" id="radio-01" value="m" type="radio" checked /> 男
+                                               <input name="gender" id="radio-01" value="m" type="radio" {% if studentInfo.gender == 'm' %}selected{%endif%} /> 男
                                            </label>
                                            <label class="label_radio" for="radio-02">
-                                               <input name="gender" id="radio-02" value="f" type="radio" />女
+                                               <input name="gender" id="radio-02" value="f" type="radio" {% if studentInfo.gender == 'f' %}selected{%endif%} />女
                                            </label>
  									  </td>
 		                          </tr>
