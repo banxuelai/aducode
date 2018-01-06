@@ -333,6 +333,11 @@ class StudentController extends AuthController
         $student_info['fees_status'] = $item['fees_status'];
          
         if ($this->req->method == 'POST') {
+            //权限判断
+            if ($this->getTypebyUid() != 1) {
+                throw new Exception("普通用户没有删除权限~");
+            }
+            
             $name = trim($this->req->post('name'));
             $agent_id = intval($this->req->post('agent_id'));
             $gender = trim($this->req->post('gender'));
@@ -392,7 +397,7 @@ class StudentController extends AuthController
             //更新
             $update_id = $student_model->updateOne($data, array('id' => $student_id), 'student');
             $update_extra_id = $student_model->updateOne($extra_data, array('student_id' => $student_id), 'student_extra');
-            if($update_id&&$update_extra_id) {
+            if ($update_id&&$update_extra_id) {
                 Log::file("new_info---id({$student_id})--agent_id({$agent_id})--name({$name})--gender({$gender})--phone({$phone})--ethnic({$ethnic})--ID_num({$ID_num}--province({$province})--city({$city})--district({$district})--confirm_id({$confirm_id})", 'modifyStudent');
             }
             $this->success();
@@ -471,6 +476,25 @@ class StudentController extends AuthController
                 'type' => $this->getTypebyUid(),
                 'studentInfo' => $student_info,
         ));
+    }
+    
+    //删除学员信息
+    public function del()
+    {
+        $student_id = intval($this->req->post('student_id'));
+        $uid = $this->getUidbySess();
+        if ($this->getTypebyUid() != 1) {
+            throw new Exception("普通用户没有删除权限~");
+        }
+        
+        $student_model = new StudentModel();
+        
+        $update_id = $student_model->updateOne(array('status' => -1,'update_time' => time()), array('id' => $student_id));
+        
+        if ($update_id) {
+            Log::file("del_info---id({$student_id})--editor({$this->getName()})", 'delStudent');
+            $this->success();
+        }
     }
     
     //获取性别
