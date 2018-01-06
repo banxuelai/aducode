@@ -71,7 +71,7 @@
                                       	户籍
                                      <select class="form-control m-bot15" name = "local" id = "local">
                                               <option value = "0">请选择</option>
-                                             {% for key,item in arrangeInfo %}
+                                             {% for key,item in localInfo %}
                                               	<option value = "{{item.province}}-{{item.city}}-{{item.district}}" {% if search.province == item.province and  search.province == item.province and search.province == item.province %}selected{%endif%}>{{item.province}}{{item.city}}{{item.district}}</option>
                                               {% endfor %}
                                        </select>
