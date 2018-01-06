@@ -84,8 +84,6 @@
 		                          	  <th class="form_table_th">户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍</th>
 		                          	  <td>
 		                          	  		<input type = "hidden" id = "pre_province" value = "{{studentInfo.province}}">
-		                          	  		<input type = "hidden" id = "pre_city" value = "{{studentInfo.city}}">
-		                          	  		<input type = "hidden" id = "pre_districtAndCounty" value = "{{studentInfo.district}}">
 		                          	  		<select name="province" id="province" class="form-control m-bot15">
                                               <option>省份</option>
                                          	</select>
@@ -154,7 +152,7 @@
                                             {%endif%}
  									  </td>
 		                          </tr>
-		                           <tr>
+		                         <tr>
 		                          	  <th class="form_table_th">缴费2:</th>
 		                          	  <td>
 		                          	        {% if studentInfo.fees2 == 0 %}
