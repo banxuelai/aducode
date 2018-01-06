@@ -76,7 +76,7 @@ class StudentModel extends Model
     //民族去重
     public function studentFees()
     {
-        $sql = "select id,all_fees from student_extra where status = 1 group by all_fees";
+        $sql = "select b.id,a.all_fees from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by a.all_fees";
         return $this->queryRows($sql);
     }
 }
