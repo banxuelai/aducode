@@ -5405,7 +5405,7 @@ var province=[
                 for(var i=0;i<province[n1].city.length;i++){
                 	var new_city = province[n1].city[i].name;
                 	if(pre_city == new_city){
-                		n2 =i;
+                		n2 = i;
                         var $temp=$("<option value=\"\" selected>"+province[n1].city[i].name+"</option>");
                 	}
                 	else{
