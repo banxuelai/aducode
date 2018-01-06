@@ -47,6 +47,9 @@ class StudentController extends AuthController
         $search['profess'] = $profess;
         $search['fees_status'] = $fees_status;
         $search['arrange'] = $arrange;
+        
+        
+        
         $page = intval($this->req->get('page'));
         $page_size = max(intval($this->req->get('page_size')), 20);
         empty($page) && $page = 1;
@@ -109,6 +112,23 @@ class StudentController extends AuthController
         $profess_info = $operation_model->getList(array('status' => 1,'type' => 'profess'), -1);
         //层次
         $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        if ($this->getTypebyUid() == 1) {
+            //信息确认点
+            $confirm_info = $student_model->studentConfirm();
+            //时间
+            $time_lists = $student_model->studentTime();
+            $tmp = array();
+            foreach ($time_lists as $key => $val) {
+                $tmp[] = date("Y-m-d", $val['create_time']);
+            }
+            $time_info = array_unique($tmp);
+            //金额
+            $fees_info = $student_model->studentFees();
+            //户籍地
+            $local_info = $student_model->studentLocal();
+            //民族
+            $ethnic_info = $student_model->studentEthnic();
+        }
         $this->display('student/lists.html', array(
                 'title' => '我的录入',
                 'pages' => $pageHtml,
@@ -118,6 +138,11 @@ class StudentController extends AuthController
                 'schoolInfo' => $school_info['rows'],
                 'professInfo' => $profess_info['rows'],
                 'arrangeInfo' => $arrange_info['rows'],
+                'confirmInfo' => isset($confirm_info) ? $confirm_info : array(),
+                'localInfo' => isset($local_info) ? $local_info : array(),
+                'timeInfo' => $time_info ? $time_info : array(),
+                'ethnicInfo' => isset($ethnic_info) ? $ethnic_info : array(),
+                'feesInfo' => isset($fees_info) ? $fees_info : array(),
                 'nickname' => $this->getUserName(),
                 'search' => $search,
                 'type' => $this->getTypebyUid(),
@@ -331,10 +356,6 @@ class StudentController extends AuthController
         $student_info['school_name'] = $item['school_name'];
         //专业
         $student_info['profess_name'] = $item['profess_name'];
-        //缴费信息
-        $student_info['fees1'] = $item['fees1'];
-        $student_info['fees2'] = $item['fees2'];
-        $student_info['all_fees'] = $item['all_fees'];
         
         //缴费状态
         $student_info['fees_status'] = $item['fees_status'];
@@ -382,29 +403,49 @@ class StudentController extends AuthController
             
             $fees1 = $this->req->post('fees1');
             $fees2 = $this->req->post('fees2');
+            $f1 = $f2 = $all_f = 0;
             if ($fees1 && $fees2) {
+                $f1 = $student_info['fees'] * $this->feesConfig[1];
+                $f2 = $student_info['fees'] * $this->feesConfig[2];
+                $all_f = $f1 + $f2;
                 $fees_status = 4;
             } elseif ($fees1) {
+                $f1 = $student_info['fees'] * $this->feesConfig[1];
                 if ($student_info['fees_status'] == 3) {
                     $fees_status = 4;
+                    $all_f = $f1 + $student_info['fees2'];
                 }
                 if ($student_info['fees_status'] == 1) {
                     $fees_status = 2;
+                    $all_f = $f1;
                 }
             } elseif ($fees2) {
+                $f2 = $student_info['fees'] * $this->feesConfig[2];
                 if ($student_info['fees_status'] == 2) {
                     $fees_status = 4;
+                    $all_f = $f2 + $student_info['fees1'];
                 }
                 if ($student_info['fees_status'] == 1) {
                     $fees_status = 3;
+                    $all_f = $f2;
                 }
             }
+            if ($f1) {
+                $extra_data['fees1'] = $f1;
+            }
+            if ($f2) {
+                $extra_data['fees2'] = $f2;
+            }
+            if ($all_f) {
+                $extra_data['all_fees'] = $all_f;
+            }
             $extra_data['fees_status'] = $fees_status;
-            Log::file("student_id({$student_id})--fees({$student_info['fees']})--fees_status({$student_info['fees_status']})--fees1({$fees1})--fees2({$fees2})--new_status({$fees_status})--editor({$this->getUserName()})", 'editFees');
             //更新
             $update_id = $student_model->updateOne($data, array('id' => $student_id), 'student');
             $update_extra_id = $student_model->updateOne($extra_data, array('student_id' => $student_id), 'student_extra');
             if ($update_id&&$update_extra_id) {
+                Log::file("student_id({$student_id})--fees({$student_info['fees']})--fees_status({$student_info['fees_status']})--fees1({$student_info['fees1']})--fees2({$student_info['fees2']})--all_fees({$student_info['all_fees']})--new_status({$fees_status})--f1({$f1})--f2({($f2)})--all_f{($all_f)}--editor({$this->getUserName()})", 'editFees');
+                 
                 Log::file("new_info---id({$student_id})--agent_id({$agent_id})--name({$name})--gender({$gender})--phone({$phone})--ethnic({$ethnic})--ID_num({$ID_num}--province({$province})--city({$city})--district({$district})--confirm_id({$confirm_id})", 'modifyStudent');
             }
             $this->success();
@@ -574,9 +615,9 @@ class StudentController extends AuthController
         $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
         $student_info['profess_name'] = $profess_info['title'];
         //缴费信息
-        $student_info['fees1'] = $this->getFees($student_info, 'fees1');
+/*         $student_info['fees1'] = $this->getFees($student_info, 'fees1');
         $student_info['fees2'] = $this->getFees($student_info, 'fees2');
-        $student_info['all_fees'] = $this->getFees($student_info, 'all_fees');
+        $student_info['all_fees'] = $this->getFees($student_info, 'all_fees'); */
         
         //缴费状态
         $student_info['fees_status'] = $this->feesStatusConfig[$student_info['fees_status']];

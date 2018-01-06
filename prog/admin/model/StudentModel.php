@@ -44,4 +44,39 @@ class StudentModel extends Model
         $sql = "SELECT a.*,b.*  FROM `student` a LEFT JOIN student_extra  b ON a.id = b.student_id where a.id = '$student_id'";
         return $this->queryRow($sql);
     }
+    
+    //获取信息确认点（去重）
+    public function studentConfirm()
+    {
+        $sql = "select c.id,c.province,c.city,c.district from (student as a left join student_extra as b on a.id=b.student_id) left join confirm as c on b.confirm_id=c.id where a.status = 1 and c.status = 1 group by b.confirm_id;";
+        return $this->queryRows($sql);
+    }
+    
+    //户籍地去重
+    public function studentLocal()
+    {
+        $sql = "select province,city,district from student where status = 1 group by province,city,district;";
+        return $this->queryRows($sql);
+    }
+    
+    //时间去重
+    public function studentTime()
+    {
+        $sql = "select id,create_time from student where status = 1 group by create_time";
+        return $this->queryRows($sql);
+    }
+    
+    //民族去重
+    public function studentEthnic()
+    {
+        $sql = "select id,ethnic from student where status = 1 group by ethnic";
+        return $this->queryRows($sql);
+    }
+    
+    //民族去重
+    public function studentFees()
+    {
+        $sql = "select id,all_fees from student where status = 1 group by all_fees";
+        return $this->queryRows($sql);
+    }
 }
