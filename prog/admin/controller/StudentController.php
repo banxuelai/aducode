@@ -331,6 +331,75 @@ class StudentController extends AuthController
         $student_info['fees_status'] = $item['fees_status'];
          
         if ($this->req->method == 'POST') {
+            $name = trim($this->req->post('name'));
+            $agent_id = intval($this->req->post('agent_id'));
+            $gender = trim($this->req->post('gender'));
+            $phone = $this->req->post('phone');
+            $ethnic = trim($this->req->post('ethnic'));
+            $ID_num = $this->req->post('ID_num');
+            $province = trim($this->req->post('province'));
+            $city = trim($this->req->post('city'));
+            $district = trim($this->req->post('district'));
+            
+            $confirm_id = intval($this->req->post('confirm_id'));
+            $arrange = intval($this->req->post('arrange'));
+            $professType = intval($this->req->post('professType'));
+            $school = intval($this->req->post('school'));
+            $profess = intval($this->req->post('profess'));
+            $entryFee = intval($this->req->post('entryFee'));
+            $fees = intval($this->req->post('fees'));
+            $extra = trim($this->req->post('extra'));
+            
+            //student 基础信息
+            $data = array(
+                    'agent_id' => $agent_id,
+                    'name' => $name,
+                    'gender' => $gender,
+                    'phone' => $phone,
+                    'ethnic' => $ethnic,
+                    'ID_num' => $ID_num,
+                    'province' => $province,
+                    'city' => $city,
+                    'district' => $district,
+                    'create_time' => time(),
+            );
+            //附加信息
+            $extra_data = array(
+                    'confirm_id' => $confirm_id,
+                    'arrange' => $arrange,
+                    'professType' => $professType,
+                    'school' => $school,
+                    'profess' => $profess,
+                    'entryFee' => $entryFee,
+                    'fees' => $fees,
+                    'extra' => $extra,
+            );
+            //校验
+            $this->check($data, $extra_data);
+            
+            $fees1 = $this->req->post('fees1');
+            $fees2 = $this->req->post('fees2');
+            if ($fees1 && $fees2) {
+                $fees_status = 4;
+            } elseif ($fees1) {
+                if ($student_info['fees_status'] == 3) {
+                    $fees_status = 4;
+                }
+                if ($student_info['fees_status'] == 1) {
+                    $fees_status = 2;
+                }
+            } elseif ($fees2) {
+                if ($student_info['fees_status'] == 2) {
+                    $fees_status = 4;
+                }
+                if ($student_info['fees_status'] == 1) {
+                    $fees_status = 3;
+                }
+            }
+            Log::file("student_id({$student_id})--fees({$student_info['fees']})--fees_status({$student_info['fees_status']})--fees1({$fees1})--fees2({$fees2})--new_status({$fees_status})--editor({$this->getUserName()})", 'editFees');
+            
+            //更新
+            $id = $student_model->updateOne(array('fees_status' => $fees_status,), array('student_id' => $student_id), 'student_extra');
         }
         //二级代理
         $agent_info = $agent_model->getList(array('uid' => $student_info['uid'],'status' => 1), -1);
@@ -342,25 +411,11 @@ class StudentController extends AuthController
         //报考层次
         $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         
-        //户籍信息
-        $province_list = array();
-        foreach ($this->city as $key => $val) {
-            $province_list[] = $key;
-        }
-        $city_list = array();
-        foreach ($this->city[$student_info['province']] as $key => $val) {
-            $city_list[] = $key;
-        }
-        $district_list = $this->city[$student_info['province']][$student_info['city']];
-        
         $this->display('student/modify.html', array(
                 'title' => '修改信息',
                 'agentInfo' => $agent_info['rows'],
                 'confirmInfo' => $confirm_info['rows'],
                 'arrangeInfo' => $arrange_info['rows'],
-                'province_list' => $province_list,
-                'city_list' => $city_list,
-                'district_list' => $district_list,
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'lists',

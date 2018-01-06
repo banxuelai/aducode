@@ -5,7 +5,7 @@
  * @date 2017-12-12
  *
  */
-class AuthController extends BaseController
+class AuthController extends Controller
 {
     public function __construct($req, $res, $cfg)
     {
