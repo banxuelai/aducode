@@ -5402,26 +5402,26 @@ var province=[
                 pro.append($temp);
             }
             if(n1 != 0){
-                for(var i=0;i<province[n1-1].city.length;i++){
-                	var new_city = province[n1-1].city[i].name;
+                for(var i=0;i<province[n1].city.length;i++){
+                	var new_city = province[n1].city[i].name;
                 	if(pre_city == new_city){
-                		n2 = province[n1-1].city[i];
-                        var $temp=$("<option value=\"\" selected>"+province[n1-1].city[i].name+"</option>");
+                		n2 =i;
+                        var $temp=$("<option value=\"\" selected>"+province[n1].city[i].name+"</option>");
                 	}
                 	else{
-                        var $temp=$("<option value=\"\">"+province[n1-1].city[i].name+"</option>");
+                        var $temp=$("<option value=\"\">"+province[n1].city[i].name+"</option>");
                 	}
                 	$("#city").append($temp);
                 }
             }
             
             if(n2 !==0){
-                for(var i=0;i<province[n1-1].city[n2-1].districtAndCounty.length;i++){
-                	if(pre_district == province[n1-1].city[n2-1].districtAndCounty[i]){
-                		var $temp=$("<option value=\"\" selected >"+province[n1-1].city[n2-1].districtAndCounty[i]+"</option>");
+                for(var i=0;i<province[n1].city[n2].districtAndCounty.length;i++){
+                	if(pre_district == province[n1].city[n2].districtAndCounty[i]){
+                		var $temp=$("<option value=\"\" selected >"+province[n1].city[n2].districtAndCounty[i]+"</option>");
                 	}
                 	else{
-                		var $temp=$("<option value=\"\">"+province[n1-1].city[n2-1].districtAndCounty[i]+"</option>");
+                		var $temp=$("<option value=\"\">"+province[n1].city[n2].districtAndCounty[i]+"</option>");
                 	}
                     
                     $("#districtAndCounty").append($temp);
