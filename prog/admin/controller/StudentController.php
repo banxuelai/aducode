@@ -207,7 +207,7 @@ class StudentController extends AuthController
     }
     
     //校验信息
-    private function check($data, $extra_data)
+    private function check($data, $extra_data, $type = "add")
     {
         if (!$data['agent_id']) {
             throw new Exception("请选择二级代理~");
@@ -261,20 +261,22 @@ class StudentController extends AuthController
             throw new Exception("请选择信息确认点~");
         }
         
-        if (!$extra_data['arrange']) {
-            throw new Exception("请选择报考层次~");
-        }
-        
-        if (!$extra_data['school']) {
-            throw new Exception("请选择学校~");
-        }
-        
-        if (!$extra_data['profess']) {
-            throw new Exception("请选择专业~");
-        }
-        
-        if (!$extra_data['fees']) {
-            throw new Exception("学费不能为空~");
+        if ($type == 'add') {
+            if (!$extra_data['arrange']) {
+                throw new Exception("请选择报考层次~");
+            }
+            
+            if (!$extra_data['school']) {
+                throw new Exception("请选择学校~");
+            }
+            
+            if (!$extra_data['profess']) {
+                throw new Exception("请选择专业~");
+            }
+            
+            if (!$extra_data['fees']) {
+                throw new Exception("学费不能为空~");
+            }
         }
     }
     
@@ -342,12 +344,6 @@ class StudentController extends AuthController
             $district = trim($this->req->post('district'));
             
             $confirm_id = intval($this->req->post('confirm_id'));
-            $arrange = intval($this->req->post('arrange'));
-            $professType = intval($this->req->post('professType'));
-            $school = intval($this->req->post('school'));
-            $profess = intval($this->req->post('profess'));
-            $entryFee = intval($this->req->post('entryFee'));
-            $fees = intval($this->req->post('fees'));
             $extra = trim($this->req->post('extra'));
             
             //student 基础信息
@@ -361,21 +357,16 @@ class StudentController extends AuthController
                     'province' => $province,
                     'city' => $city,
                     'district' => $district,
-                    'create_time' => time(),
+                    'update_time' => time(),
             );
             //附加信息
             $extra_data = array(
                     'confirm_id' => $confirm_id,
-                    'arrange' => $arrange,
-                    'professType' => $professType,
-                    'school' => $school,
-                    'profess' => $profess,
-                    'entryFee' => $entryFee,
-                    'fees' => $fees,
                     'extra' => $extra,
             );
             //校验
-            $this->check($data, $extra_data);
+            $this->check($data, $extra_data, 'modify');
+            Log::file("pre_info---id({$student_id})--agent_id({$student_info['agent_id']})--name({$student_info['name']})--gender({$student_info['gender']})--phone({$student_info['phone']})--ethnic({$student_info['ethnic']})--ID_num({$student_info['ID_num']}--province({$student_info['province']})--city({$student_info['city']})--district({$student_info['district']})--confirm_id({$student_info['confirm_id']})", 'modifyStudent');
             
             $fees1 = $this->req->post('fees1');
             $fees2 = $this->req->post('fees2');
@@ -396,10 +387,15 @@ class StudentController extends AuthController
                     $fees_status = 3;
                 }
             }
+            $extra_data['fees_status'] = $fees_status;
             Log::file("student_id({$student_id})--fees({$student_info['fees']})--fees_status({$student_info['fees_status']})--fees1({$fees1})--fees2({$fees2})--new_status({$fees_status})--editor({$this->getUserName()})", 'editFees');
-            
             //更新
-            $id = $student_model->updateOne(array('fees_status' => $fees_status,), array('student_id' => $student_id), 'student_extra');
+            $update_id = $student_model->updateOne($data, array('id' => $student_id), 'student');
+            $update_extra_id = $student_model->updateOne($extra_data, array('student_id' => $student_id), 'student_extra');
+            if($update_id&&$update_extra_id) {
+                Log::file("new_info---id({$student_id})--agent_id({$agent_id})--name({$name})--gender({$gender})--phone({$phone})--ethnic({$ethnic})--ID_num({$ID_num}--province({$province})--city({$city})--district({$district})--confirm_id({$confirm_id})", 'modifyStudent');
+            }
+            $this->success();
         }
         //二级代理
         $agent_info = $agent_model->getList(array('uid' => $student_info['uid'],'status' => 1), -1);

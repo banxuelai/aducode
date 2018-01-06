@@ -184,7 +184,7 @@
 		                          </tr>
 								  <tr style="border:none;">
 									<td style="text-align:center;" colspan="2">
-                                  <button type="button" class="btn btn-shadow btn-primary">保存</button>
+                                  <button type="button" class="btn btn-shadow btn-primary">修改</button>
                                   <button type="button" class="btn btn-shadow btn-default" onclick="javascript:window.location.href='/student/lists.html'">取消</button>								
 									</td>
 								  </tr>
@@ -264,15 +264,9 @@ $('.btn-primary').click(function(){
 	var city = $("#city").find("option:selected").text();
 	var district = $("#districtAndCounty").find("option:selected").text();
 	var confirm_id = $("#confirm_id").val();
-	var arrange = $("#arrange").val();
-	var professType = $("#professType").val();
-	var school = $("#school").val();
-	var profess = $("#profess").val();
-	var entryFee = $("#entryFee").val();
-	var fees = $("#fees").val();
 	var extra = $("#extra").val();
 	
-	var adddata = {
+	var update_data = {
 			agent_id:agent_id,
 			name:name,
 			gender:gender,
@@ -283,18 +277,12 @@ $('.btn-primary').click(function(){
 			city:city,
 			district:district,
 			confirm_id:confirm_id,
-			arrange:arrange,
-			professType:professType,
-			school:school,
-			profess:profess,
-			entryFee:entryFee,
-			fees:fees,
 			extra:extra
 	}
 	$.ajax({
-		url: '/student/add.json',
+		url: '/student/modify.json',
 		method: 'POST',
-		data:adddata,  
+		data:update_data,  
 		success: function(re){
 			if(re.error_code > 0){
 				alert(re.error_msg);
