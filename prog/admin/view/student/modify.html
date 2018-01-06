@@ -54,11 +54,11 @@
 		                          <tr>
 		                          	  <th class="form_table_th">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</th>
 		                          	  <td>
-                                   			<label class="label_radio" for="radio-01">
-                                               <input name="gender" id="radio-01" value="m" type="radio" {% if studentInfo.gender == 'm' %}checked{%endif%} /> 男
+                                   			<label class="label_radio" for="radio-m">
+                                               <input name="gender" id="radio-m" value="m" type="radio" {% if studentInfo.gender == 'm' %}checked{%endif%} /> 男
                                            </label>
-                                           <label class="label_radio" for="radio-02">
-                                               <input name="gender" id="radio-02" value="f" type="radio" {% if studentInfo.gender == 'f' %}checked{%endif%} />女
+                                           <label class="label_radio" for="radio-f">
+                                               <input name="gender" id="radio-f" value="f" type="radio" {% if studentInfo.gender == 'f' %}checked{%endif%} />女
                                            </label>
  									  </td>
 		                          </tr>
@@ -136,6 +136,7 @@
 		                          <tr>
 		                          	  <th class="form_table_th">应缴学费:</th>
 		                          	  <td>
+		                          	  <input type = "hidden" id = "fees" name = "fees" value = "{{studentInfo.fees}}">
 		                          	  	{{studentInfo.fees}}
  									  </td>
 		                          </tr>
