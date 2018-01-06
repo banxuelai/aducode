@@ -88,6 +88,7 @@
                                        <button type="submit"  class="btn btn-shadow btn-primary">查询</button>
                               </form>
                           </div>
+                          {% if type == 1 %}
                           <table class="table table-striped border-top" id="sample_1">
                           <thead>
                           <tr>
@@ -127,15 +128,40 @@
                               <td class="hidden-phone">{{item.fees_status}}</td>
                               <td class="hidden-phone">{{item.all_fees}}</td>
                               <td class="hidden-phone">{{item.create_time}}</td>
-                              {% if type == 1 %}
                               <td class="hidden-phone">
                                       <button class="btn btn-primary btn-xs" onclick="javascript:window.location.href='/student/edit.html?student_id={{item.id}}'"><i class="icon-pencil"></i></button>
                               </td>
-                              {% endif %}
                           </tr>
                           {% endfor %}
                                    </tbody>
                           </table>
+                          {%else%}
+                           <table class="table table-striped border-top" id="sample_1">
+                          <thead>
+                          <tr>
+                              <th>代理</th>
+                              <th>姓名</th>
+                              <th class="hidden-phone">层次</th>
+                              <th>学校</th>
+                              <th>专业</th>
+                              <th class="hidden-phone">联系方式</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {% for key,item in lists %}
+                          <tr class="odd gradeX">
+                              <td>{{item.agent_name}}</td>
+                              <td><a style="color: #FF0000" href = "/student/detail.html?student_id={{item.id}}">{{item.name}}</a></td>
+                              <td class="hidden-phone">{{item.arrange}}</td>
+                              <td>{{item.school_name}}</td>
+                              <td>{{item.profess_name}}</td>
+                              <td class="hidden-phone">{{item.fees_status}}</td>
+                         	  <td class="hidden-phone">{{item.phone}}</td>
+                          </tr>
+                          {% endfor %}
+                                   </tbody>
+                          </table>
+                          {% endif %}
                       </section>
                   </div>
               </div>
