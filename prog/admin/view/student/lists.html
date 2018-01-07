@@ -136,7 +136,7 @@
                                      <select class="form-control m-bot15" name = "create_time" id = "create_time">
                                               <option value = "0">请选择</option>
 											   {% for key,item in timeInfo %}
-											   <option value = "{{item}}">{{item}}</option>
+											   <option value = "{{item}}" {% if search.create_time == item %}selected{%endif%}>{{item}}</option>
 											   {% endfor %}
                                        </select>
                                  	
