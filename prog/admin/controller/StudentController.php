@@ -410,10 +410,7 @@ class StudentController extends AuthController
         $student_info['school_name'] = $item['school_name'];
         //专业
         $student_info['profess_name'] = $item['profess_name'];
-        
-        //缴费状态
-        $student_info['fees_status'] = $item['fees_status'];
-         
+                 
         if ($this->req->method == 'POST') {
             //权限判断
             if ($this->getTypebyUid() != 1) {
