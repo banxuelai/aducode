@@ -493,7 +493,7 @@ class StudentController extends AuthController
             if ($all_f) {
                 $extra_data['all_fees'] = $all_f;
             }
-            if (isset($fees_status) &&$fees_status) {
+            if ($fees_status) {
                 $extra_data['fees_status'] = $fees_status;
             }
             //更新
