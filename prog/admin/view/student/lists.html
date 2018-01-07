@@ -56,13 +56,13 @@
 								<div class = "form-group">
 									          性别
                                      <select class="form-control m-bot15" name = "gender" id = "gender">
-                                              <option>请选择</option>
+                                              <option value = "">请选择</option>
                                               <option value = "m" {% if search.ethnic== 'm' %}selected{%endif%}>男</option>
                                               <option value = "f" {% if search.ethnic== 'f' %}selected{%endif%}>女</option>
                                        </select>
                                      	民族
                                      <select class="form-control m-bot15" name = "ethnic" id = "ethnic">
-                                              <option>请选择</option>
+                                              <option value = "">请选择</option>
                                               {%for ket,item in ethnicInfo%}
                                               <option value = "{{item.ethnic}}" {% if search.ethnic == item.ethnic %}selected{%endif%}>{{item.ethnic}}</option>
                                               {%endfor%}
