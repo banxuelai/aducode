@@ -52,7 +52,9 @@
                                               {% endfor %}
                                               
                                        </select>
-                                    	性别
+                              	 </div>
+								<div class = "form-group">
+									          性别
                                      <select class="form-control m-bot15" name = "gender" id = "gender">
                                               <option>请选择</option>
                                               <option value = "m" {% if search.ethnic== 'm' %}selected{%endif%}>男</option>
@@ -65,8 +67,8 @@
                                               <option value = "{{item.ethnic}}" {% if search.ethnic == item.ethnic %}selected{%endif%}>{{item.ethnic}}</option>
                                               {%endfor%}
                                        </select>
-                              	 </div>
-
+                         
+								</div>
                                    <div class="form-group"> 
                                       	户籍
                                      <select class="form-control m-bot15" name = "local" id = "local">
@@ -75,6 +77,8 @@
                                               	<option value = "{{item.province}}-{{item.city}}-{{item.district}}" {% if search.province == item.province and  search.province == item.province and search.province == item.province %}selected{%endif%}>{{item.province}}{{item.city}}{{item.district}}</option>
                                               {% endfor %}
                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                      		确认点
                                      <select class="form-control m-bot15" name = "confirm_id" id = "confirm_id">
                                               <option value = "0">请选择</option>
@@ -82,6 +86,8 @@
                                               	<option value = "{{item.id}}" {% if search.confirm_id == item.id %}selected{%endif%}>{{item.province}}{{item.city}}{{item.district}}</option>
                                               {% endfor %}
                                        </select>
+                                      </div>
+                                      <div class="form-group">
                                      	层次
                                      <select class="form-control m-bot15" name = "arrange" id = "arrange">
                                               <option value = "0">请选择</option>
@@ -96,7 +102,9 @@
                                               	<option value = "{{item.id}}" {% if search.school== item.id %}selected{%endif%}>{{item.title}}</option>
                                               {% endfor %}
                                               
-                                       </select> 
+                                       </select>
+                                       </div>
+                                       <div class="form-group"> 
                                     	专业
                                      <select class="form-control m-bot15" id = "profess" name = "profess">
                                               <option>请选择</option>
@@ -122,14 +130,17 @@
                                               	<option value = "{{item.all_fees}}" {% if search.all_fees == item.all_fees %}selected{%endif%}>{{item.all_fees}}</option>
                                               {% endfor %}
                                        </select>
-                                    	录入时间
+                                 </div>
+                                 <div class="form-group">
+                                 	录入时间
                                      <select class="form-control m-bot15" name = "create_time" id = "create_time">
                                               <option value = "0">请选择</option>
 											   {% for key,item in timeInfo %}
 											   <option value = "item">{{item}}</option>
 											   {% endfor %}
                                        </select>
-                              	 </div>
+                                 	
+                                 </div>
                                        <button type="submit"  class="btn btn-shadow btn-primary">查询</button>
                               </form>
                                {%else%}

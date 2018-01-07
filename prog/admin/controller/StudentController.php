@@ -37,7 +37,22 @@ class StudentController extends AuthController
         $profess = intval($this->req->get('profess'));
         $arrange = intval($this->req->get('arrange'));
         $fees_status = $this->req->get('fees_status');
+        //性别
+        $gender = trim($this->req->get('gender'));
+        //民族
+        $ethnic = trim($this->req->get('ethnic'));
+        //户籍点
+        $local = $this->req->get('local');
+        //确认点
+        $confirm_id = intval($this->req->get('confirm_id'));
+        //缴费金额
+        $all_fees = $this->req->get('all_fees');
+        //时间点
+        $create_time = $this->req->get('create_time');
+        
         $uid = $this->getUidbySess();
+        
+        list($province,$city,$district) = explode('-', $local);
         
         $search = array();
         $search['name'] = $name;
@@ -47,7 +62,15 @@ class StudentController extends AuthController
         $search['profess'] = $profess;
         $search['fees_status'] = $fees_status;
         $search['arrange'] = $arrange;
-        
+        $search['gender'] = $gender;
+        $search['ethnic'] = $ethnic;
+        $search['local'] = $local;
+        $search['confirm_id'] = $confirm_id;
+        $search['all_fees'] = $all_fees;
+        $search['create_time'] = $create_time;
+        $search['province'] = $province;
+        $search['city'] = $city;
+        $search['district'] = $district;
         
         
         $page = intval($this->req->get('page'));
@@ -90,6 +113,37 @@ class StudentController extends AuthController
         
         if ($arrange) {
             $cond['b.arrange'] = $arrange;
+        }
+        
+        if ($gender) {
+            $cond['a.gender'] = $gender;
+        }
+        if ($ethnic) {
+            $cond['a.ethnic'] = $ethnic;
+        }
+        
+        if ($confirm_id) {
+            $cond['b.confirm_id'] = $confirm_id;
+        }
+          
+        
+        if ($province) {
+            $cond['a.province'] = $province;
+        }
+        if ($city) {
+            $cond['a.city'] = $city;
+        }
+        if ($district) {
+            $cond['a.district'] = $district;
+        }
+        if ($all_fees) {
+            $cond['b.all_fees'] = $all_fees;
+        }
+            
+        if ($create_time) {
+            $time = strtotime($create_time);
+            $cond['a.create_time']['>='] = $time;
+            $cond['a.create_time']['<'] = $time + 86400;
         }
         $re = $student_model->getList($cond, $offset, $page_size);
         

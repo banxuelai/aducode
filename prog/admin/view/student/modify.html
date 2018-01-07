@@ -256,6 +256,7 @@ $("#profess").change(function(){
 
 //提交按钮
 $('.btn-primary').click(function(){
+	var student_id = $("#student_id").val();
 	var agent_id = $("#agent_id").val();
 	var name = $("#name").val();
 	var gender = $("input[type='radio']:checked").val();
@@ -269,6 +270,7 @@ $('.btn-primary').click(function(){
 	var extra = $("#extra").val();
 	
 	var update_data = {
+			student_id:student_id,
 			agent_id:agent_id,
 			name:name,
 			gender:gender,
