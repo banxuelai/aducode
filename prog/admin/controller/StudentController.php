@@ -47,6 +47,9 @@ class StudentController extends AuthController
         $confirm_id = intval($this->req->get('confirm_id'));
         //缴费金额
         $all_fees = $this->req->get('all_fees');
+        if ($all_fees == '') {
+            $all_fees = -1;
+        }
         //时间点
         $create_time = $this->req->get('create_time');
         
