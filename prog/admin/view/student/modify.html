@@ -268,6 +268,8 @@ $('.btn-primary').click(function(){
 	var district = $("#districtAndCounty").find("option:selected").text();
 	var confirm_id = $("#confirm_id").val();
 	var extra = $("#extra").val();
+	var fees1 = $("input[name='fees1']:checked").val();
+	var fees2 = $("input[name='fees2']:checked").val();
 	
 	var update_data = {
 			student_id:student_id,
@@ -281,7 +283,9 @@ $('.btn-primary').click(function(){
 			city:city,
 			district:district,
 			confirm_id:confirm_id,
-			extra:extra
+			extra:extra,
+			fees1:fees1,
+			fees2:fees2
 	}
 	$.ajax({
 		url: '/student/modify.json',

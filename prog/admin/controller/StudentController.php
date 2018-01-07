@@ -136,7 +136,7 @@ class StudentController extends AuthController
         if ($district) {
             $cond['a.district'] = $district;
         }
-        if ($all_fees) {
+        if ($all_fees >= 0) {
             $cond['b.all_fees'] = $all_fees;
         }
             
@@ -493,7 +493,9 @@ class StudentController extends AuthController
             if ($all_f) {
                 $extra_data['all_fees'] = $all_f;
             }
-            $extra_data['fees_status'] = $fees_status;
+            if (isset($fees_status) &&$fees_status) {
+                $extra_data['fees_status'] = $fees_status;
+            }
             //更新
             $update_id = $student_model->updateOne($data, array('id' => $student_id), 'student');
             $update_extra_id = $student_model->updateOne($extra_data, array('student_id' => $student_id), 'student_extra');

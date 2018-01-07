@@ -125,7 +125,7 @@
                                        </select>
                                       	缴费金额
                                      <select class="form-control m-bot15" name = "all_fees" id = "all_fees">
-                                              <option value = "0">请选择</option>
+                                              <option value = "-1">请选择</option>
                                               {% for key,item in feesInfo %}
                                               	<option value = "{{item.all_fees}}" {% if search.all_fees == item.all_fees %}selected{%endif%}>{{item.all_fees}}</option>
                                               {% endfor %}
