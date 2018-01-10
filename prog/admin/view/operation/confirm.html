@@ -62,17 +62,18 @@
                           <thead>
                           <tr>
                               <th>确认点</th>
-                             <!--  <th>操作</th> -->
+                              <th>操作</th>
                           </tr>
                           </thead>
                           <tbody>
                           {% for key,item in lists %} 
                           
                           <tr class="odd gradeX">
+                          		<input type="hidden" id = "id" name ="id" value = "{{item.id}}">
                               <td>{{item.province}}{{item.city}}{{item.district}}</td>
-<!--                               <td>
+                              <td>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td> -->
+                              </td> 
                           </tr>
                          {% endfor %}
                              </tbody>
@@ -124,7 +125,7 @@ $('.btn-danger').click(function(){
     var  id = $(this).parents('tr').find('.id').val();
     if(del_info){
     	$.ajax({
-    		url: '/operation/confirm.json',
+    		url: '/operation/delConfirm.json',
     		method: 'POST',
     		data:{id:id},  
     		success: function(re){

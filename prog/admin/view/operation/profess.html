@@ -62,18 +62,19 @@
                           	  <th>学校</th>
                               <th>专业</th>
                               <th>类别</th>
-                              <!-- <th class="">操作</th> -->
+                              <th class="">操作</th>
                           </tr>
                           </thead>
                           <tbody>
                           {% for key,item in lists %}
                           <tr class="odd gradeX">
+                         	 <input type="hidden" id = "id" name ="id" value = "{{item.id}}">
                           	  <td>{{item.schoolName}}</td>
                               <td>{{item.title}}</td>
                               <td>{{item.professType}}</td>
-   <!--                            <td>
+                              <td>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                              </td> -->
+                              </td> 
                           </tr>
                           {% endfor %}
                           </tbody>
@@ -105,6 +106,28 @@ $("#arrange").change(function(){
 		}
 	});
 });
+//删除按钮
+$('.btn-danger').click(function(){
+	
+    event.preventDefault();
+    var del_info  = confirm('你确定要删除吗？');
+    var  id = $(this).parents('tr').find('.id').val();
+    if(del_info){
+    	$.ajax({
+    		url: '/operation/del.json',
+    		method: 'POST',
+    		data:{id:id},  
+    		success: function(re){
+				if (re.error_code == 0) {
+					alert('删除成功');
+					window.location.reload();
+				} else {
+					alert(re.error_msg);
+				}		
+    		}
+    	});
+    }
 
+});
 </script>
 {%endblock%}

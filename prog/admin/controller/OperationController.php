@@ -398,23 +398,37 @@ class OperationController extends AuthController
         $this->success($fees['fees']);
     }
     
-    //删除
+    //删除operation
     public function del()
     {
         
-        $id = intval($this->req->gpc('id'));
-        $agent_model = new AgentModel();
+        $id = intval($this->req->post('id'));
+        $operation_model = new OperationModel();
         
         //权限验证
-        $uid = $this->getUidbySess();
-        $admin_agent = $agent_model->getRow(array('id' => $id));
-        
-        if (!isset($admin_agent) || $admin_agent['uid'] != $uid) {
+        if ($this->getTypebyUid() != 1) {
             throw new Exception("没有删除权限~");
         }
+
+        $operation_model->updateOne(array('status' => -1,'update_time' => time(),'admin_name' => $this->getName()), array('id' => $id));
         
-        $agent_model->updateOne(array('status' => -1), array('id' => $id));
-        
+        $this->success();
+    }
+    
+    //删除confirm
+    public function delConfirm()
+    {
+    
+        $id = intval($this->req->post('id'));
+        $confirm_model = new ConfirmModel();
+    
+        //权限验证
+        if ($this->getTypebyUid() != 1) {
+            throw new Exception("没有删除权限~");
+        }
+   
+        $confirm_model->updateOne(array('status' => -1,'update_time' => time(),'admin_name' => $this->getName()), array('id' => $id));
+    
         $this->success();
     }
 }
