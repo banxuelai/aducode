@@ -233,13 +233,18 @@ class StudentController extends AuthController
             $district = trim($this->req->post('district'));
             
             $confirm_id = intval($this->req->post('confirm_id'));
-            $arrange = trim($this->req->post('arrange'));
+            $arrange_id = intval($this->req->post('arrange'));
             $professType = intval($this->req->post('professType'));
-            $school = trim($this->req->post('school'));
-            $profess = trim($this->req->post('profess'));
+            $school_id = intval($this->req->post('school'));
+            $profess_id = intval($this->req->post('profess'));
             $entryFee = intval($this->req->post('entryFee'));
             $fees = intval($this->req->post('fees'));
             $extra = trim($this->req->post('extra'));
+            
+            $arrange_item = $operation_model->getRow(array('id' => $arrange_id,'status' => 1,'type' => 'arrange'));
+            $school_item = $operation_model->getRow(array('id' => $school_id,'status' => 1,'type' => 'school'));
+            $profess_item = $operation_model->getRow(array('id' => $profess_id,'status' => 1,'type' => 'profess'));
+            
             
             //student 基础信息
             $data = array(
@@ -258,10 +263,13 @@ class StudentController extends AuthController
             //附加信息
             $extra_data = array(
                     'confirm_id' => $confirm_id,
-                    'arrange' => $arrange,
+                    'arrange_id' => $arrange_id,
+                    'arrange' => $arrange_item['title'] ? $arrange_item['title'] : '',
                     'professType' => $professType,
-                    'school' => $school,
-                    'profess' => $profess,
+                    'school_id' => $school_id,
+                    'school' => $school_item['title'] ? $school_item['title'] : '',
+                    'profess_id' => $profess_id,
+                    'profess' => $profess_item['title'] ? $profess_item['title'] : '',
                     'entryFee' => $entryFee,
                     'fees' => $fees,
                     'extra' => $extra,
