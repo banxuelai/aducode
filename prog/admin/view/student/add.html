@@ -111,7 +111,7 @@
 		                          	  		<select class="form-control m-bot15" id = "arrange" name = "arrange">
 		                          	  			<option value = '0'>请选择</option>
 		                          	  			{% for key,item in arrangeInfo %}
-		                          	  			<option value = "{{item.id}}">{{item.title}}</option>
+		                          	  			<option value = "{{item.title}}">{{item.title}}</option>
 		                          	  			{% endfor %}
 		                          	  		</select>
  									  </td>
@@ -186,7 +186,7 @@ $("#arrange").change(function(){
 			$("#school").find('option').remove();
 			$("#school").append("<option>请选择</option>");
 		    $.each(re.data,function(name,value) {
-				$("#school").append("<option value='"+value['id']+"'>"+value['title']+"</option>"); 
+				$("#school").append("<option value='"+value['title']+"'>"+value['title']+"</option>"); 
 	        });			
 		}
 	});
@@ -202,7 +202,7 @@ $("#school").change(function(){
 			$("#profess").find('option').remove();
 			$("#profess").append("<option>请选择</option>");
 		    $.each(re.data,function(name,value) {
-				$("#profess").append("<option value='"+value['id']+"'>"+value['title']+"</option>"); 
+				$("#profess").append("<option value='"+value['title']+"'>"+value['title']+"</option>"); 
 	        });			
 		}
 	});

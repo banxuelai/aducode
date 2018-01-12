@@ -33,9 +33,9 @@ class StudentController extends AuthController
         $name = trim($this->req->get('name'));
         $agent_uid = intval($this->req->get('uid'));
         $agent_id = intval($this->req->get('agent_id'));
-        $school = intval($this->req->get('school'));
-        $profess = intval($this->req->get('profess'));
-        $arrange = intval($this->req->get('arrange'));
+        $school = trim($this->req->get('school'));
+        $profess = trim($this->req->get('profess'));
+        $arrange = trim($this->req->get('arrange'));
         $fees_status = $this->req->get('fees_status');
         //性别
         $gender = trim($this->req->get('gender'));
@@ -163,12 +163,14 @@ class StudentController extends AuthController
             $agent_cond['uid'] = $uid;
         }
         $agent_info = $agent_model->getList($agent_cond, -1);
+        
+        $info_uid = $this->getTypebyUid() ? 0 : $this->getUidbySess();
         //学校
-        $school_info = $operation_model->getList(array('status' => 1,'type' => 'school'), -1);
+        $school_info = $student_model->sdudentSchool($info_uid);
         //专业
-        $profess_info = $operation_model->getList(array('status' => 1,'type' => 'profess'), -1);
+        $profess_info = $student_model->sdudentProfess($info_uid);
         //层次
-        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        $arrange_info = $student_model->sdudentArrange($info_uid);
         if ($this->getTypebyUid() == 1) {
             //信息确认点
             $confirm_info = $student_model->studentConfirm();
@@ -192,9 +194,9 @@ class StudentController extends AuthController
                 'lists' => $re['rows'],
                 'userInfo' => isset($uid_list['rows']) ? $uid_list['rows'] : array(),
                 'agentInfo' => $agent_info['rows'],
-                'schoolInfo' => $school_info['rows'],
-                'professInfo' => $profess_info['rows'],
-                'arrangeInfo' => $arrange_info['rows'],
+                'schoolInfo' => isset($school_info) ? $school_info : array(),
+                'professInfo' => isset($profess_info) ? $profess_info : array(),
+                'arrangeInfo' => isset($arrange_info) ? $arrange_info : array(),
                 'confirmInfo' => isset($confirm_info) ? $confirm_info : array(),
                 'localInfo' => isset($local_info) ? $local_info : array(),
                 'timeInfo' => $time_info ? $time_info : array(),
@@ -231,10 +233,10 @@ class StudentController extends AuthController
             $district = trim($this->req->post('district'));
             
             $confirm_id = intval($this->req->post('confirm_id'));
-            $arrange = intval($this->req->post('arrange'));
+            $arrange = trim($this->req->post('arrange'));
             $professType = intval($this->req->post('professType'));
-            $school = intval($this->req->post('school'));
-            $profess = intval($this->req->post('profess'));
+            $school = trim($this->req->post('school'));
+            $profess = trim($this->req->post('profess'));
             $entryFee = intval($this->req->post('entryFee'));
             $fees = intval($this->req->post('fees'));
             $extra = trim($this->req->post('extra'));
@@ -407,12 +409,6 @@ class StudentController extends AuthController
         
         $student_info = $student_model->getItem($student_id);
         $item = $this->buildStudentItem($student_info);
-        //报考层次
-        $student_info['arrange'] = $item['arrange'];
-        //学校
-        $student_info['school_name'] = $item['school_name'];
-        //专业
-        $student_info['profess_name'] = $item['profess_name'];
                  
         if ($this->req->method == 'POST') {
             //权限判断
@@ -513,14 +509,11 @@ class StudentController extends AuthController
         foreach ($confirm_info['rows'] as $key => $val) {
             $confirm_info['rows'][$key]['confirm'] = $val['province'].$val['city'].$val['district'];
         }
-        //报考层次
-        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
         
         $this->display('student/modify.html', array(
                 'title' => '修改信息',
                 'agentInfo' => $agent_info['rows'],
                 'confirmInfo' => $confirm_info['rows'],
-                'arrangeInfo' => $arrange_info['rows'],
                 'nickname' => $this->getUserName(),
                 'menu' => 'student',
                 'sub' => 'lists',
@@ -662,14 +655,14 @@ class StudentController extends AuthController
         $confirm_info = $confirm_model->getRow(array('status' => 1,'id' => $student_info['confirm_id']));
         $student_info['confirm'] = $confirm_info['province'].$confirm_info['city'].$confirm_info['district'];
         //报考层次
-        $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
+/*         $arrange_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['arrange'],'type' => 'arrange'));
         $student_info['arrange'] = $arrange_info['title'];
         //学校
         $school_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['school'],'type' => 'school'));
         $student_info['school_name'] = $school_info['title'];
         //专业
         $profess_info = $operation_model->getRow(array('status' => 1,'id' => $student_info['profess'],'type' => 'profess'));
-        $student_info['profess_name'] = $profess_info['title'];
+        $student_info['profess_name'] = $profess_info['title']; */
         //缴费信息
 /*         $student_info['fees1'] = $this->getFees($student_info, 'fees1');
         $student_info['fees2'] = $this->getFees($student_info, 'fees2');

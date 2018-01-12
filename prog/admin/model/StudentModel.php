@@ -73,10 +73,38 @@ class StudentModel extends Model
         return $this->queryRows($sql);
     }
     
-    //民族去重
+    //费用去重
     public function studentFees()
     {
         $sql = "select b.id,a.all_fees from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by a.all_fees";
+        return $this->queryRows($sql);
+    }
+    
+    //层次
+    public function sdudentArrange($uid = 0)
+    {
+        $sql = "select b.id,b.arrange from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by b.arrange";
+        if ($uid > 0) {
+            $sql = "select b.id,b.arrange from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid' group by b.arrange";
+        }
+        return $this->queryRows($sql);
+    }
+    //学校
+    public function sdudentSchool($uid = 0)
+    {
+        $sql = "select b.id,b.school from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by b.school";
+        if ($uid > 0) {
+            $sql = "select b.id,b.school from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid'  group by b.school";
+        }
+        return $this->queryRows($sql);
+    }
+    //专业
+    public function sdudentProfess($uid = 0)
+    {
+        $sql = "select b.id,b.profess from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by b.profess";
+        if ($uid > 0) {
+            $sql = "select b.id,b.profess from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid' group by b.profess";
+        }
         return $this->queryRows($sql);
     }
 }
