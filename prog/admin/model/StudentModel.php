@@ -83,27 +83,27 @@ class StudentModel extends Model
     //层次
     public function sdudentArrange($uid = 0)
     {
-        $sql = "select b.id,b.arrange from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by b.arrange";
+        $sql = "select b.id,a.arrange from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by a.arrange";
         if ($uid > 0) {
-            $sql = "select b.id,b.arrange from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid' group by b.arrange";
+            $sql = "select b.id,a.arrange from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid' group by a.arrange";
         }
         return $this->queryRows($sql);
     }
     //学校
     public function sdudentSchool($uid = 0)
     {
-        $sql = "select b.id,b.school from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by b.school";
+        $sql = "select b.id,a.school from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by a.school";
         if ($uid > 0) {
-            $sql = "select b.id,b.school from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid'  group by b.school";
+            $sql = "select b.id,a.school from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid'  group by a.school";
         }
         return $this->queryRows($sql);
     }
     //专业
     public function sdudentProfess($uid = 0)
     {
-        $sql = "select b.id,b.profess from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by b.profess";
+        $sql = "select b.id,a.profess from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 group by a.profess";
         if ($uid > 0) {
-            $sql = "select b.id,b.profess from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid' group by b.profess";
+            $sql = "select b.id,a.profess from student_extra as a left join student as b on a.student_id = b.id  where b.status = 1 and b.uid = '$uid' group by a.profess";
         }
         return $this->queryRows($sql);
     }
