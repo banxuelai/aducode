@@ -161,7 +161,7 @@
                                      <select class="form-control m-bot15" name = "school" id = "school">
                                               <option>请选择</option>
                                               {% for key,item in schoolInfo %}
-                                              	<option value = "{{item.id}}" {% if search.school== item.id %}selected{%endif%}>{{item.title}}</option>
+                                              	<option value = "{{item.school}}" {% if search.school== item.school %}selected{%endif%}>{{item.school}}</option>
                                               {% endfor %}
                                               
                                        </select> 
@@ -169,7 +169,7 @@
                                      <select class="form-control m-bot15" id = "profess" name = "profess">
                                               <option>请选择</option>
                                               {% for key,item in professInfo %}
-                                              	<option value = "{{item.id}}" {% if search.profess == item.id %}selected{%endif%}>{{item.title}}</option>
+                                              	<option value = "{{item.profess}}" {% if search.profess == item.profess %}selected{%endif%}>{{item.profess}}</option>
                                               {% endfor %}
                                               
                                        </select> 
@@ -179,7 +179,7 @@
                                      <select class="form-control m-bot15" name = "arrange" id = "arrange">
                                               <option value = "0">请选择</option>
                                              {% for key,item in arrangeInfo %}
-                                              	<option value = "{{item.id}}" {% if search.arrange == item.id %}selected{%endif%}>{{item.title}}</option>
+                                              	<option value = "{{item.arrange}}" {% if search.arrange == item.arrange %}selected{%endif%}>{{item.arrange}}</option>
                                               {% endfor %}
                                        </select>
                               	 </div>
