@@ -11,13 +11,18 @@ class UserController extends AuthController
     //添加用户
     public function add()
     {
+    	//引入拼音
+    	include "pinyin.php";
+    	
         $user_model = new UserModel();
         if ($this->req->method == 'POST') {
             $name = trim($this->req->post('name'));
             $phone = trim($this->req->post('phone'));
             
-            $nickname = CUtf8PY::encode($name, 'all');
-            
+            //$nickname = CUtf8PY::encode($name, 'all');
+            $py=new cn2pinyin();
+            $nickname = strtolower($py->get($name));
+             
             //check 重复
             $info = $user_model->getRow(array('nickname' => $nickname));
             if (!isset($info)) {
