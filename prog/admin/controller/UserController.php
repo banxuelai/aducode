@@ -25,7 +25,7 @@ class UserController extends AuthController
              
             //check 重复
             $info = $user_model->getRow(array('nickname' => $nickname));
-            if (!isset($info)) {
+            if (!$info) {
                 $nickname .= '1';
             }
             $data = array(
