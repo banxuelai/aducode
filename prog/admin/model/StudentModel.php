@@ -107,4 +107,23 @@ class StudentModel extends Model
         }
         return $this->queryRows($sql);
     }
+    
+    //一级代理去重
+    public function studentUser()
+    {
+        $sql = "select id,uid from student where status = 1 group by uid";
+        return $this->queryRows($sql);
+    }
+    
+    //二级代理用重
+    public function studentAgent($uid = 0)
+    {
+        $uid = intval($uid);
+        $sql = "select id,uid from student where status = 1 group by agent_id";
+         
+        if ($uid > 0) {
+            $sql = "select id,uid from student where status = 1 and uid = '$uid' group by agent_id";
+        }
+        return $this->queryRows($sql);
+    }
 }
