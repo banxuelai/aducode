@@ -60,7 +60,7 @@ class AdminController extends Controller
             throw new Exception("请输入用户名和密码～");
         }
         $user_model = new UserModel();
-        $user_info = $user_model->getRow(array('nickname' => $nickname));
+        $user_info = $user_model->getRow(array('nickname' => $nickname,'status' => 1));
         if (!$user_info || !password_verify($password, $user_info['password'])) {
             throw new Exception("用户名或密码错误～");
         }
