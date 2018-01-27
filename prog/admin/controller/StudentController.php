@@ -95,12 +95,13 @@ class StudentController extends AuthController
             }
             $chUser = $student_model->studentUser();
             $uids = array_column($chUser['rows'], 'uid');
-            
-            $userListWhere = array(
-                'status' => 1,
-                'id' => array('in' => $uids),
-            );
-            $uid_list = $user_model->getList($userListWhere, -1);
+            if (!empty($uids)) {
+                $userListWhere = array(
+                        'status' => 1,
+                        'id' => array('in' => $uids),
+                );
+                $uid_list = $user_model->getList($userListWhere, -1);
+            }
         } else {
             $cond['a.uid'] = $uid;
         }
@@ -172,11 +173,13 @@ class StudentController extends AuthController
         }
         $chAgent = $student_model->studentAgent();
         //获取去重的agent_id
-        $agent_ids = array_column($chAgent['rows'], 'agent_id');
+        $agent_ids = array_column($chAgent, 'agent_id');
         
-        $agent_cond['id'] = array('in' => $agent_ids);
-        
-        $agent_info = $agent_model->getList($agent_cond, -1);
+        if (!empty($agent_ids)) {
+            $agent_cond['id'] = array('in' => $agent_ids);
+            
+            $agent_info = $agent_model->getList($agent_cond, -1);
+        }
         
         $info_uid = $this->getTypebyUid() ? 0 : $this->getUidbySess();
         //学校
