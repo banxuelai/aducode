@@ -47,10 +47,25 @@ class AgentController extends AuthController
     public function lists()
     {
         $agent_model = new AgentModel();
+        $user_model = new UserModel();
+        $agent_uid = intval($this->req->get('uid'));
         $cond = array(
             'status' => 1,
             'uid' => $this->getUidbySess(),
         );
+        
+        // 超级管理员
+        if ($this->getTypebyUid() == 1) {
+            //一级代理列表
+            $userList = $user_model->getList(array('status' => 1,), -1);
+             
+            $cond = array(
+                'status' => 1,
+            );
+            if ($agent_uid) {
+                $cond['uid'] = $agent_uid;
+            }
+        }
         
         $re = $agent_model->getList($cond, -1);
         $view = array(
@@ -60,6 +75,8 @@ class AgentController extends AuthController
                 'menu' => 'agent',
                 'sub' => 'lists',
                 'type' => $this->getTypebyUid(),
+                'uid' => $agent_uid,
+                'user_lists' => $userList['rows'],
         );
         $this->display('agent/lists.html', $view);
     }
@@ -96,7 +113,7 @@ class AgentController extends AuthController
         $uid = $this->getUidbySess();
         $admin_agent = $agent_model->getRow(array('id' => $id));
         
-        if (!isset($admin_agent) || $admin_agent['uid'] != $uid) {
+        if (!isset($admin_agent) || ($admin_agent['uid'] != $uid && $this->getTypebyUid() != 1)) {
             throw new Exception("没有删除权限~");
         }
         
