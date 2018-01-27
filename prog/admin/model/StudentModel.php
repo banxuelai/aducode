@@ -119,10 +119,10 @@ class StudentModel extends Model
     public function studentAgent($uid = 0)
     {
         $uid = intval($uid);
-        $sql = "select id,uid from student where status = 1 group by agent_id";
+        $sql = "select id,uid,agent_id from student where status = 1 group by agent_id";
          
         if ($uid > 0) {
-            $sql = "select id,uid from student where status = 1 and uid = '$uid' group by agent_id";
+            $sql = "select id,uid,agent_id from student where status = 1 and uid = '$uid' group by agent_id";
         }
         return $this->queryRows($sql);
     }

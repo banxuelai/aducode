@@ -94,7 +94,7 @@ class StudentController extends AuthController
                 $cond['a.uid'] = $agent_uid;
             }
             $chUser = $student_model->studentUser();
-            $uids = array_column($chUser['rows'], 'uid');
+            $uids = array_column($chUser, 'uid');
             if (!empty($uids)) {
                 $userListWhere = array(
                         'status' => 1,
