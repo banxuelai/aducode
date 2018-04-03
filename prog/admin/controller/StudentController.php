@@ -362,12 +362,6 @@ class StudentController extends AuthController
             throw new Exception("身份证号不正确~");
         }
         
-        //校验身份信息唯一性
-        $studentItem = $student_model->getItemByCond(array('a.ID_num' => $data['ID_num']));
-        if ($data['ID_num'] == $studentItem['ID_num']) {
-            throw new Exception("该学员身份信息已录入~");
-        }
-        
         if ($data['province'] == '省份') {
             throw new Exception("请选择省份~");
         }
@@ -385,6 +379,12 @@ class StudentController extends AuthController
         }
         
         if ($type == 'add') {
+            //校验身份信息唯一性
+            $studentItem = $student_model->getItemByCond(array('a.ID_num' => $data['ID_num']));
+            if ($data['ID_num'] == $studentItem['ID_num']) {
+                throw new Exception("该学员身份信息已录入~");
+            }
+            
             if (!$extra_data['arrange']) {
                 throw new Exception("请选择报考层次~");
             }
