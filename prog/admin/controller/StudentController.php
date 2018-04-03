@@ -707,4 +707,109 @@ class StudentController extends AuthController
          
         return $student_info;
     }
+    
+    
+    //导出excel at 20180403
+    public function export()
+    {
+        
+        include 'PHPExcel/Classes/PHPExcel.php';
+        include 'PHPExcel/Classes/PHPExcel/IOFactory.php';
+        include 'PHPExcel/Classes/PHPExcel/Writer/Excel5.php';
+        // 创建对象
+        $excel = new PHPExcel();
+        // Excel表格式,这里简略写了8列
+        $letter = array(
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'J',
+                'K',
+                'L',
+                'M',
+                'N',
+                'O',
+        );
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+        $excel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
+        $excel->getActiveSheet()->getColumnDimension('H')->setWidth(50);
+        $excel->getActiveSheet()->getColumnDimension('I')->setWidth(50);
+        // 表头数组
+        $tableheader = array(
+                '一级代理',
+                '二级代理',
+                '学员姓名',
+                '性别',
+                '电话',
+                '民族',
+                '身份证号',
+                '户籍地',
+                '确认点',
+                '层次',
+                '学校',
+                '专业',
+                '缴费状态',
+                '缴费金额',
+                '录入时间',
+        );
+        // 填充表头信息
+        for ($i = 0; $i < count($tableheader); $i++) {
+            $excel->getActiveSheet()->setCellValue("$letter[$i]1", "$tableheader[$i]");
+        }
+        
+        // 获取数据
+        $student_model = new StudentModel();
+        $user_model = new UserModel();
+        
+        $cond['a.status'] = 1;
+        $re = $student_model->getList($cond, -1);
+        
+        // 填充数据
+        $data = array();
+        $i = 0;
+        
+        foreach ($re['rows'] as $key => $val) {
+            //一级代理姓名
+            $user = array();
+            $userItem = $user_model->getRow(array('id' => $val['uid']));
+            $user[] = $userItem ? $userItem['name'] : '';
+            $re['rows'][$key] = $this->buildStudentItem($val);
+            $data[$i] = $user + $re['rows'][$key];
+            $i++;
+        }
+        
+        
+        // 填充表格信息
+        for ($i = 2; $i <= count($data) + 1; $i++) {
+            $j = 0;
+            foreach ($data[$i - 2] as $key => $value) {
+                $excel->getActiveSheet()->setCellValue("$letter[$j]$i", "$value");
+                $j++;
+            }
+        }
+        
+        $write = new PHPExcel_Writer_Excel5($excel);
+        header("Pragma: public");
+        header("Expires: 0");
+        header('Cache-Control: max-age=0');
+        header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type:application/force-download");
+        header("Content-Type:application/vnd.ms-execl");
+        header("Content-Type:application/octet-stream");
+        header("Content-Type:application/download");
+        
+        header("content-disposition:attachment;filename=" . date('Ymdhms', time()) . '_' . "学员信息.xls");
+        header("Content-Transfer-Encoding:binary");
+        
+        $write->save('php://output');
+        
+        exit();
+    }
 }
