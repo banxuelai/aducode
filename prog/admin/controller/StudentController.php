@@ -747,6 +747,7 @@ class StudentController extends AuthController
         $excel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
         $excel->getActiveSheet()->getColumnDimension('H')->setWidth(50);
         $excel->getActiveSheet()->getColumnDimension('I')->setWidth(50);
+        $excel->getActiveSheet()->getColumnDimension('G')->setWidth(50);
         // 表头数组
         $tableheader = array(
                 '一级代理',
@@ -783,10 +784,8 @@ class StudentController extends AuthController
         
         foreach ($re['rows'] as $key => $val) {
             //一级代理姓名
-            $user = array();
-            $userItem = $user_model->getRow(array('id' => $val['uid']));
-            $data[$i][0] = $userItem ? $userItem['name'] : '';
             $re['rows'][$key] = $this->buildStudentItem($val);
+            $data[$i][0] = $re['rows'][$key]['name'];
             $data[$i][1] = $re['rows'][$key]['agent_name'];
             $data[$i][2] = $re['rows'][$key]['name'];
             $data[$i][3] = $re['rows'][$key]['gender'];
