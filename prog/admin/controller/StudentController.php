@@ -810,6 +810,9 @@ class StudentController extends AuthController
             $j = 0;
             foreach ($data[$i - 2] as $key => $value) {
                 $excel->getActiveSheet()->setCellValue("$letter[$j]$i", "$value");
+                if ($j == 6) {
+                    $excel->getActiveSheet()->setCellValueExplicit("$letter[$j]$i", "$value", PHPExcel_Cell_DataType::TYPE_STRING);
+                }
                 $j++;
             }
         }
