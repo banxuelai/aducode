@@ -34,6 +34,9 @@
                               <button type="submit" class="btn btn-round btn-primary" onclick="javascript:window.location.href='/student/add.html'">录入</button>
                           </div>
                           <div class="panel-body">
+                              <button type="submit" class="btn btn-round btn-primary" onclick="javascript:window.location.href='/student/export'">导出</button>
+                          </div>
+                          <div class="panel-body">
                         	  {% if type == 1 %}
                               <form class="form-inline">
                               	 <div class = "form-group">
@@ -191,7 +194,8 @@
                           <table class="table table-striped border-top" id="sample_1">
                           <thead>
                           <tr>
-                              <th>代理</th>
+                          	  <th>一级代理</th>
+                              <th>二级代理</th>
                               <th>姓名</th>
                               <th class="hidden-phone">性别</th>
                               <th class="hidden-phone">电话</th>
@@ -214,6 +218,7 @@
                           {% for key,item in lists %}
                           <tr class="odd gradeX">
                          	 <input type = "hidden" name = 'id' class = "id" value = "{{item.id}}">                           
+                              <td>{{item.user_name}}</td>
                               <td>{{item.agent_name}}</td>
                               <td><a style="color: #FF0000" href = "/student/detail.html?student_id={{item.id}}">{{item.name}}</a></td>
                               <td class="hidden-phone">{{item.gender}}</td>

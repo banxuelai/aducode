@@ -678,6 +678,10 @@ class StudentController extends AuthController
         $confirm_model = new ConfirmModel();
         $user_model = new UserModel();
         
+        //一级代理
+        $user_info  = $user_model->getRow(array('id' => $student_info['uid']));
+        $student_info['user_name'] = $user_info['name'] ? $user_info['name'] : '';
+        
         //性别
         $student_info['gender'] = $this->getGender($student_info['gender']);
         //二级代理
@@ -712,6 +716,8 @@ class StudentController extends AuthController
     //导出excel at 20180403
     public function export()
     {
+        set_time_limit(0);
+        ini_set("memory_limit", "512M");
         
         include 'PHPExcel/Classes/PHPExcel.php';
         include 'PHPExcel/Classes/PHPExcel/IOFactory.php';
