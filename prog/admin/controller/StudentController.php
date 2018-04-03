@@ -325,6 +325,7 @@ class StudentController extends AuthController
     //校验信息
     private function check($data, $extra_data, $type = "add")
     {
+        $student_model = new StudentModel();
         if (!$data['agent_id']) {
             throw new Exception("请选择二级代理~");
         }
@@ -359,6 +360,12 @@ class StudentController extends AuthController
         
         if (!preg_match('/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/', $data['ID_num'])) {
             throw new Exception("身份证号不正确~");
+        }
+        
+        //校验身份信息唯一性
+        $studentItem = $student_model->getItemByCond(array('a.ID_num' => $data['ID_num']));
+        if ($data['ID_num'] == $studentItem['ID_num']) {
+            throw new Exception("该学员身份信息已录入~");
         }
         
         if ($data['province'] == '省份') {

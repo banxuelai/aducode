@@ -45,6 +45,14 @@ class StudentModel extends Model
         return $this->queryRow($sql);
     }
     
+    //获取单条记录
+    public function getItemByCond($cond)
+    {
+        $where_str = $this->getWhereStr($cond);
+        $sql = "SELECT a.*,b.*  FROM `student` a LEFT JOIN student_extra  b ON a.id = b.student_id $where_str ";
+        return $this->queryRow($sql);
+    }
+    
     //获取信息确认点（去重）
     public function studentConfirm()
     {
