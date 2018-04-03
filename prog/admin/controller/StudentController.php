@@ -779,9 +779,22 @@ class StudentController extends AuthController
             //一级代理姓名
             $user = array();
             $userItem = $user_model->getRow(array('id' => $val['uid']));
-            $user[] = $userItem ? $userItem['name'] : '';
+            $data[$i][0] = $userItem ? $userItem['name'] : '';
             $re['rows'][$key] = $this->buildStudentItem($val);
-            $data[$i] = $user + $re['rows'][$key];
+            $data[$i][1] = $re['rows'][$key]['agent_name'];
+            $data[$i][2] = $re['rows'][$key]['name'];
+            $data[$i][3] = $re['rows'][$key]['gender'];
+            $data[$i][4] = $re['rows'][$key]['phone'];
+            $data[$i][5] = $re['rows'][$key]['ethnic'];
+            $data[$i][6] = $re['rows'][$key]['ID_num'];
+            $data[$i][7] = $re['rows'][$key]['province'].$re['rows'][$key]['city'].$re['rows'][$key]['district'];
+            $data[$i][8] = $re['rows'][$key]['confirm'];
+            $data[$i][9] = $re['rows'][$key]['arrange'];
+            $data[$i][10] = $re['rows'][$key]['school'];
+            $data[$i][11] = $re['rows'][$key]['profess'];
+            $data[$i][12] = $re['rows'][$key]['fees_status'];
+            $data[$i][13] = $re['rows'][$key]['fees'];
+            $data[$i][14] = $re['rows'][$key]['create_time'];
             $i++;
         }
         
