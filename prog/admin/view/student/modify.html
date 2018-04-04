@@ -230,6 +230,11 @@ $("#arrange").change(function(){
 		method: 'POST',
 		data:{arrange:arrange},  
 		success: function(re){
+			//移除专业与学费
+			$("#profess").find('option').remove();
+			$("#profess").append("<option>请选择</option>");
+			$("#fees").val('');
+			
 			$("#school").find('option').remove();
 			$("#school").append("<option>请选择</option>");
 		    $.each(re.data,function(name,value) {
@@ -248,6 +253,7 @@ $("#school").change(function(){
 		success: function(re){
 			$("#profess").find('option').remove();
 			$("#profess").append("<option>请选择</option>");
+			$("#fees").val('');
 		    $.each(re.data,function(name,value) {
 				$("#profess").append("<option value='"+value['id']+"'>"+value['title']+"</option>"); 
 	        });			
