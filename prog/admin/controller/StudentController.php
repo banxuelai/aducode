@@ -825,7 +825,7 @@ class StudentController extends AuthController
             $data[$i][10] = $re['rows'][$key]['school'];
             $data[$i][11] = $re['rows'][$key]['profess'];
             $data[$i][12] = $re['rows'][$key]['fees_status'];
-            $data[$i][13] = $re['rows'][$key]['fees'];
+            $data[$i][13] = $re['rows'][$key]['all_fees'];
             $data[$i][14] = $re['rows'][$key]['create_time'];
             $i++;
         }
