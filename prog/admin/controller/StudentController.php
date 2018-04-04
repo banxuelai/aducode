@@ -744,8 +744,20 @@ class StudentController extends AuthController
         );
         
         //居中设置
-        $excel->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //左右居中
+        //$excel->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //左右居中
         //$excel->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); //上下居中
+        
+        //边框设置
+        $styleThinBlackBorderOutline = array(
+                'borders' => array (
+                        'outline' => array (
+                                'style' => PHPExcel_Style_Border::BORDER_THIN,   //设置border样式
+                                //'style' => PHPExcel_Style_Border::BORDER_THICK,  另一种样式
+                                'color' => array ('argb' => 'FF000000'),          //设置border颜色
+                        ),
+                ),
+        );
+        //$excel->getActiveSheet()->getStyle('A4:E10')->applyFromArray($styleThinBlackBorderOutline);
         
         $excel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
         $excel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
@@ -758,7 +770,7 @@ class StudentController extends AuthController
         $excel->getActiveSheet()->getColumnDimension('I')->setWidth(25);
         $excel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
         $excel->getActiveSheet()->getColumnDimension('K')->setWidth(22);
-        $excel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('L')->setWidth(20);
         $excel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
         $excel->getActiveSheet()->getColumnDimension('N')->setWidth(10);
         $excel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
