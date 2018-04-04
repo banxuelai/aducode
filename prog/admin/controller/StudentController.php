@@ -742,12 +742,27 @@ class StudentController extends AuthController
                 'N',
                 'O',
         );
-        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
-        $excel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
-        $excel->getActiveSheet()->getColumnDimension('H')->setWidth(50);
-        $excel->getActiveSheet()->getColumnDimension('I')->setWidth(50);
-        $excel->getActiveSheet()->getColumnDimension('G')->setWidth(50);
+        
+        //居中设置
+        $excel->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); //左右居中
+        //$excel->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); //上下居中
+        
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('D')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('F')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('H')->setWidth(25);
+        $excel->getActiveSheet()->getColumnDimension('I')->setWidth(25);
+        $excel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('K')->setWidth(22);
+        $excel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('N')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
+        
         // 表头数组
         $tableheader = array(
                 '一级代理',
@@ -803,6 +818,18 @@ class StudentController extends AuthController
             $i++;
         }
         
+        //***********************画出单元格边框*****************************
+        $styleArray = array(
+                'borders' => array(
+                        'allborders' => array(
+                                //'style' => PHPExcel_Style_Border::BORDER_THICK,//边框是粗的
+                                'style' => PHPExcel_Style_Border::BORDER_THIN,//细边框
+                                //'color' => array('argb' => 'FFFF0000'),
+                        ),
+                ),
+        );
+        $excel->getStyle('A:O'.$i + 1)->applyFromArray($styleArray);//这里就是画出从单元格A5到N5的边框，看单元格最右边在哪哪个格就把这个N改为那个字母替代
+        //***********************画出单元格边框结束*****************************
         
         // 填充表格信息
         for ($i = 2; $i <= count($data) + 1; $i++) {
