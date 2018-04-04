@@ -5352,7 +5352,7 @@ var province=[
             	    ]
             	  }
             	];
-
+		var test = [{"北京市":1},{"天津市":1},{"河北省":1}];
         $(function(){
             var pro=$("#province");
             var city=$("#city");
@@ -5373,6 +5373,10 @@ var province=[
             });
             city.change(function(){
                 num2=city.prop("selectedIndex");
+                if(num1 == null){
+                	var pre_city = $("#pre_city").val();
+                	num1 = test[pre_city];
+                }
                 dAC.find("option").eq(0).siblings().remove();
                 if(num2!==0){
                     for(var i=0;i<province[num1-1].city[num2-1].districtAndCounty.length;i++){

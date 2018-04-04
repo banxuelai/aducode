@@ -184,7 +184,7 @@ class UserController extends AuthController
         
         $id = intval($this->req->gpc('id'));
         $user_model = new UserModel();
-        
+        $student_model = new StudentModel();
         //权限验证
         $nickname = $this->getUserName();
         $admin_user = $user_model->getRow(array('nickname' => $nickname));
@@ -201,6 +201,12 @@ class UserController extends AuthController
         
         $user_model->updateOne(array('status' => -1,'update_time' => time()), array('id' => $id));
         
+        $studentInfo = $student_model->getList(array('uid' => $id,'status' => 1), -1);
+        
+        //删除学员信息
+        if ($studentInfo) {
+            $student_model->updateBatch(array('status' => -1,'update_time' => time()), array('uid' => $id));
+        }
         $this->success();
     }
 }
