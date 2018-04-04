@@ -812,7 +812,7 @@ class StudentController extends AuthController
         foreach ($re['rows'] as $key => $val) {
             //一级代理姓名
             $re['rows'][$key] = $this->buildStudentItem($val);
-            $data[$i][0] = $re['rows'][$key]['name'];
+            $data[$i][0] = $re['rows'][$key]['user_name'];
             $data[$i][1] = $re['rows'][$key]['agent_name'];
             $data[$i][2] = $re['rows'][$key]['name'];
             $data[$i][3] = $re['rows'][$key]['gender'];
