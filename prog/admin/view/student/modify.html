@@ -284,6 +284,12 @@ $('.btn-primary').click(function(){
 	var extra = $("#extra").val();
 	var fees1 = $("input[name='fees1']:checked").val();
 	var fees2 = $("input[name='fees2']:checked").val();
+	var arrange = $("#arrange").val();
+	var professType = $("#professType").val();
+	var school = $("#school").val();
+	var profess = $("#profess").val();
+	var entryFee = $("#entryFee").val();
+	var fees = $("#fees").val();
 	
 	var update_data = {
 			student_id:student_id,
@@ -298,6 +304,12 @@ $('.btn-primary').click(function(){
 			district:district,
 			confirm_id:confirm_id,
 			extra:extra,
+			arrange:arrange,
+			professType:professType,
+			school:school,
+			profess:profess,
+			entryFee:entryFee,
+			fees:fees,
 			fees1:fees1,
 			fees2:fees2
 	}
