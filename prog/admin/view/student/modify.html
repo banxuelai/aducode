@@ -142,17 +142,16 @@
  									  </td>
 		                          </tr>
 		                          <tr>
-		                          	  <th class="form_table_th">报名费:</th>
+		                          	  <th class="form_table_th">报名费</th>
 		                          	  <td>
-		                          	  		{{studentInfo.entryFee}}
+                                      <input  disabled="disabled" type="text" class="form-control" value = "{{studentInfo.entryFee}}" placeholder="请输入金额" name = "entryFee" id="entryFee" >
  									  </td>
 		                          </tr>
 		                          
 		                          <tr>
-		                          	  <th class="form_table_th">应缴学费:</th>
+		                          	  <th class="form_table_th">应缴学费</th>
 		                          	  <td>
-		                          	  <input type = "hidden" id = "fees" name = "fees" value = "{{studentInfo.fees}}">
-		                          	  	{{studentInfo.fees}}
+                                      <input disabled="disabled" type="text" class="form-control" value = "{{studentInfo.fees}}" placeholder="请输入金额" name = "fees" id="fees" >
  									  </td>
 		                          </tr>
 		                         <tr>
