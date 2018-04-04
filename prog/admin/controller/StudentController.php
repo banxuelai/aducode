@@ -830,19 +830,6 @@ class StudentController extends AuthController
             $i++;
         }
         
-        //***********************画出单元格边框*****************************
-        $styleArray = array(
-                'borders' => array(
-                        'allborders' => array(
-                                //'style' => PHPExcel_Style_Border::BORDER_THICK,//边框是粗的
-                                'style' => PHPExcel_Style_Border::BORDER_THIN,//细边框
-                                //'color' => array('argb' => 'FFFF0000'),
-                        ),
-                ),
-        );
-        $excel->getStyle('A:O'.$i + 1)->applyFromArray($styleArray);//这里就是画出从单元格A5到N5的边框，看单元格最右边在哪哪个格就把这个N改为那个字母替代
-        //***********************画出单元格边框结束*****************************
-        
         // 填充表格信息
         for ($i = 2; $i <= count($data) + 1; $i++) {
             $j = 0;
