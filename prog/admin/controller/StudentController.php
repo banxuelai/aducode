@@ -541,6 +541,13 @@ class StudentController extends AuthController
         foreach ($confirm_info['rows'] as $key => $val) {
             $confirm_info['rows'][$key]['confirm'] = $val['province'].$val['city'].$val['district'];
         }
+        //报考层次
+        $arrange_info = $operation_model->getList(array('status' => 1,'type' => 'arrange'), -1);
+        //学校
+        $operation_model = new OperationModel();
+        $school_info = $operation_model->getList(array('parent_id' => $item['arrange_id'],'status' => 1,'type' => 'school'), -1);
+        //专业
+        $profess_info = $operation_model->getList(array('status' => 1,'parent_id' => $item['school_id'],'type' => 'profess'), -1);
         
         $this->display('student/modify.html', array(
                 'title' => '修改信息',
@@ -551,6 +558,9 @@ class StudentController extends AuthController
                 'sub' => 'lists',
                 'type' => $this->getTypebyUid(),
                 'studentInfo' => $student_info,
+                'arrangeInfo' => $arrange_info['rows'],
+                'schoolInfo' => $school_info['rows'],
+                'professInfo' => $profess_info['rows'],
         ));
     }
     

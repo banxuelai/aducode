@@ -108,22 +108,37 @@
                                          	</select>
                         			  </td>
 		                          </tr>
+		                         <tr>
+		                          	  <th class="form_table_th">报考层次</th>
+		                          	  <td>
+		                          	  		<select class="form-control m-bot15" id = "arrange" name = "arrange">
+		                          	  			<option value = '0'>请选择</option>
+		                          	  			{% for key,item in arrangeInfo %}
+		                          	  			<option value = "{{item.id}}" {% if studentInfo.arrange_id == item.id %}selected{%endif%}>{{item.title}}</option>
+		                          	  			{% endfor %}
+		                          	  		</select>
+ 									  </td>
+		                          </tr>
 		                          <tr>
-		                          	  <th class="form_table_th">报考层次:</th>
+		                          	  <th class="form_table_th">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校</th>
 		                          	  <td>
-											{{studentInfo.arrange}}
+		                          	  		<select class="form-control m-bot15" id = "school" name = "school">
+		                          	  			<option value = '0'>请选择</option>
+		                          	  			{% for key,item in schoolInfo %}
+		                          	  			<option value = "{{item.id}}" {% if studentInfo.school_id == item.id %}selected{%endif%}>{{item.title}}</option>
+		                          	  			{% endfor %}
+		                          	  		</select>
  									  </td>
 		                          </tr>
-		                           <tr>
-		                          	  <th class="form_table_th">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校:</th>
+		                          <tr>
+		                          	  <th class="form_table_th">专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</th>
 		                          	  <td>
-											{{studentInfo.school}}
- 									  </td>
-		                          </tr>
-		                           <tr>
-		                          	  <th class="form_table_th">专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业:</th>
-		                          	  <td>
-   											{{studentInfo.profess}}
+		                          	  		<select class="form-control m-bot15" id = "profess" name = "profess">
+		                          	  			<option value = '0'>请选择</option>
+		                          	  			{% for key,item in professInfo %}
+		                          	  			<option value = "{{item.id}}" {% if studentInfo.profess_id == item.id %}selected{%endif%}>{{item.title}}</option>
+		                          	  			{% endfor %}
+		                          	  		</select>
  									  </td>
 		                          </tr>
 		                          <tr>
