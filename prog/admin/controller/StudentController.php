@@ -882,7 +882,9 @@ class StudentController extends AuthController
         header("Content-Type:application/octet-stream");
         header("Content-Type:application/download");
         
-        header("content-disposition:attachment;filename=" . date('Ymdhms', time()) . '_' . "学员信息.xls");
+        $filename = date('Ymdhms', time()) . '_' . "学员信息.xls";
+        $filename = iconv("utf-8", "gb2312", $filename);
+        header("content-disposition:attachment;filename=" .$filename);
         header("Content-Transfer-Encoding:binary");
         
         $write->save('php://output');
