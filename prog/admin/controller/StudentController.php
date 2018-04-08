@@ -891,4 +891,59 @@ class StudentController extends AuthController
         
         exit();
     }
+    
+    //同步压力测试数据 at 20180408
+    public function syn()
+    {
+        $student_model = new StudentModel();
+        $user_model = new UserModel();
+        $operation_model = new OperationModel();
+        
+        $cond['a.status'] = 1;
+        $re = $student_model->getList($cond, -1);
+        
+        for ($i = 1; $i <= 40; $i++) {
+            foreach ($re['rows'] as $key => $val) {
+                //student 基础信息
+                $data = array(
+                        'uid' => $val['uid'],
+                        'agent_id' => $val['agent_id'],
+                        'name' => $val['name'],
+                        'gender' => $val['gender'],
+                        'phone' => $val['phone'],
+                        'ethnic' => $val['ethnic'],
+                        'ID_num' => $val['ID_num'],
+                        'province' => $val['province'],
+                        'city' => $val['city'],
+                        'district' => $val['district'],
+                        'create_time' => time(),
+                );
+            
+                $arrange_item = $operation_model->getRow(array('id' => $val['arrange_id'],'status' => 1,'type' => 'arrange'));
+                $school_item = $operation_model->getRow(array('id' => $val['school_id'],'status' => 1,'type' => 'school'));
+                $profess_item = $operation_model->getRow(array('id' => $val['profess_id'],'status' => 1,'type' => 'profess'));
+            
+                //附加信息
+                $extra_data = array(
+                        'confirm_id' => $val['confirm_id'],
+                        'arrange_id' => $val['arrange_id'],
+                        'arrange' => $arrange_item['title'] ? $arrange_item['title'] : '',
+                        'professType' => $val['professType'],
+                        'school_id' => $val['school_id'],
+                        'school' => $school_item['title'] ? $school_item['title'] : '',
+                        'profess_id' => $val['profess_id'],
+                        'profess' => $profess_item['title'] ? $profess_item['title'] : '',
+                        'entryFee' => $val['entryFee'],
+                        'fees' => $val['fees'],
+                        'extra' => $val['extra'],
+                );
+                //校验
+                $id = $student_model->insertOne($data);
+                if ($id) {
+                    $extra_data['student_id'] = $id;
+                }
+                $student_model->insertOne($extra_data, 'student_extra');
+            }
+        }
+    }
 }
