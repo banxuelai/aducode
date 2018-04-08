@@ -5440,7 +5440,7 @@ var province=[
             	}
                 pro.append($temp);
             }
-            if(n1 != 0){
+            if(n1 >= 0){
                 for(var i=0;i<province[n1].city.length;i++){
                 	var new_city = province[n1].city[i].name;
                 	if(pre_city == new_city){
@@ -5454,7 +5454,7 @@ var province=[
                 }
             }
             
-            if(n2 !==0){
+            if(n2 >=0){
                 for(var i=0;i<province[n1].city[n2].districtAndCounty.length;i++){
                 	if(pre_district == province[n1].city[n2].districtAndCounty[i]){
                 		var $temp=$("<option value=\"\" selected >"+province[n1].city[n2].districtAndCounty[i]+"</option>");
