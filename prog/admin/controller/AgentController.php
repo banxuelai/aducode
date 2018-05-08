@@ -18,7 +18,7 @@ class AgentController extends AuthController
             $uid = $this->getUidbySess();
             
             //check 重复
-            $info = $agent_model->getRow(array('name' => $name,'uid' => $uid,'status' => 1));
+            $info = $agent_model->getRow(array('name' => $name,'uid' => $uid));
             if ($info) {
                 throw new Exception("该代理已存在");
             }
