@@ -25,7 +25,7 @@ class UserController extends AuthController
              
             //check 重复
             for ($i = 1; $i <= 11; $i++) {
-                $info = $user_model->getRow(array('nickname' => $nickname));
+                $info = $user_model->getRow(array('nickname' => $nickname,'status' => 1));
                 if ($info) {
                     $nickname .= $i;
                 } else {
