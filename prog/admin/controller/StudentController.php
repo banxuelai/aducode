@@ -396,7 +396,7 @@ class StudentController extends AuthController
         
         if ($type == 'add') {
             //校验身份信息唯一性
-            $studentItem = $student_model->getItemByCond(array('a.ID_num' => $data['ID_num']));
+            $studentItem = $student_model->getItemByCond(array('a.ID_num' => $data['ID_num'],'a.status' => 1));
             if ($data['ID_num'] == $studentItem['ID_num']) {
                 throw new Exception("该学员身份信息已录入~");
             }
