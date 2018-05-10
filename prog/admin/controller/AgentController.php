@@ -161,7 +161,7 @@ class AgentController extends AuthController
                 'title' => '修改代理',
                 'nickname' => $this->getUserName(),
                 'menu' => 'agent',
-                'sub' => 'modify',
+                'sub' => 'lists',
                 'agent_row' => $agentRow,
                 'type' => $this->getTypebyUid(),
         ));
