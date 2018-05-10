@@ -121,4 +121,49 @@ class AgentController extends AuthController
         
         $this->success();
     }
+    
+    // 修改代理信息
+    public function modify()
+    {
+        $id = intval($this->req->gpc('id'));
+        $agent_model = new AgentModel();
+        
+        if ($this->req->method == 'POST') {
+            $name = trim($this->req->post('name'));
+            $phone = trim($this->req->post('phone'));
+            $uid = $this->getUidbySess();
+            
+            # 权限验证
+            if ($this->getTypebyUid() != 1) {
+                throw new Exception("对不起，您不具有修改代理的权限");
+            }
+            
+            //check 重复
+            $info = $agent_model->getRow(array('name' => $name,'phone' => $phone,'status' => 1));
+            if ($info) {
+                throw new Exception("该代理已存在,无需修改");
+            }
+            $data = array(
+                    'name' => $name,
+                    'phone' => $phone,
+                    'update_time' => time(),
+            );
+    
+            //校验
+            $this->check($data);
+            $agent_model->updateOne($data, array('id' => $id));
+        }
+                
+        //权限验证
+        $agentRow = $agent_model->getRow(array('id' => $id));
+        
+        $this->display('agent/modify.html', array(
+                'title' => '修改代理',
+                'nickname' => $this->getUserName(),
+                'menu' => 'agent',
+                'sub' => 'modify',
+                'agent_row' => $agentRow,
+                'type' => $this->getTypebyUid(),
+        ));
+    }
 }

@@ -55,7 +55,9 @@
                           <tr>
                               <th>姓名</th>
                               <th>手机号</th>
+                             {% if type == 1 %}
                               <th>操作</th>
+                              {% endif %}
                           </tr>
                           </thead>
                           <tbody>
@@ -64,9 +66,12 @@
                               <input type = "hidden" name = 'id' class = "id" value = "{{item.id}}">                           
                               <td>{{item.name}}</td>
                               <td>{{item.phone}}</td>
+                               {% if type == 1 %}
                               <td class="">
+                              		  <button class="btn btn-primary btn-xs" onclick="javascript:window.location.href='/agent/modify.html?agent_id={{item.id}}'"><i class="icon-pencil"></i></button>
                                       <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                               </td>
+                              {% endif %}
                           </tr>
                           {% endfor %}
                          
