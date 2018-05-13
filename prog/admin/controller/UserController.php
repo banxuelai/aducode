@@ -203,6 +203,47 @@ class UserController extends AuthController
         
         $this->success();
     }
+    
+    // 重置密码
+    public function reset()
+    {
+        $user_model = new UserModel();
+        $uid = $this->getUidbySess();
+        if ($this->req->method == 'POST') {
+            # 权限验证
+            if ($this->getTypebyUid() != 1) {
+                throw new Exception("对不起，您不具备重置密码的权限");
+            }
+             
+            $user_id = $this->req->post('user_id');
+            $nickname = $this->req->post('nickname');
+             
+             
+            # 用户验证
+            $userRow = $user_model->getRow(array('nickname' => $nickname,'status' => 1));
+            if (empty($userRow)) {
+                throw new Exception("用户不存在或者已被删除~");
+            }
+             
+            $updateData = array(
+           		'password' => $nickname.'123',
+            	'update_time' => time(),
+            );
+            $updateData['password'] = password_hash($updateData['password'], PASSWORD_DEFAULT);
+                     
+           $user_model->updateOne($updateData, array('id' => $userRow['id']));
+           $this->success();
+        }
+        
+        $this->display('user/reset.html', array(
+        		'title' => '重置密码',
+        		'nickname' => $this->getUserName(),
+        		'menu' => 'user',
+        		'sub' => 'reset',
+        		'type' => $this->getTypebyUid(),
+        ));
+        
+    }
 }
 
 //汉字转拼音
