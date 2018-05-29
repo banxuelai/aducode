@@ -55,7 +55,14 @@ class StudentController extends AuthController
         
         $uid = $this->getUidbySess();
         
-        list($province,$city,$district) = explode('-', $local);
+        if (isset($local) && !empty($local)) {
+            $province = '';
+            $city = '';
+            $district  = '';
+        } else {
+            list($province,$city,$district) = explode('-', $local);
+        }
+        
         
         $search = array();
         $search['name'] = $name;
