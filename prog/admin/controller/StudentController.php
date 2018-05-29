@@ -216,7 +216,7 @@ class StudentController extends AuthController
                 'arrangeInfo' => isset($arrange_info) ? $arrange_info : array(),
                 'confirmInfo' => isset($confirm_info) ? $confirm_info : array(),
                 'localInfo' => isset($local_info) ? $local_info : array(),
-                'timeInfo' => $time_info ? $time_info : array(),
+                'timeInfo' => isset($time_info) ? $time_info : array(),
                 'ethnicInfo' => isset($ethnic_info) ? $ethnic_info : array(),
                 'feesInfo' => isset($fees_info) ? $fees_info : array(),
                 'nickname' => $this->getUserName(),
