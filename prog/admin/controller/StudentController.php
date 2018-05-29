@@ -55,7 +55,7 @@ class StudentController extends AuthController
         
         $uid = $this->getUidbySess();
         
-        if (isset($local) && !empty($local)) {
+        if (!isset($local) && empty($local)) {
             $province = '';
             $city = '';
             $district  = '';
