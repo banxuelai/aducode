@@ -70,7 +70,7 @@ class StudentModel extends Model
     //时间去重
     public function studentTime()
     {
-        $sql = "select id,create_time from student where status = 1 group by create_time";
+        $sql = "select id,create_time from student where status = 1 group by create_time order by create_time desc";
         return $this->queryRows($sql);
     }
     
